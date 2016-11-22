@@ -1,4 +1,5 @@
 import vec3
+import ray
 
 
 let renderToFile = true
@@ -31,3 +32,9 @@ proc main()=
 # Run Main method
 main()
 
+let
+  r = newRay(newVec3(0, 1, 0), newVec3(0, 2, 0))
+
+echo r.origin()
+echo r.direction()
+echo r.point_at_parameter(5)

@@ -10,6 +10,10 @@ proc `$`*(v: vec3): string=
   return $v.x & " " & $v.y & " " & $v.z
 
 
+proc newVec3*(): vec3=
+  return vec3()
+
+
 proc newVec3*(x, y, z: float): vec3= 
   return vec3(x: x, y: y, z: z)
 
