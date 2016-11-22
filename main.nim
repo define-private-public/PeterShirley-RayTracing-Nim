@@ -73,3 +73,7 @@ proc main()=
 # Run Main method
 main()
 
+# Cleanup if rendering to a file
+if renderToFile:
+  output.close()
+
