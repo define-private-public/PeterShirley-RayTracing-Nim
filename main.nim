@@ -23,8 +23,18 @@ else:
 
 # Produced a random number between [0, 1)
 proc drand48(): float=
-  return 0
-#  return random(1.0)
+  return random(1.0)
+
+
+proc random_in_unit_sphere(): vec3=
+  var p = newVec3()
+
+  # Note: Nim doesn't have built-in do-while loops, so we do this intead
+  p = 2 * newVec3(drand48(), drand48(), drand48()) - newVec3(1, 1, 1)
+  while p.squared_length() > 1:
+    p = 2 * newVec3(drand48(), drand48(), drand48()) - newVec3(1, 1, 1)
+
+  return p
 
 
 proc color(r: ray, world: hitable): vec3=
@@ -32,7 +42,8 @@ proc color(r: ray, world: hitable): vec3=
 
   # TODO the 1 mil should be "MAXFLOAT" actually
   if world.hit(r, 0, 1_000_000, rec):
-    return 0.5 * newVec3(rec.normal.x + 1, rec.normal.y + 1, rec.normal.z + 1)
+    let target = rec.p + rec.normal + random_in_unit_sphere()
+    return 0.5 * color(newRay(rec.p, target - rec.p), world)
   else:
     let
       unit_direction = unit_vector(r.direction())
@@ -45,7 +56,7 @@ proc main()=
   let
     nx = 200 * 3
     ny = 100 * 3
-    ns = 1
+    ns = 8
 
   output.write("P3\n", nx, " ", ny, "\n255\n")
 
@@ -73,6 +84,8 @@ proc main()=
 
       # Average out
       col /= ns.float
+
+      col = newVec3(sqrt(col.x), sqrt(col.y), sqrt(col.z))
       let
         ir = (255.99 * col.r).int
         ig = (255.99 * col.g).int
