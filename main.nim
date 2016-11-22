@@ -1,3 +1,4 @@
+import vec3
 
 
 let renderToFile = true
@@ -32,4 +33,9 @@ proc main()=
 # Run Main method
 main()
 
+var
+  v = newVec3(1, 2, -3)
 
+echo v
+echo v.length()
+echo v.squared_length()
