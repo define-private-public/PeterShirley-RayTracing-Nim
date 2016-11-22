@@ -12,13 +12,26 @@ else:
   output = stdout
 
 
+proc hit_sphere(center: vec3, radius: float, r: ray): bool=
+  let
+    oc = r.origin() - center
+    a = dot(r.direction(), r.direction())
+    b = 2 * dot(oc, r.direction())
+    c = dot(oc, oc) - (radius * radius)
+    discriminant = (b * b) - (4 * a * c)
+
+  return (discriminant > 0)
+
+
 proc color(r: ray): vec3=
+  if (hit_sphere(newVec3(0, 0, -1), 0.5, r)):
+    return newVec3(1, 0, 0)
+
   let
     unit_direction = unit_vector(r.direction())
     t = 0.5 * (unit_direction.y + 1)
 
   return (1 - t) * newVec3(1, 1, 1) + t * newVec3(0.5, 0.7, 1)
-
 
 
 proc main()=
