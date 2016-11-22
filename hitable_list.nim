@@ -16,7 +16,7 @@ proc newHitableList*(l: seq[hitable]): hitable_list=
 
 method hit*(hl: hitable_list, r: ray, t_min, t_max: float, rec: var hit_record): bool=
   var
-    temp_rec: hit_record
+    temp_rec = newHitRecord()
     hit_anything = false
     closest_so_far = t_max
 

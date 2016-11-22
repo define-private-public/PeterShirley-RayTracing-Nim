@@ -17,7 +17,7 @@ else:
 
 
 proc color(r: ray, world: hitable): vec3=
-  var rec: hit_record
+  var rec = newHitRecord()
 
   # TODO the 1 mil should be "MAXFLOAT" actually
   if world.hit(r, 0, 1_000_000, rec):
