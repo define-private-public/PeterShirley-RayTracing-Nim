@@ -23,7 +23,8 @@ else:
 
 # Produced a random number between [0, 1)
 proc drand48(): float=
-  return random(1.0)
+  return 0
+#  return random(1.0)
 
 
 proc color(r: ray, world: hitable): vec3=
@@ -44,7 +45,7 @@ proc main()=
   let
     nx = 200 * 3
     ny = 100 * 3
-    ns = 100
+    ns = 1
 
   output.write("P3\n", nx, " ", ny, "\n255\n")
 
