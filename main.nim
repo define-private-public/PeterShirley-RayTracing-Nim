@@ -102,3 +102,12 @@ main()
 if renderToFile:
   output.close()
 
+
+# Testing to see if it's fine
+var
+  m = newMaterial()
+  hr = newHitRecord()
+
+hr.mat_ptr = m.addr
+echo m.scatter()
+echo hr.mat_ptr.scatter()
