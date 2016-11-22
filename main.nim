@@ -20,12 +20,10 @@ proc main()=
   for j in countdown(ny - 1, 0):
     for i in countup(0, nx - 1):
       let
-        r = i.float / nx.float
-        g = j.float / ny.float
-        b = 0.2
-        ir = (255.99*r).int
-        ig = (255.99*g).int
-        ib = (255.99*b).int
+        col = newVec3(i.float / nx.float, j.float / ny.float, 0.2)
+        ir = (255.99 * col.r).int
+        ig = (255.99 * col.g).int
+        ib = (255.99 * col.b).int
 
       output.write(ir, " ", ig, " ", ib, "\n")
 
@@ -33,9 +31,3 @@ proc main()=
 # Run Main method
 main()
 
-var
-  v = newVec3(1, 2, -3)
-
-echo v
-echo v.length()
-echo v.squared_length()
