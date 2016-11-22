@@ -1,0 +1,6 @@
+*.sw*
+nakefile
+render.ppm
+nimcache
+raytracer
+
