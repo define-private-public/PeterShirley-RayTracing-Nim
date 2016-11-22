@@ -21,9 +21,9 @@ method hit*(s: sphere, r: ray, t_min, t_max: float, rec: var hit_record): bool=
   let
     oc = r.origin() - s.center
     a = dot(r.direction(), r.direction())
-    b = 2 * dot(oc, r.direction())
+    b = dot(oc, r.direction())
     c = dot(oc, oc) - (s.radius * s.radius)
-    discriminant = (b * b) - (4 * a * c)
+    discriminant = (b * b) - (a * c)
 
   if discriminant > 0:
     var temp = (-b - sqrt((b * b) - (a * c))) / a
