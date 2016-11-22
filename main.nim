@@ -2,6 +2,7 @@ import math
 import vec3
 import ray
 import sphere
+import hitable_list
 
 
 let renderToFile = true
