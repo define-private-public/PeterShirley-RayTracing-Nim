@@ -1,8 +1,9 @@
 import math
 import vec3
 import ray
-import sphere
+import hitable
 import hitable_list
+import sphere
 
 
 let renderToFile = true
@@ -15,19 +16,18 @@ else:
   output = stdout
 
 
-proc color(r: ray): vec3=
-  var t = hit_sphere(newVec3(0, 0, -1), 0.5, r)
+proc color(r: ray, world: hitable): vec3=
+  var rec: hit_record
 
-  if (t > 0):
-    let N = unit_vector(r.point_at_parameter(t) - newVec3(0, 0, -1))
-    return 0.5 * newVec3(N.x + 1, N.y + 1, N.z + 1)
+  # TODO the 1 mil should be "MAXFLOAT" actually
+  if world.hit(r, 0, 1_000_000, rec):
+    return 0.5 * newVec3(rec.normal.x + 1, rec.normal.y + 1, rec.normal.z + 1)
+  else:
+    let
+      unit_direction = unit_vector(r.direction())
+      t = 0.5 * (unit_direction.y + 1)
 
-  let
-    unit_direction = unit_vector(r.direction())
-
-  t = 0.5 * (unit_direction.y + 1)
-
-  return (1 - t) * newVec3(1, 1, 1) + t * newVec3(0.5, 0.7, 1)
+    return (1 - t) * newVec3(1, 1, 1) + t * newVec3(0.5, 0.7, 1)
 
 
 proc main()=
@@ -43,13 +43,26 @@ proc main()=
     vertical = newVec3(0, 2, 0)
     origin = newVec3(0, 0, 0)
 
+  var list: seq[hitable] = @[]
+
+  let
+    s1 = newSphere(newVec3(0, 0, -1), 0.5)
+    s2 = newSphere(newVec3(0, -100.5, -1), 100)
+
+  list.add(s1)
+  list.add(s2)
+
+  let world = newHitableList(list)
+
   for j in countdown(ny - 1, 0):
     for i in countup(0, nx - 1):
       let
         u = i.float / nx.float
         v = j.float / ny.float
         r = newRay(origin, lower_left_corner + (u * horizontal) + (v * vertical))
-        col = color(r)
+
+        p = r.point_at_parameter(2)
+        col = color(r, world)
 
         ir = (255.99 * col.r).int
         ig = (255.99 * col.g).int

@@ -6,11 +6,11 @@ type
     list*: seq[hitable]
 
 
-proc newHitable_list*(): hitable_list=
+proc newHitableList*(): hitable_list=
   return hitable_list(list: @[])
 
 
-proc newHitable_list*(l: seq[hitable]): hitable_list=
+proc newHitableList*(l: seq[hitable]): hitable_list=
   return hitable_list(list: l)
 
 
