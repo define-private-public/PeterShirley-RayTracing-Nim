@@ -6,6 +6,7 @@ import hitable
 import hitable_list
 import sphere
 import camera
+import material
 
 
 randomize()
