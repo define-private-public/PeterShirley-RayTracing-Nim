@@ -1,6 +1,7 @@
 import math
 import vec3
 import ray
+import sphere
 
 
 let renderToFile = true
@@ -11,20 +12,6 @@ if renderToFile:
   discard open(output, "render.ppm", fmReadWrite)
 else:  
   output = stdout
-
-
-proc hit_sphere(center: vec3, radius: float, r: ray): float=
-  let
-    oc = r.origin() - center
-    a = dot(r.direction(), r.direction())
-    b = 2 * dot(oc, r.direction())
-    c = dot(oc, oc) - (radius * radius)
-    discriminant = (b * b) - (4 * a * c)
-
-  if (discriminant < 0):
-    return -1
-  else:
-    return (-b - sqrt(discriminant)) / (2 * a)
 
 
 proc color(r: ray): vec3=

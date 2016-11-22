@@ -11,6 +11,6 @@ type
   hitable* = ref object of RootObj
 
 
-method hit*(h: hitable, r: ray, t_min, t_max: float, var rect: hit_record)=
-  discard
+method hit*(h: hitable, r: ray, t_min, t_max: float, rec: var hit_record): bool=
+  return false
 
