@@ -1,9 +1,14 @@
 import math
+import random
 import vec3
 import ray
 import hitable
 import hitable_list
 import sphere
+import camera
+
+
+randomize()
 
 
 let renderToFile = true
@@ -14,6 +19,11 @@ if renderToFile:
   discard open(output, "render.ppm", fmReadWrite)
 else:  
   output = stdout
+
+
+# Produced a random number between [0, 1)
+proc drand48(): float=
+  return random(1.0)
 
 
 proc color(r: ray, world: hitable): vec3=
@@ -34,36 +44,35 @@ proc main()=
   let
     nx = 200 * 3
     ny = 100 * 3
+    ns = 100
 
   output.write("P3\n", nx, " ", ny, "\n255\n")
 
-  let
-    lower_left_corner = newVec3(-2, -1, -1)
-    horizontal = newVec3(4, 0, 0)
-    vertical = newVec3(0, 2, 0)
-    origin = newVec3(0, 0, 0)
-
   var list: seq[hitable] = @[]
+  list.add(newSphere(newVec3(0, 0, -1), 0.5))
+  list.add(newSphere(newVec3(0, -100.5, -1), 100))
 
   let
-    s1 = newSphere(newVec3(0, 0, -1), 0.5)
-    s2 = newSphere(newVec3(0, -100.5, -1), 100)
-
-  list.add(s1)
-  list.add(s2)
-
-  let world = newHitableList(list)
+    world = newHitableList(list)
+    cam = newCamera()
 
   for j in countdown(ny - 1, 0):
     for i in countup(0, nx - 1):
+      var col = newVec3(0, 0, 0)
+
+      # For antialiaising
+      for s in countup(0, ns - 1):
+        let
+          u = (i.float + drand48()) / nx.float
+          v = (j.float + drand48()) / ny.float
+          r = cam.get_ray(u, v)
+          p = r.point_at_parameter(2)
+        
+        col += color(r, world)
+
+      # Average out
+      col /= ns.float
       let
-        u = i.float / nx.float
-        v = j.float / ny.float
-        r = newRay(origin, lower_left_corner + (u * horizontal) + (v * vertical))
-
-        p = r.point_at_parameter(2)
-        col = color(r, world)
-
         ir = (255.99 * col.r).int
         ig = (255.99 * col.g).int
         ib = (255.99 * col.b).int
