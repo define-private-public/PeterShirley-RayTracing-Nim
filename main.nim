@@ -1,3 +1,4 @@
+import math
 import vec3
 import ray
 
@@ -12,7 +13,7 @@ else:
   output = stdout
 
 
-proc hit_sphere(center: vec3, radius: float, r: ray): bool=
+proc hit_sphere(center: vec3, radius: float, r: ray): float=
   let
     oc = r.origin() - center
     a = dot(r.direction(), r.direction())
@@ -20,16 +21,23 @@ proc hit_sphere(center: vec3, radius: float, r: ray): bool=
     c = dot(oc, oc) - (radius * radius)
     discriminant = (b * b) - (4 * a * c)
 
-  return (discriminant > 0)
+  if (discriminant < 0):
+    return -1
+  else:
+    return (-b - sqrt(discriminant)) / (2 * a)
 
 
 proc color(r: ray): vec3=
-  if (hit_sphere(newVec3(0, 0, -1), 0.5, r)):
-    return newVec3(1, 0, 0)
+  var t = hit_sphere(newVec3(0, 0, -1), 0.5, r)
+
+  if (t > 0):
+    let N = unit_vector(r.point_at_parameter(t) - newVec3(0, 0, -1))
+    return 0.5 * newVec3(N.x + 1, N.y + 1, N.z + 1)
 
   let
     unit_direction = unit_vector(r.direction())
-    t = 0.5 * (unit_direction.y + 1)
+
+  t = 0.5 * (unit_direction.y + 1)
 
   return (1 - t) * newVec3(1, 1, 1) + t * newVec3(0.5, 0.7, 1)
 
