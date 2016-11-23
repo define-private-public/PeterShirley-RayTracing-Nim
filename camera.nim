@@ -8,17 +8,21 @@ type
     origin*, lower_left_corner*, horizontal*, vertical*: vec3
 
 
-proc newCamera*(vfov, aspect: float): camera=
+proc newCamera*(lookfrom, lookat, vup: vec3, vfov, aspect: float): camera=
   let
     theta = vfov * (PI / 180)
     half_height = tan(theta / 2)
     half_width = aspect * half_height
+    origin = lookfrom
+    w = unit_vector(lookfrom - lookat)
+    u = unit_vector(vup.cross(w))
+    v = w.cross(u)
 
   return camera(
-    lower_left_corner: newVec3(-half_width, -half_height, -1),
-    horizontal: newVec3(2 * half_width, 0, 0),
-    vertical: newVec3(0, 2 * half_height, 0),
-    origin: newVec3(0, 0, 0)
+    lower_left_corner: origin - (half_width * u) - (half_height * v) - w,
+    horizontal: 2 * half_width * u,
+    vertical: 2 * half_height * v,
+    origin: origin
   )
 
 
