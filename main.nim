@@ -67,7 +67,7 @@ proc main()=
       newVec3(-2, 2, 1),
       newVec3(0, 0, -1),
       newVec3(0, 1, 0),
-      90,
+      20,
       nx.float / ny.float
     )
 
