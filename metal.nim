@@ -9,10 +9,11 @@ import util
 type
   metal* = ref object of material
     albedo*: vec3
+    fuzz*: float
 
 
-proc newMetal*(a: vec3): metal=
-  return metal(albedo: a)
+proc newMetal*(a: vec3, f: float): metal=
+  return metal(albedo: a, fuzz: f)
 
 
 method scatter*(
@@ -23,7 +24,7 @@ method scatter*(
   scattered: var ray
 ): bool=
   let reflected = reflect(r_in.direction().unit_vector(), rec.normal)
-  scattered = newRay(rec.p, reflected)
+  scattered = newRay(rec.p, reflected + (met.fuzz * random_in_unit_sphere()))
   attenuation = met.albedo
 
   return (dot(scattered.direction(), rec.normal) > 0)

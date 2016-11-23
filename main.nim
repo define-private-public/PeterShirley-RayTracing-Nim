@@ -54,8 +54,8 @@ proc main()=
   var list: seq[hitable] = @[]
   list.add(newSphere(newVec3(0, 0, -1), 0.5, newLambertian(newVec3(0.8, 0.3, 0.3))))
   list.add(newSphere(newVec3(0, -100.5, -1), 100, newLambertian(newVec3(0.8, 0.8, 0))))
-  list.add(newSphere(newVec3(1, 0, -1), 0.5, newMetal(newVec3(0.8, 0.6, 0.2))))
-  list.add(newSphere(newVec3(-1, 0, -1), 0.5, newMetal(newVec3(0.8, 0.8, 0.8))))
+  list.add(newSphere(newVec3(1, 0, -1), 0.5, newMetal(newVec3(0.8, 0.6, 0.2), 1)))
+  list.add(newSphere(newVec3(-1, 0, -1), 0.5, newMetal(newVec3(0.8, 0.8, 0.8), 0.3)))
 
   let
     world = newHitableList(list)
