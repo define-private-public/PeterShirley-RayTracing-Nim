@@ -1,5 +1,5 @@
 import math
-import hitable
+import hitable_and_material
 import vec3
 import ray
 

@@ -1,4 +1,4 @@
-import hitable
+import hitable_and_material
 import ray
 
 type

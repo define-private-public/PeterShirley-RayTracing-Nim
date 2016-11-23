@@ -2,7 +2,7 @@ import math
 import random
 import vec3
 import ray
-import hitable
+import hitable_and_material
 import hitable_list
 import sphere
 import camera
