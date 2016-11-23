@@ -63,12 +63,20 @@ proc main()=
 
   let
     world = newHitableList(list)
+
+    lookfrom = newVec3(3, 3, 2)
+    lookat = newVec3(0, 0, -1)
+    dist_to_focus = (lookfrom - lookat).length()
+    aperature = 2.0
+
     cam = newCamera(
-      newVec3(-2, 2, 1),
-      newVec3(0, 0, -1),
+      lookfrom,
+      lookat,
       newVec3(0, 1, 0),
       20,
-      nx.float / ny.float
+      nx.float / ny.float,
+      aperature,
+      dist_to_focus
     )
 
   for j in countdown(ny - 1, 0):
