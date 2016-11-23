@@ -1,18 +1,19 @@
 import vec3
 import ray
-import material
 
 
 type
+  hitable* = ref object of RootObj
+
+  material* = ref object of RootObj
+
   hit_record* = ref object of RootObj
     t*: float
     p*, normal*: vec3
     mat_ptr*: ptr material
 
 
-  hitable* = ref object of RootObj
-
-
+# Hitable functions
 proc newHitRecord*(): hit_record=
   return hit_record(
     t: 0,
@@ -24,3 +25,17 @@ proc newHitRecord*(): hit_record=
 method hit*(h: hitable, r: ray, t_min, t_max: float, rec: var hit_record): bool=
   return false
 
+
+# Material functions
+proc newMaterial*(): material=
+  return material()
+
+
+method scatter*(
+  m: material,
+  r_in: ray,
+  rec: hit_record,
+  attenuation: var vec3,
+  scattered: var ray
+): bool=
+  return false

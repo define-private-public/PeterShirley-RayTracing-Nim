@@ -1,0 +1,2 @@
+I had to move the "material," class into `hitable.nim` because Nim doesn't
+currently support forward declarations for types.

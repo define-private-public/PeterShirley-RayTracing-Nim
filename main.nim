@@ -6,7 +6,6 @@ import hitable
 import hitable_list
 import sphere
 import camera
-import material
 
 
 randomize()
@@ -109,5 +108,3 @@ var
   hr = newHitRecord()
 
 hr.mat_ptr = m.addr
-echo m.scatter()
-echo hr.mat_ptr.scatter()
