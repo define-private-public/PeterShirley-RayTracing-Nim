@@ -7,6 +7,7 @@ import sphere
 import camera
 import util
 import lambertian, metal, dielectric
+import random_scene
 
 
 let
@@ -45,9 +46,9 @@ proc color(r: ray, world: hitable, depth: int): vec3=
 
 proc main()=
   let
-    nx = 200 * 3
-    ny = 100 * 3
-    ns = 100
+    nx = 200 * 1
+    ny = 100 * 1
+    ns = 4
 
   output.write("P3\n", nx, " ", ny, "\n255\n")
 
@@ -59,12 +60,13 @@ proc main()=
   list.add(newSphere(newVec3(-1, 0, -1), -0.45, newDielectric(1.5)))
 
   let
-    world = newHitableList(list)
+#    world = newHitableList(list)
+    world = random_scene()
 
-    lookfrom = newVec3(3, 3, 2)
-    lookat = newVec3(0, 0, -1)
-    dist_to_focus = (lookfrom - lookat).length()
-    aperature = 2.0
+    lookfrom = newVec3(12, 2, 3)
+    lookat = newVec3(0, 0, 0)
+    dist_to_focus = 10.0
+    aperature = 0.1
 
     cam = newCamera(
       lookfrom,
