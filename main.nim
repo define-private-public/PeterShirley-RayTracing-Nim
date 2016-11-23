@@ -47,7 +47,7 @@ proc main()=
   let
     nx = 200 * 3
     ny = 100 * 3
-    ns = 4
+    ns = 100
 
   output.write("P3\n", nx, " ", ny, "\n255\n")
 
@@ -57,9 +57,6 @@ proc main()=
   list.add(newSphere(newVec3(1, 0, -1), 0.5, newMetal(newVec3(0.8, 0.6, 0.2), 1)))
   list.add(newSphere(newVec3(-1, 0, -1), 0.5, newDielectric(1.5)))
   list.add(newSphere(newVec3(-1, 0, -1), -0.45, newDielectric(1.5)))
-#  let R = cos(PI / 4)
-#  list.add(newSphere(newVec3(-R, 0, -1), R, newLambertian(newVec3(0, 0, 1))))
-#  list.add(newSphere(newVec3(R, 0, -1), R, newLambertian(newVec3(1, 0, 0))))
 
   let
     world = newHitableList(list)
