@@ -1,2 +1,6 @@
 I had to move the "material," class into `hitable.nim` because Nim doesn't
 currently support forward declarations for types.
+
+I'm not using pointers to materials, it's easier this way
+
+The hitable_list doesn't have a size on it's constructor

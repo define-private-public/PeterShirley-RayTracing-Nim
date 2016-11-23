@@ -32,6 +32,7 @@ method hit*(s: sphere, r: ray, t_min, t_max: float, rec: var hit_record): bool=
       rec.t = temp
       rec.p = r.point_at_parameter(rec.t)
       rec.normal = (rec.p - s.center) / s.radius
+      rec.mat_ptr = s.mat_ptr
 
       return true
     
@@ -40,6 +41,7 @@ method hit*(s: sphere, r: ray, t_min, t_max: float, rec: var hit_record): bool=
       rec.t = temp
       rec.p = r.point_at_parameter(rec.t)
       rec.normal = (rec.p - s.center) / s.radius
+      rec.mat_ptr = s.mat_ptr
 
       return true
 
