@@ -4,3 +4,6 @@ currently support forward declarations for types.
 I'm not using pointers to materials, it's easier this way
 
 The hitable_list doesn't have a size on it's constructor
+
+For the `color()` function in `main.nim`, I added a maxDepth variable at the top
+of the file, so you can (easily) change the render depth.
