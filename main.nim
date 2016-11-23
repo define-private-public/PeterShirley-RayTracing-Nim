@@ -52,15 +52,18 @@ proc main()=
   output.write("P3\n", nx, " ", ny, "\n255\n")
 
   var list: seq[hitable] = @[]
-  list.add(newSphere(newVec3(0, 0, -1), 0.5, newLambertian(newVec3(0.1, 0.2, 0.5))))
-  list.add(newSphere(newVec3(0, -100.5, -1), 100, newLambertian(newVec3(0.8, 0.8, 0))))
-  list.add(newSphere(newVec3(1, 0, -1), 0.5, newMetal(newVec3(0.8, 0.6, 0.2), 1)))
-  list.add(newSphere(newVec3(-1, 0, -1), 0.5, newDielectric(1.5)))
-  list.add(newSphere(newVec3(-1, 0, -1), -0.45, newDielectric(1.5)))
+#  list.add(newSphere(newVec3(0, 0, -1), 0.5, newLambertian(newVec3(0.1, 0.2, 0.5))))
+#  list.add(newSphere(newVec3(0, -100.5, -1), 100, newLambertian(newVec3(0.8, 0.8, 0))))
+#  list.add(newSphere(newVec3(1, 0, -1), 0.5, newMetal(newVec3(0.8, 0.6, 0.2), 1)))
+#  list.add(newSphere(newVec3(-1, 0, -1), 0.5, newDielectric(1.5)))
+#  list.add(newSphere(newVec3(-1, 0, -1), -0.45, newDielectric(1.5)))
+  let R = cos(PI / 4)
+  list.add(newSphere(newVec3(-R, 0, -1), R, newLambertian(newVec3(0, 0, 1))))
+  list.add(newSphere(newVec3(R, 0, -1), R, newLambertian(newVec3(1, 0, 0))))
 
   let
     world = newHitableList(list)
-    cam = newCamera()
+    cam = newCamera(90, nx.float / ny.float)
 
   for j in countdown(ny - 1, 0):
     for i in countup(0, nx - 1):
