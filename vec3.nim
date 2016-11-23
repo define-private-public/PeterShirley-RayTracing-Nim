@@ -179,3 +179,8 @@ method `/=`*(v: vec3, s:float)=
 proc unit_vector*(v: vec3): vec3=
   return v / v.length()
 
+
+# Reflect a vector about a normal
+proc reflect*(v, n: vec3): vec3=
+  return v - (2 * v.dot(n) * n);
+

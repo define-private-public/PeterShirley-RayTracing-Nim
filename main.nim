@@ -6,6 +6,7 @@ import hitable_list
 import sphere
 import camera
 import util
+import lambertian, metal
 
 
 let renderToFile = true
@@ -82,10 +83,3 @@ main()
 if renderToFile:
   output.close()
 
-
-# Testing to see if it's fine
-var
-  m = newMaterial()
-  hr = newHitRecord()
-
-hr.mat_ptr = m.addr
