@@ -10,7 +10,7 @@ type
   hit_record* = ref object of RootObj
     t*: float
     p*, normal*: vec3
-    mat_ptr*: ptr material
+    mat_ptr*: material
 
 
 # Hitable functions

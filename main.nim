@@ -9,7 +9,10 @@ import util
 import lambertian, metal
 
 
-let renderToFile = true
+let
+  renderToFile = true
+  maxDepth = 50
+
 var output:File
 
 # Render to either "render.ppm," or to STDout
@@ -19,13 +22,19 @@ else:
   output = stdout
 
 
-proc color(r: ray, world: hitable): vec3=
+proc color(r: ray, world: hitable, depth: int): vec3=
   var rec = newHitRecord()
 
   # TODO the 1 mil should be "MAXFLOAT" actually
-  if world.hit(r, 0, 1_000_000, rec):
-    let target = rec.p + rec.normal + random_in_unit_sphere()
-    return 0.5 * color(newRay(rec.p, target - rec.p), world)
+  if world.hit(r, 0.001, 1_000_000, rec):
+    var
+      scattered = newRay()
+      attenuation = newVec3()
+
+    if (depth < maxDepth) and rec.mat_ptr.scatter(r, rec, attenuation, scattered):
+      return attenuation * color(scattered, world, depth + 1)
+    else:
+      return newVec3(0, 0, 0)
   else:
     let
       unit_direction = unit_vector(r.direction())
@@ -43,8 +52,10 @@ proc main()=
   output.write("P3\n", nx, " ", ny, "\n255\n")
 
   var list: seq[hitable] = @[]
-  list.add(newSphere(newVec3(0, 0, -1), 0.5))
-  list.add(newSphere(newVec3(0, -100.5, -1), 100))
+  list.add(newSphere(newVec3(0, 0, -1), 0.5, newLambertian(newVec3(0.8, 0.3, 0.3))))
+  list.add(newSphere(newVec3(0, -100.5, -1), 100, newLambertian(newVec3(0.8, 0.8, 0))))
+  list.add(newSphere(newVec3(1, 0, -1), 0.5, newMetal(newVec3(0.8, 0.6, 0.2))))
+  list.add(newSphere(newVec3(-1, 0, -1), 0.5, newMetal(newVec3(0.8, 0.8, 0.8))))
 
   let
     world = newHitableList(list)
@@ -62,7 +73,7 @@ proc main()=
           r = cam.get_ray(u, v)
           p = r.point_at_parameter(2)
         
-        col += color(r, world)
+        col += color(r, world, 0)
 
       # Average out
       col /= ns.float

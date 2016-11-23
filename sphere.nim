@@ -5,16 +5,17 @@ import ray
 
 type
   sphere* = ref object of hitable
-    center: vec3
-    radius: float
+    center*: vec3
+    radius*: float
+    mat_ptr*: material
 
 
 proc newSphere*(): sphere=
   return sphere(center: newVec3(), radius: 0)
 
 
-proc newSphere*(cen: vec3, r: float): sphere=
-  return sphere(center: cen, radius: r)
+proc newSphere*(cen: vec3, r: float, m: material): sphere=
+  return sphere(center: cen, radius: r, mat_ptr: m)
 
 
 method hit*(s: sphere, r: ray, t_min, t_max: float, rec: var hit_record): bool=
