@@ -1,14 +1,11 @@
 import math
-import random
 import vec3
 import ray
 import hitable_and_material
 import hitable_list
 import sphere
 import camera
-
-
-randomize()
+import util
 
 
 let renderToFile = true
@@ -19,22 +16,6 @@ if renderToFile:
   discard open(output, "render.ppm", fmReadWrite)
 else:  
   output = stdout
-
-
-# Produced a random number between [0, 1)
-proc drand48(): float=
-  return random(1.0)
-
-
-proc random_in_unit_sphere(): vec3=
-  var p = newVec3()
-
-  # Note: Nim doesn't have built-in do-while loops, so we do this intead
-  p = 2 * newVec3(drand48(), drand48(), drand48()) - newVec3(1, 1, 1)
-  while p.squared_length() > 1:
-    p = 2 * newVec3(drand48(), drand48(), drand48()) - newVec3(1, 1, 1)
-
-  return p
 
 
 proc color(r: ray, world: hitable): vec3=

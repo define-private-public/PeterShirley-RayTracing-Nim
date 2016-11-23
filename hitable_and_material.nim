@@ -32,7 +32,7 @@ proc newMaterial*(): material=
 
 
 method scatter*(
-  m: material,
+  mat: material,
   r_in: ray,
   rec: hit_record,
   attenuation: var vec3,
