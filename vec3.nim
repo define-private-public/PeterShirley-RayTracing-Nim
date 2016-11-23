@@ -184,3 +184,17 @@ proc unit_vector*(v: vec3): vec3=
 proc reflect*(v, n: vec3): vec3=
   return v - (2 * v.dot(n) * n);
 
+
+# Refract a vector about a normla (with a ratio)
+proc refract*(v, n: vec3, ni_over_nt: float, refracted: var vec3): bool=
+  let
+    uv = v.unit_vector()
+    dt = uv.dot(n)
+    discriminant = 1 - (ni_over_nt * ni_over_nt * (1 - (dt * dt)))
+
+  if discriminant > 0:
+    refracted = (ni_over_nt * (uv - (n * dt))) - (n * sqrt(discriminant))
+    return true
+  else:
+    return false
+
