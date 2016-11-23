@@ -63,7 +63,7 @@ proc main()=
 #    world = newHitableList(list)
     world = random_scene()
 
-    lookfrom = newVec3(12, 2, 3)
+    lookfrom = newVec3(13, 2, 3)
     lookat = newVec3(0, 0, 0)
     dist_to_focus = 10.0
     aperature = 0.1
