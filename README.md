@@ -21,9 +21,8 @@ work in progress.  So please ignore that `working/` directory for the moment.
 
 Ray Tracing in One Weekend
 --------------------------
-TODO image
+![Ray Tracing in One Weekend](https://gitlab.com/define-private-public/PeterShirley-RayTracing-Nim/raw/master/renders/book1.png)
 
-[Amazon
-link](https://www.amazon.com/Ray-Tracing-Weekend-Minibooks-Book-ebook/dp/B01B5AODD8)
+[Amazon link](https://www.amazon.com/Ray-Tracing-Weekend-Minibooks-Book-ebook/dp/B01B5AODD8)
 -- [Original C++ Repo](https://github.com/petershirley/raytracinginoneweekend)
 
