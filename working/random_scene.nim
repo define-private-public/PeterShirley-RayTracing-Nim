@@ -9,14 +9,15 @@ import util
 
 
 proc random_scene*(): hitable=
-  let n = 50
+  # TODO in the ch1. book source, it says to use 50,000, but I think that's a little too much right now...
+  let n = 500
 
   var list: seq[hitable] = @[]
   list.add(newSphere(newVec3(0, -1000, 0), 1000, newLambertian(newVec3(0.5, 0.5, 0.5))))
 
   var i = 1
-  for a in countup(-11, 10):
-    for b in countup(-11, 10):
+  for a in countup(-10, 9):
+    for b in countup(-10, 9):
       let
         choose_mat = drand48()
         center = newVec3(a.float + (0.9 * drand48()), 0.2, b.float + (0.9 * drand48()))

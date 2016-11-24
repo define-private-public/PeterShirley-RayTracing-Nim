@@ -12,7 +12,7 @@ import random_scene
 
 let
   renderToFile = true
-  maxDepth = 10
+  maxDepth = 50
 
 var output:File
 
@@ -46,9 +46,9 @@ proc color(r: ray, world: hitable, depth: int): vec3=
 
 proc main()=
   let
-    nx = 200 * 2
-    ny = 100 * 2
-    ns = 10
+    nx = 200 * 4
+    ny = 100 * 4
+    ns = 50
 
   output.write("P3\n", nx, " ", ny, "\n255\n")
 
