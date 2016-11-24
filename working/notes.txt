@@ -7,3 +7,9 @@ The hitable_list doesn't have a size on it's constructor
 
 For the `color()` function in `main.nim`, I added a maxDepth variable at the top
 of the file, so you can (easily) change the render depth.
+
+Instead of hardcoding in the render depth as 50 in the `color()` function, I
+gave it its own variable as `maxDepth`.
+
+Instead of only rendering to standard output, you can render to a file.  By
+default the filename is "render.ppm".
