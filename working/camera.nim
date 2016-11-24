@@ -13,7 +13,7 @@ type
     origin*, lower_left_corner*, horizontal*, vertical*: vec3
     u*, v*, w*: vec3
     lens_radius*: float
-    time0, time1: float   # Shutter open/close times
+    time0*, time1*: float   # Shutter open/close times
 
 
 # vfov is top to botom in degrees
@@ -49,11 +49,12 @@ proc get_ray*(c: camera, s, t: float): ray=
   let
     rd = c.lens_radius * random_in_unit_disk()
     offset = (c.u * rd.x) + (c.v * rd.y)
-    time = c.time0 + drand48() * (c.time1 - c.time0)
+    time = c.time0 + (drand48() * (c.time1 - c.time0))
 
   return newRay(
     c.origin + offset,
-    c.lower_left_corner + (s * c.horizontal) + (t * c.vertical) - c.origin - offset
+    c.lower_left_corner + (s * c.horizontal) + (t * c.vertical) - c.origin - offset,
+    time
   )
 
 
