@@ -3,7 +3,7 @@ import vec3
 import ray
 import hitable_and_material
 import hitable_list
-import sphere
+import sphere, moving_sphere
 import camera
 import util
 import lambertian, metal, dielectric
@@ -12,7 +12,7 @@ import random_scene
 
 let
   renderToFile = true
-  maxDepth = 50
+  maxDepth = 10
 
 var output:File
 
@@ -46,8 +46,8 @@ proc color(r: ray, world: hitable, depth: int): vec3=
 
 proc main()=
   let
-    nx = 1200
-    ny = 800
+    nx = 200 * 2
+    ny = 100 * 2
     ns = 10
 
   output.write("P3\n", nx, " ", ny, "\n255\n")
@@ -66,7 +66,7 @@ proc main()=
     lookfrom = newVec3(13, 2, 3)
     lookat = newVec3(0, 0, 0)
     dist_to_focus = 10.0
-    aperature = 0.1
+    aperature = 0.0
 
     cam = newCamera(
       lookfrom,
@@ -75,7 +75,8 @@ proc main()=
       20,
       nx.float / ny.float,
       aperature,
-      dist_to_focus
+      dist_to_focus,
+      0, 1
     )
 
   for j in countdown(ny - 1, 0):

@@ -3,13 +3,13 @@
 import vec3
 import hitable_and_material
 import hitable_list
-import sphere
+import sphere, moving_sphere
 import lambertian, metal, dielectric
 import util
 
 
 proc random_scene*(): hitable=
-  let n = 500
+  let n = 50
 
   var list: seq[hitable] = @[]
   list.add(newSphere(newVec3(0, -1000, 0), 1000, newLambertian(newVec3(0.5, 0.5, 0.5))))
@@ -24,9 +24,11 @@ proc random_scene*(): hitable=
       if (center - newVec3(4, 0.2, 0)).length() > 0.9:
         if choose_mat < 0.8:
           # diffuse
-          list.add(newSphere(center, 0.2, newLambertian(newVec3(drand48() * drand48(),
-                                                                drand48() * drand48(),
-                                                                drand48() * drand48()))))
+          list.add(newMovingSphere(center, center + newVec3(0, 0.5 * drand48(), 0), 0, 1, 0.2,
+                                   newLambertian(newVec3(drand48() * drand48(),
+                                                         drand48() * drand48(),
+                                                         drand48() * drand48()))))
+                                   
         elif choose_mat < 0.95:
           # metal
           list.add(newSphere(center, 0.2, newMetal(newVec3(0.5 * (1 + drand48()),

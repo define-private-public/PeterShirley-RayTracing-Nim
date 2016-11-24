@@ -12,11 +12,19 @@ type
   camera* = ref object of RootObj
     origin*, lower_left_corner*, horizontal*, vertical*: vec3
     u*, v*, w*: vec3
-    lens_radius: float
+    lens_radius*: float
+    time0, time1: float   # Shutter open/close times
 
 
-proc newCamera*(lookfrom, lookat, vup: vec3, vfov, aspect, aperature, focus_dist: float): camera=
+# vfov is top to botom in degrees
+proc newCamera*(
+  lookfrom, lookat, vup: vec3,
+  vfov, aspect, aperature, focus_dist: float,
+  t0, t1: float
+): camera=
   result = new(camera)
+  result.time0 = t0
+  result.time1 = t1
   result.lens_radius = aperature / 2
 
   let
@@ -41,6 +49,7 @@ proc get_ray*(c: camera, s, t: float): ray=
   let
     rd = c.lens_radius * random_in_unit_disk()
     offset = (c.u * rd.x) + (c.v * rd.y)
+    time = c.time0 + drand48() * (c.time1 - c.time0)
 
   return newRay(
     c.origin + offset,
