@@ -36,7 +36,7 @@ proc hit*(box: aabb, r: ray, tmin, tmax: float): bool =
     let
       t0 = ffmin((box.min[a] - r.origin()[a]) / r.direction()[a],
                  (box.max[a] - r.origin()[a]) / r.direction()[a])
-      t1 = ffmin((box.min[a] - r.origin()[a]) / r.direction()[a],
+      t1 = ffmax((box.min[a] - r.origin()[a]) / r.direction()[a],
                  (box.max[a] - r.origin()[a]) / r.direction()[a])
 
       # Can't reassign tmin and tmax like in C/C++, so giving these a 2 at the end

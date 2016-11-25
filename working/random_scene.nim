@@ -6,6 +6,7 @@ import hitable_list
 import sphere, moving_sphere
 import lambertian, metal, dielectric
 import util
+import bvh_node
 
 
 proc random_scene*(): hitable=
@@ -43,6 +44,6 @@ proc random_scene*(): hitable=
   list.add(newSphere(newVec3(0, 1, 0), 1, newDielectric(1.5)))
   list.add(newSphere(newVec3(-4, 1, 0), 1, newLambertian(newVec3(0.4, 0.2, 0.1))))
   list.add(newSphere(newVec3(4, 1, 0), 1, newMetal(newVec3(0.7, 0.6, 0.5), 0)))
-  
-  return newHitableList(list)
+ 
+  return newBVHNode(list, 0, 1)
 
