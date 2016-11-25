@@ -7,6 +7,7 @@ import sphere, moving_sphere
 import lambertian, metal, dielectric
 import util
 import bvh_node
+import constant_texture
 
 
 proc random_scene*(): hitable=
@@ -14,7 +15,7 @@ proc random_scene*(): hitable=
   let n = 500
 
   var list: seq[hitable] = @[]
-  list.add(newSphere(newVec3(0, -1000, 0), 1000, newLambertian(newVec3(0.5, 0.5, 0.5))))
+  list.add(newSphere(newVec3(0, -1000, 0), 1000, newLambertian(newConstantTexture(newVec3(0.5, 0.5, 0.5)))))
 
   var i = 1
   for a in countup(-10, 9):
@@ -27,9 +28,9 @@ proc random_scene*(): hitable=
         if choose_mat < 0.8:
           # diffuse
           list.add(newMovingSphere(center, center + newVec3(0, 0.5 * drand48(), 0), 0, 1, 0.2,
-                                   newLambertian(newVec3(drand48() * drand48(),
-                                                         drand48() * drand48(),
-                                                         drand48() * drand48()))))
+                                   newLambertian(newConstantTexture(newVec3(drand48() * drand48(),
+                                                                            drand48() * drand48(),
+                                                                            drand48() * drand48())))))
                                    
         elif choose_mat < 0.95:
           # metal
@@ -42,8 +43,9 @@ proc random_scene*(): hitable=
           list.add(newSphere(center, 0.2, newDielectric(1.5)))
 
   list.add(newSphere(newVec3(0, 1, 0), 1, newDielectric(1.5)))
-  list.add(newSphere(newVec3(-4, 1, 0), 1, newLambertian(newVec3(0.4, 0.2, 0.1))))
+  list.add(newSphere(newVec3(-4, 1, 0), 1, newLambertian(newConstantTexture(newVec3(0.4, 0.2, 0.1)))))
   list.add(newSphere(newVec3(4, 1, 0), 1, newMetal(newVec3(0.7, 0.6, 0.5), 0)))
  
-  return newBVHNode(list, 0, 1)
+#  return newBVHNode(list, 0, 1)
+  return newHitableList(list)
 

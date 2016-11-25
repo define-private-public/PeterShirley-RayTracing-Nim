@@ -4,14 +4,15 @@ import vec3
 import ray
 import hitable_and_material
 import util
+import texture, constant_texture
 
 
 type
   lambertian* = ref object of material
-    albedo*: vec3
+    albedo*: texture
 
 
-proc newLambertian*(a: vec3): lambertian=
+proc newLambertian*(a: texture): lambertian=
   return lambertian(albedo: a)
 
 
@@ -24,7 +25,7 @@ method scatter*(
 ): bool=
   let target = rec.p + rec.normal + random_in_unit_sphere()
   scattered = newRay(rec.p, target - rec.p, r_in.time)
-  attenuation = lamb.albedo
+  attenuation = lamb.albedo.value(0, 0, rec.p)
 
   return true
 

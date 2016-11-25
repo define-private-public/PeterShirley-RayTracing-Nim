@@ -10,7 +10,7 @@ import lambertian, metal, dielectric
 import random_scene
 import aabb
 import bvh_node
-import texture
+import texture, constant_texture
 
 
 let
@@ -56,8 +56,8 @@ proc main()=
   output.write("P3\n", nx, " ", ny, "\n255\n")
 
   var list: seq[hitable] = @[]
-  list.add(newSphere(newVec3(0, 0, -1), 0.5, newLambertian(newVec3(0.1, 0.2, 0.5))))
-  list.add(newSphere(newVec3(0, -100.5, -1), 100, newLambertian(newVec3(0.8, 0.8, 0))))
+  list.add(newSphere(newVec3(0, 0, -1), 0.5, newLambertian(newConstantTexture(newVec3(0.1, 0.2, 0.5)))))
+  list.add(newSphere(newVec3(0, -100.5, -1), 100, newLambertian(newConstantTexture(newVec3(0.8, 0.8, 0)))))
   list.add(newSphere(newVec3(1, 0, -1), 0.5, newMetal(newVec3(0.8, 0.6, 0.2), 1)))
   list.add(newSphere(newVec3(-1, 0, -1), 0.5, newDielectric(1.5)))
   list.add(newSphere(newVec3(-1, 0, -1), -0.45, newDielectric(1.5)))
