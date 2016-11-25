@@ -1,4 +1,4 @@
-# This file contains a single function to make a scene simlar to the book cover
+# This file contains scenes that are used
 
 import vec3
 import hitable_and_material
@@ -8,6 +8,18 @@ import lambertian, metal, dielectric
 import util
 import bvh_node
 import texture, constant_texture, checker_texture
+
+
+# This is the first "real," scene that is made in he book
+proc original_scene*(): hitable =
+  var list: seq[hitable] = @[]
+  list.add(newSphere(newVec3(0, 0, -1), 0.5, newLambertian(newConstantTexture(newVec3(0.1, 0.2, 0.5)))))
+  list.add(newSphere(newVec3(0, -100.5, -1), 100, newLambertian(newConstantTexture(newVec3(0.8, 0.8, 0)))))
+  list.add(newSphere(newVec3(1, 0, -1), 0.5, newMetal(newVec3(0.8, 0.6, 0.2), 1)))
+  list.add(newSphere(newVec3(-1, 0, -1), 0.5, newDielectric(1.5)))
+  list.add(newSphere(newVec3(-1, 0, -1), -0.45, newDielectric(1.5)))
+
+  return newHitableList(list)
 
 
 proc random_scene*(): hitable=
@@ -50,5 +62,15 @@ proc random_scene*(): hitable=
   list.add(newSphere(newVec3(4, 1, 0), 1, newMetal(newVec3(0.7, 0.6, 0.5), 0)))
  
 #  return newBVHNode(list, 0, 1)
+  return newHitableList(list)
+
+
+proc two_spheres*(): hitable =
+  let checker: texture = newCheckerTexture(newConstantTexture(newVec3(0.2, 0.3, 0.1)),
+                                           newConstantTexture(newVec3(0.9, 0.9, 0.8)))
+  var list: seq[hitable] = @[]
+  list.add(newSphere(newVec3(0, -10, 0), 10, newLambertian(checker)))
+  list.add(newSphere(newVec3(0, 10, 0), 10, newLambertian(checker)))
+
   return newHitableList(list)
 
