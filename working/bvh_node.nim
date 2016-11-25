@@ -1,4 +1,6 @@
 import math
+import algorithm
+import sequtils
 import hitable_and_material
 import vec3
 import ray
@@ -23,20 +25,19 @@ proc newBVHNode*(): bvh_node =
   result.box = newAABB()
 
 
-proc newBVHNode*(l: seq[hitable], time0, time1: float): bvh_node =
+proc newBVHNode*(l: var seq[hitable], time0, time1: float): bvh_node =
   result = newBVHNode()
 
   let
     n = l.len
     axis = (3 * drand48()).int
 
-  # TODO need a qsort
   if axis == 0:
-    discard
+    sort(l, box_x_compare)
   elif axis == 1:
-    discard
+    sort(l, box_y_compare)
   else:
-    discard
+    sort(l, box_z_compare)
 
   if n == 1:
     result.left = l[0]
@@ -45,9 +46,14 @@ proc newBVHNode*(l: seq[hitable], time0, time1: float): bvh_node =
     result.left = l[0]
     result.right = l[1]
   else:
-    # TODO need to split the lists
-    result.left = newBVHNode()
-    result.right = newBVHNode()
+    # Split the list in half
+    var
+      l_dist = l.distribute(2)
+      l1 = l_dist[0]
+      l2 = l_dist[1]
+
+    result.left = newBVHNode(l1, time0, time1)
+    result.right = newBVHNode(l2, time0, time1)
 
   var box_left, box_right: aabb
   if (not result.left.bounding_box(time0, time1, box_left)) or
