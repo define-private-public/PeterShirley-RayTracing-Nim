@@ -9,6 +9,7 @@ import util
 import lambertian, metal, dielectric
 import random_scene
 import aabb
+import bvh_node
 
 
 let

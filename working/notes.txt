@@ -18,3 +18,7 @@ default the filename is "render.ppm".
 end (or start) with an underscore.  The same goes for `aabb`'s `min` and `max`
 fields.
 
+In `bvh_node`'s constructor, it takes a sequence of hitables (instead of a
+dynamic list of hitables).  The `n` paramter was also removed since sequence
+makes it unecessary
+
