@@ -2,6 +2,8 @@ import math
 import hitable_and_material
 import vec3
 import ray
+import aabb
+
 
 type
   moving_sphere* = ref object of hitable
@@ -62,4 +64,8 @@ method hit*(ms: moving_sphere, r: ray, t_min, t_max: float, rec: var hit_record)
       return true
 
   return false
+
+
+method bounding_box*(ms: moving_sphere, t0, t1: float, box: var aabb): bool =
+  return true
 

@@ -24,7 +24,7 @@ proc newAABB*(): aabb =
   return aabb(min: newVec3(), max: newVec3())
 
 
-proc newAABB(a, b: vec3): aabb =
+proc newAABB*(a, b: vec3): aabb =
   result = newAABB()
   result.min = a
   result.max = b
@@ -69,4 +69,16 @@ proc hit*(box: aabb, r: ray, tmin, tmax: float): bool =
 #      return false
 #  
 #  return true
+
+
+proc surrounding_box*(box0, box1: aabb): aabb =
+  let
+    small = newVec3(min(box0.min.x, box1.min.x),
+                    min(box0.min.y, box1.min.y),
+                    min(box0.min.z, box1.min.z))
+    big = newVec3(max(box0.max.x, box1.max.x),
+                  max(box0.max.y, box1.max.y),
+                  max(box0.max.z, box1.max.z))
+
+  return newAABB(small, big)
 

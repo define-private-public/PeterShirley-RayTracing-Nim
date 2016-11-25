@@ -2,6 +2,8 @@ import math
 import hitable_and_material
 import vec3
 import ray
+import aabb
+
 
 type
   sphere* = ref object of hitable
@@ -46,4 +48,11 @@ method hit*(s: sphere, r: ray, t_min, t_max: float, rec: var hit_record): bool=
       return true
 
   return false
+
+
+method bounding_box*(s: sphere, t0, t1: float, box: var aabb): bool =
+  box = newAABB(s.center - newVec3(s.radius, s.radius, s.radius),
+                s.center + newVec3(s.radius, s.radius, s.radius))
+
+  return true
 

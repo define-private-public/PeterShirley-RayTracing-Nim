@@ -1,5 +1,6 @@
 import vec3
 import ray
+import aabb
 
 
 type
@@ -23,6 +24,10 @@ proc newHitRecord*(): hit_record=
 
 
 method hit*(h: hitable, r: ray, t_min, t_max: float, rec: var hit_record): bool=
+  return false
+
+
+method bounding_box*(h: hitable, t0, t1: float, box: var aabb): bool =
   return false
 
 
