@@ -15,5 +15,6 @@ Instead of only rendering to standard output, you can render to a file.  By
 default the filename is "render.ppm".
 
 `_time` is known as `time` in the `ray` object.  Nim doesn't like fields that
-end (or start) with an underscore.
+end (or start) with an underscore.  The same goes for `aabb`'s `min` and `max`
+fields.
 

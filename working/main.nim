@@ -8,6 +8,7 @@ import camera
 import util
 import lambertian, metal, dielectric
 import random_scene
+import aabb
 
 
 let
