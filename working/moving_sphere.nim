@@ -67,10 +67,11 @@ method hit*(ms: moving_sphere, r: ray, t_min, t_max: float, rec: var hit_record)
 
 
 method bounding_box*(ms: moving_sphere, t0, t1: float, box: var aabb): bool =
-#        aabb box0(center(t0) - vec3(radius, radius, radius), center(t0) + vec3(radius, radius, radius));
-#        aabb box1(center(t1) - vec3(radius, radius, radius), center(t1) + vec3(radius, radius, radius));
-#        box = surrounding_box(box0, box1);
-#        return true;
-  # TODO revisit
-  return false
+  let
+    r = newVec3(ms.radius, ms.radius, ms.radius)
+    box0 = newAABB(ms.center(t0) - r, ms.center(t0) + r)
+    box1 = newAABB(ms.center(t1) - r, ms.center(t1) + r)
+
+  box = surrounding_box(box0, box1)
+  return true
 
