@@ -66,7 +66,9 @@ proc newBVHNode*(l: var seq[hitable], time0, time1: float): bvh_node =
 method hit*(node: bvh_node, r: ray, t_min, t_max: float, rec: var hit_record): bool=
   if node.box.hit(r, t_min, t_max):
     var
-      left_rec, right_rec: hit_record
+      left_rec = newHitRecord()
+      right_rec = newHitRecord()
+
       hit_left = node.left.hit(r, t_min, t_max, left_rec)
       hit_right = node.right.hit(r, t_min, t_max, right_rec)
 
