@@ -6,6 +6,12 @@ import aabb
 import util
 
 
+# function prototypes for AABB sorting
+proc box_x_compare(ah, bh: hitable): int
+proc box_y_compare(ah, bh: hitable): int
+proc box_z_compare(ah, bh: hitable): int
+
+
 type
   bvh_node* = ref object of hitable
     left*, right*: hitable
@@ -80,4 +86,41 @@ method hit*(node: bvh_node, r: ray, t_min, t_max: float, rec: var hit_record): b
 method bounding_box*(node: bvh_node, t0, t1: float, box: var aabb): bool =
   box = node.box
   return true
+
+
+# For AABB sorting (along an axis)
+proc box_x_compare(ah, bh: hitable): int =
+  var box_left, box_right: aabb
+
+  if (not ah.bounding_box(0, 0, box_left)) or (not bh.bounding_box(0, 0, box_right)):
+    stderr.write("no bounding box in bvh_node constructor\n")
+
+  if (box_left.min.x - box_right.min.x) < 0:
+    return -1
+  else:
+    return 1
+
+
+proc box_y_compare(ah, bh: hitable): int =
+  var box_left, box_right: aabb
+
+  if (not ah.bounding_box(0, 0, box_left)) or (not bh.bounding_box(0, 0, box_right)):
+    stderr.write("no bounding box in bvh_node constructor\n")
+
+  if (box_left.min.y - box_right.min.y) < 0:
+    return -1
+  else:
+    return 1
+
+
+proc box_z_compare(ah, bh: hitable): int =
+  var box_left, box_right: aabb
+
+  if (not ah.bounding_box(0, 0, box_left)) or (not bh.bounding_box(0, 0, box_right)):
+    stderr.write("no bounding box in bvh_node constructor\n")
+
+  if (box_left.min.z - box_right.min.z) < 0:
+    return -1
+  else:
+    return 1
 

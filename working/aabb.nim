@@ -1,6 +1,7 @@
 import vec3
 import ray
 
+
 proc ffmin*(a, b: float): float =
   if a < b:
     return a
