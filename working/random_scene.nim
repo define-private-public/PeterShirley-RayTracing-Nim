@@ -7,7 +7,7 @@ import sphere, moving_sphere
 import lambertian, metal, dielectric
 import util
 import bvh_node
-import constant_texture
+import texture, constant_texture, checker_texture
 
 
 proc random_scene*(): hitable=
@@ -15,7 +15,10 @@ proc random_scene*(): hitable=
   let n = 500
 
   var list: seq[hitable] = @[]
-  list.add(newSphere(newVec3(0, -1000, 0), 1000, newLambertian(newConstantTexture(newVec3(0.5, 0.5, 0.5)))))
+
+  let checker: texture = newCheckerTexture(newConstantTexture(newVec3(0.2, 0.3, 0.1)),
+                                           newConstantTexture(newVec3(0.9, 0.9, 0.8)))
+  list.add(newSphere(newVec3(0, -1000, 0), 1000, newLambertian(checker)))
 
   var i = 1
   for a in countup(-10, 9):

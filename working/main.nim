@@ -10,7 +10,7 @@ import lambertian, metal, dielectric
 import random_scene
 import aabb
 import bvh_node
-import texture, constant_texture
+import texture, constant_texture, checker_texture
 
 
 let
