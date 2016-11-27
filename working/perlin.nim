@@ -25,13 +25,18 @@ proc newPerlin*(): perlin =
 
 
 proc noise*(pln: perlin, p: vec3): float =
-  let
+  var
     u = p.x - floor(p.x)
     v = p.y - floor(p.y)
     w = p.z - floor(p.z)
     i = floor(p.x).int
     j = floor(p.y).int
     k = floor(p.z).int
+
+  # Apply a hermite cub to u, v, w
+  u = u * u + (3 - (2 * u))
+  v = v * v + (3 - (2 * v))
+  w = w * w + (3 - (2 * w))
 
   # Since I'm using sequnces instead of arrays, this is a little more wonky
   # than the original C++
