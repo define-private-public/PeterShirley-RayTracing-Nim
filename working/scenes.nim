@@ -7,7 +7,7 @@ import sphere, moving_sphere
 import lambertian, metal, dielectric
 import util
 import bvh_node
-import texture, constant_texture, checker_texture
+import texture, constant_texture, checker_texture, noise_texture
 
 
 # This is the first "real," scene that is made in he book
@@ -71,6 +71,15 @@ proc two_spheres*(): hitable =
   var list: seq[hitable] = @[]
   list.add(newSphere(newVec3(0, -10, 0), 10, newLambertian(checker)))
   list.add(newSphere(newVec3(0, 10, 0), 10, newLambertian(checker)))
+
+  return newHitableList(list)
+
+
+proc two_perlin_spheres*(): hitable =
+  let pertext = newNoiseTexture()
+  var list: seq[hitable] = @[]
+  list.add(newSphere(newVec3(0, -1000, 0), 1000, newLambertian(pertext)))
+  list.add(newSphere(newVec3(0, 2, 0), 2, newLambertian(pertext)))
 
   return newHitableList(list)
 

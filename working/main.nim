@@ -10,7 +10,7 @@ import lambertian, metal, dielectric
 import scenes
 import aabb
 import bvh_node
-import texture, constant_texture, checker_texture
+import texture, constant_texture, checker_texture, noise_texture
 import perlin
 
 
@@ -59,7 +59,8 @@ proc main()=
   let
 #    world = original_scene()
 #    world = random_scene()
-    world = two_spheres()
+#    world = two_spheres()
+    world = two_perlin_spheres()
 
     lookfrom = newVec3(13, 2, 3)
     lookat = newVec3(0, 0, 0)
