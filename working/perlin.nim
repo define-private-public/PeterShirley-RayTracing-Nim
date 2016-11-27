@@ -8,12 +8,12 @@ import util
 let permSize* = 256
 
 var
-  ranfloat*: seq[float]
+  ranvec*: seq[vec3]
   perm_x*, perm_y*, perm_z*: seq[int]
 
 
 # The function body for this can be found at the bottom
-proc trilinear_interp(c: seq[seq[seq[float]]], u, v, w: float): float
+proc perlin_interp(c: seq[seq[seq[vec3]]], u, v, w: float): float
 
 
 type
@@ -33,33 +33,30 @@ proc noise*(pln: perlin, p: vec3): float =
     j = floor(p.y).int
     k = floor(p.z).int
 
-  # Apply a hermite cub to u, v, w
-  u = u * u + (3 - (2 * u))
-  v = v * v + (3 - (2 * v))
-  w = w * w + (3 - (2 * w))
-
   # Since I'm using sequnces instead of arrays, this is a little more wonky
   # than the original C++
-  var c: seq[seq[seq[float]]] = @[]
+  var c: seq[seq[seq[vec3]]] = @[]
   for di in countup(0, 2):
     c.add(@[])
     for dj in countup(0, 2):
       c[di].add(@[])
       for dk in countup(0, 2):
-        c[di][dj].add(ranfloat[
+        c[di][dj].add(ranvec[
           perm_x[(i + di) and 255] xor
           perm_y[(j + dj) and 255] xor
           perm_z[(k + dk) and 255]
         ])
 
-  return trilinear_interp(c, u, v, w)
+  return perlin_interp(c, u, v, w)
 
 
-proc perlin_generate*(): seq[float] =
-  var p: seq[float] = @[]
+proc perlin_generate*(): seq[vec3] =
+  var p: seq[vec3] = @[]
 
   for i in countup(0, permSize - 1):
-    p.add(drand48())
+    p.add(unit_vector(newVec3(-1 + (2 * drand48()),
+                              -1 + (2 * drand48()),
+                              -1 + (2 * drand48()))))
 
   return p
 
@@ -86,20 +83,27 @@ proc perlin_generate_perm*(): seq[int] =
 
 
 # Init the "statics"
-ranfloat = perlin_generate()
+ranvec = perlin_generate()
 perm_x = perlin_generate_perm()
 perm_y = perlin_generate_perm()
 perm_z = perlin_generate_perm()
 
 
-proc trilinear_interp(c: seq[seq[seq[float]]], u, v, w: float): float =
+proc perlin_interp(c: seq[seq[seq[vec3]]], u, v, w: float): float =
+  let
+    uu = u * u + (3 - (2 * u))
+    vv = v * v + (3 - (2 * v))
+    ww = w * w + (3 - (2 * w))
   var accum: float = 0
+
   for i in countup(0, 2):
     for j in countup(0, 2):
       for k in countup(0, 2):
-        accum += ((i.float * u) + ((1 - i.float) * (1 - u))) *
-                 ((j.float * v) + ((1 - j.float) * (1 - v))) *
-                 ((k.float * w) + ((1 - k.float) * (1 - w))) * c[i][j][k]
+        let weight_v = newVec3(u - i.float, v - j.float, w - k.float)
+
+        accum += ((i.float * uu) + ((1 - i).float * (1 - uu))) *
+                 ((j.float * vv) + ((1 - j).float * (1 - vv))) *
+                 ((k.float * ww) + ((1 - k).float * (1 - ww))) * dot(c[i][j][k], weight_v)
 
   return accum
 
