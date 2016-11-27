@@ -26,3 +26,7 @@ Instead of using `qsort()`, we use Nim's `algorithm.sort()` method on sequences
 instead.
 
 `random_scene()` and `two_sphers()` are found in the file `scenes.nim`.
+
+The static members of the `perlin` class are still found in `perlin.nim`, but
+they are not part of the `perlin` type.  Originally they were dynamic arrays
+(with a set size of 256), but not they are sequqnces.

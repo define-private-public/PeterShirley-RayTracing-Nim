@@ -11,6 +11,7 @@ import scenes
 import aabb
 import bvh_node
 import texture, constant_texture, checker_texture
+import perlin
 
 
 let
