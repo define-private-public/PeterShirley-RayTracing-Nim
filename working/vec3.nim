@@ -18,6 +18,11 @@ proc newVec3*(x, y, z: float): vec3=
   return vec3(x: x, y: y, z: z)
 
 
+# A copy constructor
+proc newVec3*(v: vec3): vec3 =
+  return vec3(x: v.x, y: v.y, z: v.z)
+
+
 proc r*(v: vec3): float=
   return v.x
 

@@ -12,7 +12,7 @@ var
   perm_x*, perm_y*, perm_z*: seq[int]
 
 
-# The function body for this can be found at the bottom
+# The function bodys for these can be found at the bottom
 proc perlin_interp(c: seq[seq[seq[vec3]]], u, v, w: float): float
 
 
@@ -106,4 +106,18 @@ proc perlin_interp(c: seq[seq[seq[vec3]]], u, v, w: float): float =
                  ((k.float * ww) + ((1 - k).float * (1 - ww))) * dot(c[i][j][k], weight_v)
 
   return accum
+
+
+proc turb*(pln: perlin, p: vec3, depth: int = 7): float =
+  var
+    accum:float = 0
+    temp_p = newVec3(p)
+    weight:float = 1
+
+  for i in countup(0, depth - 1):
+    accum += weight * pln.noise(temp_p)
+    weight *= 0.5
+    temp_p *= 2
+
+  return abs(accum)
 

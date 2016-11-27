@@ -1,3 +1,4 @@
+import math
 import vec3
 import texture
 import perlin
@@ -21,5 +22,7 @@ proc newNoiseTexture(sc: float): noise_texture =
 
 
 method value*(nt: noise_texture, u, v: float, p: vec3): vec3 =
-  return newVec3(1, 1, 1) * nt.noise.noise(nt.scale * p)
+#  return newVec3(1, 1, 1) *  0.5 * nt.noise.turb(nt.scale * p)
+#  return newVec3(1, 1, 1) * nt.noise.noise(nt.scale * p)
+  return newVec3(1, 1, 1) *  0.5 * sin((nt.scale * p.z) + (10 * nt.noise.turb(p)))
 
