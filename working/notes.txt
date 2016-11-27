@@ -30,3 +30,8 @@ instead.
 The static members of the `perlin` class are still found in `perlin.nim`, but
 they are not part of the `perlin` type.  Originally they were dynamic arrays
 (with a set size of 256), but not they are sequqnces.
+
+I was having some serious issues with interpolation with perlin noise.  So for
+until I can figure out what the issues is, I'm using that simple non-smooth
+perlin noise.  Make sure to see all of the "NOTE" sections in `perlin.nim` and
+`noise_texture.nim`.  This really sucks.

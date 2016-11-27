@@ -1,6 +1,7 @@
 import math
 import vec3
 import util
+import random
 
 
 # These are some values that are marked as static in the original C++ class
@@ -24,39 +25,61 @@ proc newPerlin*(): perlin =
   new(result)
 
 
+# NOTE: this following noise proc is broken,  I think it's because
+#       of the call to "perlin_inter()" is having some issues interpolating
+#       proplery, so for the time being, use the one below.
+#proc noise*(pln: perlin, p: vec3): float =
+#  var
+#    u = p.x - floor(p.x)
+#    v = p.y - floor(p.y)
+#    w = p.z - floor(p.z)
+#    i = floor(p.x).int
+#    j = floor(p.y).int
+#    k = floor(p.z).int
+#
+#  # Since I'm using sequnces instead of arrays, this is a little more wonky
+#  # than the original C++
+#  var c: seq[seq[seq[vec3]]] = @[]
+#  for di in countup(0, 2):
+#    c.add(@[])
+#    for dj in countup(0, 2):
+#      c[di].add(@[])
+#      for dk in countup(0, 2):
+#        c[di][dj].add(ranvec[
+#          perm_x[(i + di) and 255] xor
+#          perm_y[(j + dj) and 255] xor
+#          perm_z[(k + dk) and 255]
+#        ])
+#
+#  return perlin_interp(c, u, v, w)
+
+
+# NOTE: see the above function's NOTE why this one is in us
 proc noise*(pln: perlin, p: vec3): float =
-  var
+  let
     u = p.x - floor(p.x)
     v = p.y - floor(p.y)
     w = p.z - floor(p.z)
-    i = floor(p.x).int
-    j = floor(p.y).int
-    k = floor(p.z).int
+    i = (4 * p.x).int and 255
+    j = (4 * p.y).int and 255
+    k = (4 * p.z).int and 255
 
-  # Since I'm using sequnces instead of arrays, this is a little more wonky
-  # than the original C++
-  var c: seq[seq[seq[vec3]]] = @[]
-  for di in countup(0, 2):
-    c.add(@[])
-    for dj in countup(0, 2):
-      c[di].add(@[])
-      for dk in countup(0, 2):
-        c[di][dj].add(ranvec[
-          perm_x[(i + di) and 255] xor
-          perm_y[(j + dj) and 255] xor
-          perm_z[(k + dk) and 255]
-        ])
+    vec = ranvec[perm_x[i] xor perm_y[j] xor perm_z[k]]
+    comp:int = random(3)
 
-  return perlin_interp(c, u, v, w)
+  return vec[comp]  
 
 
 proc perlin_generate*(): seq[vec3] =
   var p: seq[vec3] = @[]
 
   for i in countup(0, permSize - 1):
-    p.add(unit_vector(newVec3(-1 + (2 * drand48()),
-                              -1 + (2 * drand48()),
-                              -1 + (2 * drand48()))))
+    p.add(newVec3(drand48(), drand48(), drand48()))
+
+    # NOTE: have to use the above for the simple perlin
+#    p.add(unit_vector(newVec3(-1 + (2 * drand48()),
+#                              -1 + (2 * drand48()),
+#                              -1 + (2 * drand48()))))
 
   return p
 
@@ -89,6 +112,8 @@ perm_y = perlin_generate_perm()
 perm_z = perlin_generate_perm()
 
 
+# NOTE: Something in this function isn't working right like the C++ version.
+#       I don't have any idea what's wrong.
 proc perlin_interp(c: seq[seq[seq[vec3]]], u, v, w: float): float =
   let
     uu = u * u + (3 - (2 * u))
