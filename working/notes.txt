@@ -35,3 +35,9 @@ I was having some serious issues with interpolation with perlin noise.  So for
 until I can figure out what the issues is, I'm using that simple non-smooth
 perlin noise.  Make sure to see all of the "NOTE" sections in `perlin.nim` and
 `noise_texture.nim`.  This really sucks.
+
+for the `image_texture`, the pixel data is being stored a sequence of `uint8`.
+It's MUCH easier to work with than messing with pointers in Nim.
+
+"earthmap.jpg" is taken from http://flatplanet.sourceforge.net/
+

@@ -12,6 +12,7 @@ import aabb
 import bvh_node
 import texture, constant_texture, checker_texture, noise_texture
 import perlin
+import stb_image
 
 
 let
@@ -60,7 +61,8 @@ proc main()=
 #    world = original_scene()
 #    world = random_scene()
 #    world = two_spheres()
-    world = two_perlin_spheres()
+#    world = two_perlin_spheres()
+    world = newSphere(newVec3(0, 2, 0), 2, newLambertian(newConstantTexture(newVec3(0, 1, 0))))
 
     lookfrom = newVec3(13, 2, 3)
     lookat = newVec3(0, 0, 0)

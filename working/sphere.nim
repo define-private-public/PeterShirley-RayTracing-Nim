@@ -5,6 +5,10 @@ import ray
 import aabb
 
 
+# Prototypes
+proc get_sphere_uv(p: vec3; u, v: var float)
+
+
 type
   sphere* = ref object of hitable
     center*: vec3
@@ -55,4 +59,14 @@ method bounding_box*(s: sphere, t0, t1: float, box: var aabb): bool =
                 s.center + newVec3(s.radius, s.radius, s.radius))
 
   return true
+
+
+proc get_sphere_uv(p: vec3; u, v: var float) =
+  let
+    phi = arctan2(p.z, p.x)
+    theta = arcsin(p.y)
+
+  u = 1 - ((phi + PI) / (2 * PI))
+  v = (theta + (PI / 2)) / PI
+
 
