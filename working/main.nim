@@ -57,6 +57,12 @@ proc main()=
 
   output.write("P3\n", nx, " ", ny, "\n255\n")
 
+  var
+    width: int
+    height: int
+    comp: int
+    image = stbi_load("earthmap.jpg", width, height, comp, 0)
+
   let
 #    world = original_scene()
 #    world = random_scene()
