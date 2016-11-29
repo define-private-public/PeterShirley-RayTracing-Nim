@@ -8,11 +8,12 @@
 """.}
 
 # Internal function
-proc stbi_load(filename: cstring; x, y, comp: var cint; req_comp: cint): cstring
+proc stbi_load(filename: cstring; x, y, comp: var cint; req_comp: cint): ptr uint8
   {.importc: "stbi_load", noDecl.}
 
 
 ## External function (the Nim friendly version)
+# This will only load the RGB values, into a sequence of uint8 values
 proc stbi_load*(filename: string; x, y, comp: var int; req_comp: int): seq[uint8] =
   var
     width: cint
@@ -24,13 +25,17 @@ proc stbi_load*(filename: string; x, y, comp: var int; req_comp: int): seq[uint8
 
   # Set the data
   x = width.int
-  y = width.int
+  y = height.int
   comp = comp2.int
 
-  echo x, " ", y, " ", comp
-
+  # Copy it over
   newSeq(pixelData, x * y)
-  # TODO set the pixelData
+  copyMem(pixelData[0].addr, data, pixelData.len)
+
+  # Let's see what we got...
+  echo pixelData[0]
+  echo pixelData[1]
+  echo pixelData[2]
 
   return pixelData
 
