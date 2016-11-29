@@ -25,7 +25,7 @@ method scatter*(
 ): bool=
   let target = rec.p + rec.normal + random_in_unit_sphere()
   scattered = newRay(rec.p, target - rec.p, r_in.time)
-  attenuation = lamb.albedo.value(0, 0, rec.p)
+  attenuation = lamb.albedo.value(rec.u, rec.v, rec.p)
 
   return true
 

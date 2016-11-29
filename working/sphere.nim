@@ -37,6 +37,7 @@ method hit*(s: sphere, r: ray, t_min, t_max: float, rec: var hit_record): bool=
     if (temp < t_max) and (temp > t_min):
       rec.t = temp
       rec.p = r.point_at_parameter(rec.t)
+      get_sphere_uv((rec.p - s.center) / s.radius, rec.u, rec.v)
       rec.normal = (rec.p - s.center) / s.radius
       rec.mat_ptr = s.mat_ptr
 
@@ -46,6 +47,7 @@ method hit*(s: sphere, r: ray, t_min, t_max: float, rec: var hit_record): bool=
     if (temp < t_max) and (temp > t_min):
       rec.t = temp
       rec.p = r.point_at_parameter(rec.t)
+      get_sphere_uv((rec.p - s.center) / s.radius, rec.u, rec.v)
       rec.normal = (rec.p - s.center) / s.radius
       rec.mat_ptr = s.mat_ptr
 

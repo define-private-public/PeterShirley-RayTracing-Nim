@@ -30,16 +30,6 @@ method value*(it: image_texture, u, v: float, p: vec3): vec3 =
   i = i.clamp(0, it.nx - 1)
   j = j.clamp(0, it.ny - 1)
 
-#  if i < 0:
-#    i = 0
-#  elif i > (it.nx - 1):
-#    i = it.nx - 1
-#
-#  if j < 0:
-#    j = 0
-#  elif j > (it.ny - 1):
-#    j = it.ny - 1
-
   let
     idx = 3 * i + 3 * it.nx * j
 
