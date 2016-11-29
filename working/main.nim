@@ -10,7 +10,7 @@ import lambertian, metal, dielectric
 import scenes
 import aabb
 import bvh_node
-import texture, constant_texture, checker_texture, noise_texture
+import texture, constant_texture, checker_texture, noise_texture, image_texture
 import perlin
 import stb_image
 
@@ -61,14 +61,14 @@ proc main()=
     width: int
     height: int
     comp: int
-    image = stbi_load("earthmap.jpg", width, height, comp, 0)
+    tex_data = stbi_load("earthmap-mini.jpg", width, height, comp, 0)
 
   let
 #    world = original_scene()
 #    world = random_scene()
 #    world = two_spheres()
 #    world = two_perlin_spheres()
-    world = newSphere(newVec3(0, 2, 0), 2, newLambertian(newConstantTexture(newVec3(0, 1, 0))))
+    world = newSphere(newVec3(0, 2, 0), 2, newLambertian(newImageTexture(tex_data, width, height)))
 
     lookfrom = newVec3(13, 2, 3)
     lookat = newVec3(0, 0, 0)

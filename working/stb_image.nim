@@ -32,11 +32,6 @@ proc stbi_load*(filename: string; x, y, comp: var int; req_comp: int): seq[uint8
   newSeq(pixelData, x * y)
   copyMem(pixelData[0].addr, data, pixelData.len)
 
-  # Let's see what we got...
-  echo pixelData[0]
-  echo pixelData[1]
-  echo pixelData[2]
-
   return pixelData
 
 
