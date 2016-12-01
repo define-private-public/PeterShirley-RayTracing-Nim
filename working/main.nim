@@ -6,7 +6,7 @@ import hitable_list
 import sphere, moving_sphere
 import camera
 import util
-import lambertian, metal, dielectric
+import lambertian, metal, dielectric, diffuse_light
 import scenes
 import aabb
 import bvh_node
@@ -51,12 +51,12 @@ proc color(r: ray, world: hitable, depth: int): vec3=
 
 proc main()=
   let
-#    nx = 200 * 2
-#    ny = 100 * 2
-#    ns = 4
-    nx = 1920
-    ny = 1080
-    ns = 100
+    nx = 200 * 2
+    ny = 100 * 2
+    ns = 4
+#    nx = 1920
+#    ny = 1080
+#    ns = 100
 
   output.write("P3\n", nx, " ", ny, "\n255\n")
 
@@ -64,8 +64,8 @@ proc main()=
 #    world = original_scene()
 #    world = random_scene()
 #    world = two_spheres()
-#    world = two_perlin_spheres()
-    world = earth()
+    world = two_perlin_spheres()
+#    world = earth()
 
     lookfrom = newVec3(13, 2, 3)
     lookat = newVec3(0, 0, 0)

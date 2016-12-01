@@ -44,3 +44,8 @@ method scatter*(
   scattered: var ray
 ): bool=
   return false
+
+
+method emitted*(mat: material, u, v: float; p: vec3): vec3 =
+  return newVec3(0, 0, 0)
+
