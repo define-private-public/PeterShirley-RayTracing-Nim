@@ -69,8 +69,8 @@ proc main()=
 
     lookfrom = newVec3(278, 278, -800)
     lookat = newVec3(278, 278, 0)
-    aperature = 0.0
     dist_to_focus = 10.0
+    aperature = 0.0
     vfov = 40.0
 
     cam = newCamera(

@@ -125,7 +125,7 @@ proc newYZRect*(y0, y1, z0, z1, k: float; mat: material): yz_rect =
 
 
 method hit*(rect: yz_rect, r: ray, t_min, t_max: float, rec: var hit_record): bool=
-  let t = (rect.k - r.origin().y) / r.direction().y
+  let t = (rect.k - r.origin().x) / r.direction().x
   if (t < t_min) or (t > t_max):
     return false
 
