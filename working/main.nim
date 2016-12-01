@@ -37,18 +37,14 @@ proc color(r: ray, world: hitable, depth: int): vec3=
     var
       scattered = newRay()
       attenuation = newVec3()
+      emitted = rec.mat_ptr.emitted(rec.u, rec.v, rec.p)
 
     if (depth < maxDepth) and (rec.mat_ptr.scatter(r, rec, attenuation, scattered)):
-      return attenuation * color(scattered, world, depth + 1)
+      return emitted + (attenuation * color(scattered, world, depth + 1))
     else:
-      return newVec3(0, 0, 0)
+      return emitted
   else:
-    let
-      unit_direction = unit_vector(r.direction())
-      t = 0.5 * (unit_direction.y + 1)
-
     return newVec3(0, 0, 0)
-#    return (1 - t) * newVec3(1, 1, 1) + t * newVec3(0.5, 0.7, 1)
 
 
 proc main()=
@@ -70,8 +66,8 @@ proc main()=
 #    world = earth()
     world = simple_light()
 
-    lookfrom = newVec3(13, 2, 3)
-    lookat = newVec3(0, 0, 0)
+    lookfrom = newVec3(20, 5, 0)
+    lookat = newVec3(0, 2, 0)
     dist_to_focus = 10.0
     aperature = 0.0
 
