@@ -64,18 +64,20 @@ proc main()=
 #    world = two_spheres()
 #    world = two_perlin_spheres()
 #    world = earth()
-    world = simple_light()
+#    world = simple_light()
+    world = cornell_box()
 
-    lookfrom = newVec3(20, 5, 0)
-    lookat = newVec3(0, 2, 0)
-    dist_to_focus = 10.0
+    lookfrom = newVec3(278, 278, -800)
+    lookat = newVec3(278, 278, 0)
     aperature = 0.0
+    dist_to_focus = 10.0
+    vfov = 40.0
 
     cam = newCamera(
       lookfrom,
       lookat,
       newVec3(0, 1, 0),
-      20,
+      vfov,
       nx.float / ny.float,
       aperature,
       dist_to_focus,

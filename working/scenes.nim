@@ -105,4 +105,21 @@ proc simple_light*(): hitable =
   list.add(newXYRect(3, 5, 1, 3, -2, newDiffuseLight(newConstantTexture(newVec3(4, 4, 4)))))
 
   return newHitableList(list)
-  
+
+
+proc cornell_box*(): hitable =
+  var list: seq[hitable] = @[]
+  let
+    red = newLambertian(newConstantTexture(newVec3(0.65, 0.05, 0.05)))
+    white = newLambertian(newConstantTexture(newVec3(0.73, 0.73, 0.73)))
+    green = newLambertian(newConstantTexture(newVec3(0.12, 0.45, 0.15)))
+    light = newDiffuseLight(newConstantTexture(newVec3(15, 15, 15)))
+
+  list.add(newYZRect(0, 555, 0, 555, 555, green))
+  list.add(newYZRect(0, 555, 0, 555, 0, red))
+  list.add(newXZRect(213, 343, 227, 332, 554, light))
+  list.add(newXZRect(0, 555, 0, 555, 0, white))
+  list.add(newXYRect(0, 555, 0, 555, 555, white))
+
+  return newHitableList(list)
+
