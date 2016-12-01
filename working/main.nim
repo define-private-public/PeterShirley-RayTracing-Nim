@@ -4,7 +4,7 @@ import ray
 import hitable_and_material
 import hitable_list
 import sphere, moving_sphere
-import xy_rect
+import rects
 import camera
 import util
 import lambertian, metal, dielectric, diffuse_light
