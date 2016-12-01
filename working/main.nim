@@ -51,24 +51,21 @@ proc color(r: ray, world: hitable, depth: int): vec3=
 
 proc main()=
   let
-    nx = 200 * 2
-    ny = 100 * 2
-    ns = 4
+#    nx = 200 * 2
+#    ny = 100 * 2
+#    ns = 4
+    nx = 1920
+    ny = 1080
+    ns = 100
 
   output.write("P3\n", nx, " ", ny, "\n255\n")
-
-  var
-    width: int
-    height: int
-    comp: int
-    tex_data = stbi_load("earthmap-mini.jpg", width, height, comp, 0)
 
   let
 #    world = original_scene()
 #    world = random_scene()
 #    world = two_spheres()
 #    world = two_perlin_spheres()
-    world = newSphere(newVec3(0, 2, 0), 2, newLambertian(newImageTexture(tex_data, width, height)))
+    world = earth()
 
     lookfrom = newVec3(13, 2, 3)
     lookat = newVec3(0, 0, 0)

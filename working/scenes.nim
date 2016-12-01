@@ -7,7 +7,8 @@ import sphere, moving_sphere
 import lambertian, metal, dielectric
 import util
 import bvh_node
-import texture, constant_texture, checker_texture, noise_texture
+import texture, constant_texture, checker_texture, noise_texture, image_texture
+import stb_image
 
 
 # This is the first "real," scene that is made in he book
@@ -82,4 +83,14 @@ proc two_perlin_spheres*(): hitable =
   list.add(newSphere(newVec3(0, 2, 0), 2, newLambertian(pertext)))
 
   return newHitableList(list)
+
+
+proc earth*(): hitable =
+  var
+    width: int
+    height: int
+    comp: int
+    tex_data = stbi_load("earthmap.jpg", width, height, comp, 0)
+
+  return newSphere(newVec3(0, 0, 0), 2, newLambertian(newImageTexture(tex_data, width, height)))
 
