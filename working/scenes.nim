@@ -4,7 +4,8 @@ import vec3
 import hitable_and_material
 import hitable_list
 import sphere, moving_sphere
-import lambertian, metal, dielectric
+import xy_rect
+import lambertian, metal, dielectric, diffuse_light
 import util
 import bvh_node
 import texture, constant_texture, checker_texture, noise_texture, image_texture
@@ -94,3 +95,14 @@ proc earth*(): hitable =
 
   return newSphere(newVec3(0, 0, 0), 2, newLambertian(newImageTexture(tex_data, width, height)))
 
+
+proc simple_light*(): hitable =
+  let pertext = newNoiseTexture()
+  var list: seq[hitable] = @[]
+  list.add(newSphere(newVec3(0, -1000, 0), 1000, newLambertian(pertext)))
+  list.add(newSphere(newVec3(0, 2, 0), 2, newLambertian(pertext)))
+  list.add(newSphere(newVec3(0, 7, 0), 2, newDiffuseLight(newConstantTexture(newVec3(4, 4, 4)))))
+  list.add(newXYRect(3, 5, 1, 3, -2, newDiffuseLight(newConstantTexture(newVec3(4, 4, 4)))))
+
+  return newHitableList(list)
+  

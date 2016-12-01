@@ -41,3 +41,5 @@ It's MUCH easier to work with than messing with pointers in Nim.
 
 "earthmap.jpg" is taken from http://flatplanet.sourceforge.net/
 
+for the `xy_rect::hit()` method, some of the parmaters names are different from
+the source in book, so they match the parmater names of other hitables.

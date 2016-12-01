@@ -4,6 +4,7 @@ import ray
 import hitable_and_material
 import hitable_list
 import sphere, moving_sphere
+import xy_rect
 import camera
 import util
 import lambertian, metal, dielectric, diffuse_light
@@ -46,7 +47,8 @@ proc color(r: ray, world: hitable, depth: int): vec3=
       unit_direction = unit_vector(r.direction())
       t = 0.5 * (unit_direction.y + 1)
 
-    return (1 - t) * newVec3(1, 1, 1) + t * newVec3(0.5, 0.7, 1)
+    return newVec3(0, 0, 0)
+#    return (1 - t) * newVec3(1, 1, 1) + t * newVec3(0.5, 0.7, 1)
 
 
 proc main()=
@@ -64,8 +66,9 @@ proc main()=
 #    world = original_scene()
 #    world = random_scene()
 #    world = two_spheres()
-    world = two_perlin_spheres()
+#    world = two_perlin_spheres()
 #    world = earth()
+    world = simple_light()
 
     lookfrom = newVec3(13, 2, 3)
     lookat = newVec3(0, 0, 0)
