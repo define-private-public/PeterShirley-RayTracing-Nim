@@ -3,7 +3,7 @@
 import vec3
 import hitable_and_material
 import hitable_list
-import sphere, moving_sphere
+import sphere, moving_sphere, flip_normals
 import rects
 import lambertian, metal, dielectric, diffuse_light
 import util

@@ -18,6 +18,10 @@ sure to check each directory's `notes.txt` file.
 Since I haven't gotten myself to reading all of the books yet, this is still a
 work in progress.  So please ignore that `working/` directory for the moment.
 
+Please also keep in mind that I worked on these when I was still very new to the
+Nim language (and it's ecosystem).  So it's very likely there are
+inefficiencies, not so great code consistancy, and other undesireables.
+
 
 
 Ray Tracing in One Weekend

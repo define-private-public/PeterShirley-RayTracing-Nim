@@ -43,3 +43,6 @@ It's MUCH easier to work with than messing with pointers in Nim.
 
 for the `xy_rect::hit()` method, some of the parmaters names are different from
 the source in book, so they match the parmater names of other hitables.
+
+For the `flip_normals` class, I'm not using `ptr` to denote what is flipped, but
+`obj` instead, as `ptr` is a keyword in Nim.
