@@ -115,11 +115,12 @@ proc cornell_box*(): hitable =
     green = newLambertian(newConstantTexture(newVec3(0.12, 0.45, 0.15)))
     light = newDiffuseLight(newConstantTexture(newVec3(15, 15, 15)))
 
-  list.add(newYZRect(0, 555, 0, 555, 555, green))
+  list.add(newFlipNormals(newYZRect(0, 555, 0, 555, 555, green)))
   list.add(newYZRect(0, 555, 0, 555, 0, red))
   list.add(newXZRect(213, 343, 227, 332, 554, light))
+  list.add(newFlipNormals(newXZRect(0, 555, 0, 555, 555, white)))
   list.add(newXZRect(0, 555, 0, 555, 0, white))
-  list.add(newXYRect(0, 555, 0, 555, 555, white))
+  list.add(newFlipNormals(newXYRect(0, 555, 0, 555, 555, white)))
 
   return newHitableList(list)
 

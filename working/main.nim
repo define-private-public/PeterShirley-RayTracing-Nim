@@ -51,10 +51,10 @@ proc main()=
   let
     nx = 200 * 2
     ny = 100 * 2
-    ns = 4
+    ns = 16
 #    nx = 1920
 #    ny = 1080
-#    ns = 100
+#    ns = 250
 
   output.write("P3\n", nx, " ", ny, "\n255\n")
 
