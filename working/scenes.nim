@@ -3,8 +3,7 @@
 import vec3
 import hitable_and_material
 import hitable_list
-import sphere, moving_sphere, flip_normals
-import rects
+import sphere, moving_sphere, rects, flip_normals, box
 import lambertian, metal, dielectric, diffuse_light
 import util
 import bvh_node
@@ -121,6 +120,9 @@ proc cornell_box*(): hitable =
   list.add(newFlipNormals(newXZRect(0, 555, 0, 555, 555, white)))
   list.add(newXZRect(0, 555, 0, 555, 0, white))
   list.add(newFlipNormals(newXYRect(0, 555, 0, 555, 555, white)))
+
+  list.add(newBox(newVec3(130, 0, 65), newVec3(295, 165, 230), white))
+  list.add(newBox(newVec3(265, 0, 295), newVec3(430, 330, 460), white))
 
   return newHitableList(list)
 
