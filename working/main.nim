@@ -64,7 +64,8 @@ proc main()=
 #    world = two_perlin_spheres()
 #    world = earth()
 #    world = simple_light()
-    world = cornell_box()
+#    world = cornell_box()
+    world = cornell_smoke()
 
     lookfrom = newVec3(278, 278, -800)
     lookat = newVec3(278, 278, 0)
