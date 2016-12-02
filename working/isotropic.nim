@@ -7,7 +7,7 @@ import util
 
 
 type
-  isotropic* = ref object of hitable
+  isotropic* = ref object of material
     albedo*: texture
 
 
