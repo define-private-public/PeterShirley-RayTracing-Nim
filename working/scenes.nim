@@ -146,6 +146,8 @@ proc cornell_smoke*(): hitable =
   list.add(newFlipNormals(newXYRect(0, 555, 0, 555, 555, white)))
 
   let
+#   b1 = newTranslate(newBox(newVec3(0, 0, 0), newVec3(165, 165, 165), white), newVec3(130,0,65))
+#   b2 = newTranslate(newBox(newVec3(0, 0, 0), newVec3(165, 330, 165), white), newVec3(265,0,295))
    b1 = newTranslate(newRotateY(newBox(newVec3(0, 0, 0), newVec3(165, 165, 165), white), -18), newVec3(130,0,65))
    b2 = newTranslate(newRotateY(newBox(newVec3(0, 0, 0), newVec3(165, 330, 165), white),  15), newVec3(265,0,295))
 
