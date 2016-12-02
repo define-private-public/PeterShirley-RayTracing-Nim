@@ -32,9 +32,9 @@ proc newRotateY*(p: hitable; angle: float): rotate_y =
     for j in countup(0, 1):
       for k in countup(0, 1):
         let
-          x = (i.float * result.bbox.max.x) +  ((1 - i.float) * result.bbox.min.x)
-          y = (j.float * result.bbox.max.y) +  ((1 - j.float) * result.bbox.min.y)
-          z = (k.float * result.bbox.max.z) +  ((1 - k.float) * result.bbox.min.z)
+          x = (i.float * result.bbox.max.x) + ((1 - i.float) * result.bbox.min.x)
+          y = (j.float * result.bbox.max.y) + ((1 - j.float) * result.bbox.min.y)
+          z = (k.float * result.bbox.max.z) + ((1 - k.float) * result.bbox.min.z)
           newx = (result.cos_theta * x) + (result.sin_theta * z)
           newz = (-result.sin_theta * x) + (result.cos_theta * z)
           tester = newVec3(newx, y, newz)

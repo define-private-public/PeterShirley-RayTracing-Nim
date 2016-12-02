@@ -48,9 +48,9 @@ proc color(r: ray, world: hitable, depth: int): vec3=
 
 proc main()=
   let
-    nx = 200 * 2
-    ny = 100 * 2
-    ns = 16
+    nx = 400 
+    ny = 400
+    ns = 50
 #    nx = 1920
 #    ny = 1080
 #    ns = 250
