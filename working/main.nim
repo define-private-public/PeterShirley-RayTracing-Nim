@@ -50,7 +50,7 @@ proc main()=
   let
     nx = 400 
     ny = 400
-    ns = 50
+    ns = 16
 #    nx = 1920
 #    ny = 1080
 #    ns = 250
