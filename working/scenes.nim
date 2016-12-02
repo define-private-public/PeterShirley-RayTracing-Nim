@@ -136,7 +136,7 @@ proc cornell_smoke*(): hitable =
     red = newLambertian(newConstantTexture(newVec3(0.65, 0.05, 0.05)))
     white = newLambertian(newConstantTexture(newVec3(0.73, 0.73, 0.73)))
     green = newLambertian(newConstantTexture(newVec3(0.12, 0.45, 0.15)))
-    light = newDiffuseLight(newConstantTexture(newVec3(17, 17, 17)))
+    light = newDiffuseLight(newConstantTexture(newVec3(7, 7, 7)))
 
   list.add(newFlipNormals(newYZRect(0, 555, 0, 555, 555, green)))
   list.add(newYZRect(0, 555, 0, 555, 0, red))
@@ -145,11 +145,12 @@ proc cornell_smoke*(): hitable =
   list.add(newXZRect(0, 555, 0, 555, 0, white))
   list.add(newFlipNormals(newXYRect(0, 555, 0, 555, 555, white)))
 
+  # TODO when the transform issue is fixed, come back and renable rotations
   let
-#   b1 = newTranslate(newBox(newVec3(0, 0, 0), newVec3(165, 165, 165), white), newVec3(130,0,65))
-#   b2 = newTranslate(newBox(newVec3(0, 0, 0), newVec3(165, 330, 165), white), newVec3(265,0,295))
-   b1 = newTranslate(newRotateY(newBox(newVec3(0, 0, 0), newVec3(165, 165, 165), white), -18), newVec3(130,0,65))
-   b2 = newTranslate(newRotateY(newBox(newVec3(0, 0, 0), newVec3(165, 330, 165), white),  15), newVec3(265,0,295))
+   b1 = newTranslate(newBox(newVec3(0, 0, 0), newVec3(165, 165, 165), white), newVec3(130,0,65))
+   b2 = newTranslate(newBox(newVec3(0, 0, 0), newVec3(165, 330, 165), white), newVec3(265,0,295))
+#   b1 = newTranslate(newRotateY(newBox(newVec3(0, 0, 0), newVec3(165, 165, 165), white), -18), newVec3(130,0,65))
+#   b2 = newTranslate(newRotateY(newBox(newVec3(0, 0, 0), newVec3(165, 330, 165), white),  15), newVec3(265,0,295))
 
   list.add(newConstantMedium(b1, 0.01, newConstantTexture(newVec3(1, 1, 1))))
   list.add(newConstantMedium(b2, 0.01, newConstantTexture(newVec3(0, 0, 0))))
