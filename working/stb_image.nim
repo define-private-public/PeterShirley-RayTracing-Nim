@@ -15,6 +15,8 @@ proc stbi_load(filename: cstring; x, y, comp: var cint; req_comp: cint): ptr uin
 ## External function (the Nim friendly version)
 # This will only load the RGB values, into a sequence of uint8 values
 proc stbi_load*(filename: string; x, y, comp: var int; req_comp: int): seq[uint8] =
+  # TODO need to free the image pixels after we've converted/copied
+
   var
     width: cint
     height: cint
