@@ -16,7 +16,7 @@ proc newNoiseTexture*(): noise_texture =
   result.scale = 0
 
 
-proc newNoiseTexture(sc: float): noise_texture =
+proc newNoiseTexture*(sc: float): noise_texture =
   result = newNoiseTexture()
   result.scale = sc
 

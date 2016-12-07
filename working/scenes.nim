@@ -157,3 +157,61 @@ proc cornell_smoke*(): hitable =
 
   return newHitableList(list)
 
+
+proc final*(): hitable =
+  let nb = 20
+  var
+    list: seq[hitable] = @[]
+    boxlist : seq[hitable] = @[]
+    boxlist2 : seq[hitable] = @[]
+  let
+    white = newLambertian(newConstantTexture(newVec3(0.73, 0.73, 0.73)))
+    ground = newLambertian(newConstantTexture(newVec3(0.48, 0.83, 0.53)))
+
+  for i in countup(0, nb - 1):
+    for j in countup(0, nb - 1):
+      let
+        w = 100.0
+        x0 = -1000 + (i.float * w)
+        z0 = -1000 + (j.float * w)
+        y0 = 0.0
+        x1 = x0 + w
+        y1 = 100 * (drand48() + 0.01)
+        z1 = z0 + 2
+
+      boxlist.add(newBox(newVec3(x0, y0, z0), newVec3(x1, y1, z1), ground))
+
+  list.add(newBVHNode(boxlist, 0, 1))
+
+  let light = newDiffuseLight(newConstantTexture(newVec3(7, 7, 7)))
+  list.add(newXZRect(123, 423, 147, 412, 554, light))
+
+  let center = newVec3(400, 400, 200)
+  list.add(newMovingSphere(center, center + newVec3(30, 0, 0), 0, 1, 50, newLambertian(newConstantTexture(newVec3(0.7, 0.3, 0.1)))))
+
+  list.add(newSphere(newVec3(260, 150, 45), 50, newDielectric(1.5)))
+  list.add(newSphere(newVec3(0, 150, 145), 50, newMetal(newVec3(0.8, 0.8, 0.9), 10)))
+  
+  var boundary = newSphere(newVec3(360, 150, 145), 70, newDielectric(1.5))
+  list.add(boundary)
+  list.add(newConstantMedium(boundary, 0.2, newConstantTexture(newVec3(0.2, 0.4, 0.9))))
+
+  boundary = newSphere(newVec3(0, 0, 0), 5000, newDielectric(1.5))
+  list.add(newConstantMedium(boundary, 0.0001, newConstantTexture(newVec3(1, 1, 1))))
+
+  var
+    nx, ny, nn: int
+    tex_data = stbi_load("earthmap.jpg", nx, ny, nn, 0)
+  let emat = newLambertian(newImageTexture(tex_data, nx, ny))
+  list.add(newSphere(newVec3(400, 200, 400), 100, emat))
+
+  let pertext = newNoiseTexture(0.1)
+  list.add(newSphere(newVec3(220, 280, 300), 80, newLambertian(pertext)))
+
+  let ns = 1000
+  for j in countup(0, ns - 1):
+    boxlist2.add(newSphere(newVec3(165 * drand48(), 165 * drand48(), 165 * drand48()), 10, white))
+  list.add(newTranslate(newRotateY(newBVHNode(boxlist2, 0, 1), 15), newVec3(-100, 270, 395)))
+
+  return newHitableList(list)
+

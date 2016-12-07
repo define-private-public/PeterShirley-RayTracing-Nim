@@ -65,7 +65,8 @@ proc main()=
 #    world = earth()
 #    world = simple_light()
 #    world = cornell_box()
-    world = cornell_smoke()
+#    world = cornell_smoke()
+    world = final()
 
     lookfrom = newVec3(278, 278, -800)
     lookat = newVec3(278, 278, 0)
