@@ -11,6 +11,8 @@
 proc stbi_load(filename: cstring; x, y, comp: var cint; req_comp: cint): ptr uint8
   {.importc: "stbi_load", noDecl.}
 
+  # TODO use `cuchar` instead of `uint8` for that proc up there
+
 
 ## External function (the Nim friendly version)
 # This will only load the RGB values, into a sequence of uint8 values
