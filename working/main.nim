@@ -28,10 +28,36 @@ else:
   output = stdout
 
 
-proc color(r: ray, world: hitable, depth: int): vec3=
+# There are two different color functions that can be used to illuminate the
+# scene.  They can be swapped out below with the `color` proc
+
+# This proc is for if you scene is illuminated ambiently (no diffuse lighting)
+proc color_with_ambient(r: ray, world: hitable, depth: int): vec3 =
   var rec = newHitRecord()
 
-  # TODO the 1 mil should be "MAXFLOAT" actually
+  # the 1 mil should be "MAXFLOAT" actually
+  if world.hit(r, 0.001, 1_000_000, rec):
+    var
+      scattered = newRay()
+      attenuation = newVec3()
+
+    if (depth < maxDepth) and (rec.mat_ptr.scatter(r, rec, attenuation, scattered)):
+      return attenuation * color_with_ambient(scattered, world, depth + 1)
+    else:
+      return newVec3(0, 0, 0)
+  else:
+    let
+      unit_direction = r.direction().unit_vector
+      t = 0.5 * (unit_direction.y + 1)
+
+    return ((1 - t) * newVec3(1, 1, 1)) + (t * newVec3(0.5, 0.7, 1))
+
+
+# this proc is for if you scene contains lights (it will render black without)
+proc color_with_lights(r: ray, world: hitable, depth: int): vec3 =
+  var rec = newHitRecord()
+
+  # the 1 mil should be "MAXFLOAT" actually
   if world.hit(r, 0.001, 1_000_000, rec):
     var
       scattered = newRay()
@@ -39,11 +65,17 @@ proc color(r: ray, world: hitable, depth: int): vec3=
       emitted = rec.mat_ptr.emitted(rec.u, rec.v, rec.p)
 
     if (depth < maxDepth) and (rec.mat_ptr.scatter(r, rec, attenuation, scattered)):
-      return emitted + (attenuation * color(scattered, world, depth + 1))
+      return emitted + (attenuation * color_with_lights(scattered, world, depth + 1))
     else:
       return emitted
   else:
     return newVec3(0, 0, 0)
+
+
+# NOTE: this is the proc that you swap out with one of the two above for your
+#       desired method of illumination
+proc color(r: ray, world: hitable, depth: int): vec3 {.inline.} =
+  return color_with_ambient(r, world, depth)
 
 
 proc main()=
