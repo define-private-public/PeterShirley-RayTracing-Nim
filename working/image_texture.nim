@@ -30,21 +30,21 @@ method value*(it: image_texture, u, v: float, p: vec3): vec3 =
   i = i.clamp(0, it.nx - 1)
   j = j.clamp(0, it.ny - 1)
 
-  var
+#  var
 #    idx = 3 * i + 3 * it.nx * j
-    idx = i + it.nx * j
+#    idx = i + it.nx * j
 
 #  echo it.data.len
 #  echo idx
 #  idx = idx.clamp(0, it.data.len - 3)
 
   let
-#    r = (it.data[3*i + 3*it.nx*j + 0]).float / 255.0
-#    g = (it.data[3*i + 3*it.nx*j + 1]).float / 255.0
-#    b = (it.data[3*i + 3*it.nx*j + 2]).float / 255.0
-    r = (it.data[idx + 0]).float / 255.0
-    g = (it.data[idx + 1]).float / 255.0
-    b = (it.data[idx + 2]).float / 255.0
+    r = (it.data[3*i + 3*it.nx*j + 0]).float / 255.0
+    g = (it.data[3*i + 3*it.nx*j + 1]).float / 255.0
+    b = (it.data[3*i + 3*it.nx*j + 2]).float / 255.0
+#    r = (it.data[idx + 0]).float / 255.0
+#    g = (it.data[idx + 1]).float / 255.0
+#    b = (it.data[idx + 2]).float / 255.0
     
 
   return newVec3(r, g, b)
