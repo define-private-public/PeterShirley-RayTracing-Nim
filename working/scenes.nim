@@ -249,6 +249,9 @@ proc two_spheres_cam*(renderWidth, renderHeight: int): camera =
 proc two_perlin_spheres_cam*(renderWidth, renderHeight: int): camera =
   return random_scene_cam(renderWidth, renderHeight)
 
+proc earth_cam*(renderWidth, renderHeight: int): camera =
+  return random_scene_cam(renderWidth, renderHeight)
+
 
 proc cornell_box_cam*(renderWidth, renderHeight: int): camera =
   let

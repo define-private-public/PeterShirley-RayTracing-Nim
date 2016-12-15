@@ -25,7 +25,10 @@ makes it unecessary
 Instead of using `qsort()`, we use Nim's `algorithm.sort()` method on sequences
 instead.
 
-`random_scene()` and `two_sphers()` are found in the file `scenes.nim`.
+`random_scene()` and `two_spheres()` are found in the file `scenes.nim`.
+
+Inside of `scenes.nim`, there are functions to get the camera configuration for
+that scene.  That proc will end with "_cam".  e.g. (`earth()` -> `earth_cam()`).
 
 The static members of the `perlin` class are still found in `perlin.nim`, but
 they are not part of the `perlin` type.  Originally they were dynamic arrays
