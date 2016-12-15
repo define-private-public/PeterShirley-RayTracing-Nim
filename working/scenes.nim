@@ -241,6 +241,15 @@ proc random_scene_cam*(renderWidth, renderHeight: int): camera =
     0, 1
   )
 
+
+proc two_spheres_cam*(renderWidth, renderHeight: int): camera =
+  return random_scene_cam(renderWidth, renderHeight)
+
+
+proc two_perlin_spheres_cam*(renderWidth, renderHeight: int): camera =
+  return random_scene_cam(renderWidth, renderHeight)
+
+
 proc cornell_box_cam*(renderWidth, renderHeight: int): camera =
   let
     lookfrom = newVec3(278, 278, -800)
