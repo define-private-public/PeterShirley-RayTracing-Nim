@@ -314,3 +314,24 @@ proc cornell_box_cam*(renderWidth, renderHeight: int): camera =
 
 proc cornell_smoke_cam*(renderWidth, renderHeight: int): camera =
   return cornell_box_cam(renderWidth, renderHeight)
+
+
+proc final_cam*(renderWidth, renderHeight: int): camera =
+  let
+    lookfrom = newVec3(478, 278, -600)
+    lookat = newVec3(278, 278, 0)
+    dist_to_focus = 10.0
+    aperature = 0.0
+    vfov = 40.0
+
+  return newCamera(
+    lookfrom,
+    lookat,
+    newVec3(0, 1, 0),
+    vfov,
+    renderWidth.float / renderHeight.float,
+    aperature,
+    dist_to_focus,
+    0, 1
+  )
+
