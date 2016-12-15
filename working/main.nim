@@ -65,25 +65,10 @@ proc main()=
 #    world = earth()
 #    world = simple_light()
 #    world = cornell_box()
-#    world = cornell_smoke()
-    world = final()
+    world = cornell_smoke()
+#    world = final()
 
-    lookfrom = newVec3(278, 278, -800)
-    lookat = newVec3(278, 278, 0)
-    dist_to_focus = 10.0
-    aperature = 0.0
-    vfov = 40.0
-
-    cam = newCamera(
-      lookfrom,
-      lookat,
-      newVec3(0, 1, 0),
-      vfov,
-      nx.float / ny.float,
-      aperature,
-      dist_to_focus,
-      0, 1
-    )
+    cam = cornell_smoke_cam(nx, ny)
 
   for j in countdown(ny - 1, 0):
     for i in countup(0, nx - 1):

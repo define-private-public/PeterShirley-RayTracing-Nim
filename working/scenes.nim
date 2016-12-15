@@ -1,4 +1,4 @@
-# This file contains scenes that are used
+# This file contains scenes that are used, as well as their camera positionings
 
 import vec3
 import hitable_and_material
@@ -9,6 +9,7 @@ import util
 import bvh_node
 import texture, constant_texture, checker_texture, noise_texture, image_texture
 import stb_image
+import camera
 
 
 # This is the first "real," scene that is made in he book
@@ -215,3 +216,32 @@ proc final*(): hitable =
 
   return newHitableList(list)
 
+
+
+
+# ===================
+# Camera Positionings
+# ===================
+
+proc cornell_box_cam*(renderWidth, renderHeight: int): camera =
+  let
+    lookfrom = newVec3(278, 278, -800)
+    lookat = newVec3(278, 278, 0)
+    dist_to_focus = 10.0
+    aperature = 0.0
+    vfov = 40.0
+
+  return newCamera(
+    lookfrom,
+    lookat,
+    newVec3(0, 1, 0),
+    vfov,
+    renderWidth.float / renderHeight.float,
+    aperature,
+    dist_to_focus,
+    0, 1
+  )
+
+
+proc cornell_smoke_cam*(renderWidth, renderHeight: int): camera =
+  return cornell_box_cam(renderWidth, renderHeight)
