@@ -223,6 +223,24 @@ proc final*(): hitable =
 # Camera Positionings
 # ===================
 
+proc random_scene_cam*(renderWidth, renderHeight: int): camera =
+  let
+    lookfrom = newVec3(13, 2, 3)
+    lookat = newVec3(0, 0, 0)
+    dist_to_focus = 10.0
+    aperature = 0.0
+
+  return newCamera(
+    lookfrom,
+    lookat,
+    newVec3(0, 1, 0),
+    20,
+    renderWidth.float / renderHeight.float,
+    aperature,
+    dist_to_focus,
+    0, 1
+  )
+
 proc cornell_box_cam*(renderWidth, renderHeight: int): camera =
   let
     lookfrom = newVec3(278, 278, -800)
