@@ -78,7 +78,7 @@ proc two_spheres*(): hitable =
 
 
 proc two_perlin_spheres*(): hitable =
-  let pertext = newNoiseTexture()
+  let pertext = newNoiseTexture(4)
   var list: seq[hitable] = @[]
   list.add(newSphere(newVec3(0, -1000, 0), 1000, newLambertian(pertext)))
   list.add(newSphere(newVec3(0, 2, 0), 2, newLambertian(pertext)))

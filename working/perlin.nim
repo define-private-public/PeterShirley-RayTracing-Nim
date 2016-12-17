@@ -36,6 +36,10 @@ proc noise*(pln: perlin, p: vec3): float =
     j = floor(p.y).int
     k = floor(p.z).int
 
+  u = u * u * (3 - (2 * u))
+  v = v * v * (3 - (2 * v))
+  w = w * w * (3 - (2 * w))
+
   # Since I'm using sequnces instead of arrays, this is a little more wonky
   # than the original C++
   var c: seq[seq[seq[float]]] = @[]
