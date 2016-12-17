@@ -82,7 +82,7 @@ proc main()=
   let
     nx = 400 
     ny = 400
-    ns = 16
+    ns = 100
 #    nx = 1920
 #    ny = 1080
 #    ns = 250
@@ -96,11 +96,11 @@ proc main()=
 #    world = two_perlin_spheres()
 #    world = earth()
 #    world = simple_light()
-#    world = cornell_box()
+    world = cornell_box()
 #    world = cornell_smoke()
-    world = final()
+#    world = final()
 
-    cam = final_cam(nx, ny)
+    cam = cornell_box_cam(nx, ny)
 
   for j in countdown(ny - 1, 0):
     for i in countup(0, nx - 1):
