@@ -75,7 +75,7 @@ proc color_with_lights(r: ray, world: hitable, depth: int): vec3 =
 # NOTE: this is the proc that you swap out with one of the two above for your
 #       desired method of illumination
 proc color(r: ray, world: hitable, depth: int): vec3 {.inline.} =
-  return color_with_lights(r, world, depth)
+  return color_with_ambient(r, world, depth)
 
 
 proc main()=
@@ -93,14 +93,14 @@ proc main()=
 #    world = original_scene()
 #    world = random_scene()
 #    world = two_spheres()
-#    world = two_perlin_spheres()
+    world = two_perlin_spheres()
 #    world = earth()
 #    world = simple_light()
-    world = cornell_box()
+#    world = cornell_box()
 #    world = cornell_smoke()
 #    world = final()
 
-    cam = cornell_box_cam(nx, ny)
+    cam = two_perlin_spheres_cam(nx, ny)
 
   for j in countdown(ny - 1, 0):
     for i in countup(0, nx - 1):
