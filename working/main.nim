@@ -35,7 +35,6 @@ else:
 proc color_with_ambient(r: ray, world: hitable, depth: int): vec3 =
   var rec = newHitRecord()
 
-  # the 1 mil should be "MAXFLOAT" actually
   if world.hit(r, 0.001, 1_000_000, rec):
     var
       scattered = newRay()
@@ -57,7 +56,6 @@ proc color_with_ambient(r: ray, world: hitable, depth: int): vec3 =
 proc color_with_lights(r: ray, world: hitable, depth: int): vec3 =
   var rec = newHitRecord()
 
-  # the 1 mil should be "MAXFLOAT" actually
   if world.hit(r, 0.001, 1_000_000, rec):
     var
       scattered = newRay()
@@ -82,7 +80,7 @@ proc main()=
   let
     nx = 800 
     ny = 400
-    ns = 64
+    ns = 16
 #    nx = 1920
 #    ny = 1080
 #    ns = 250
