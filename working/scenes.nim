@@ -122,12 +122,8 @@ proc cornell_box*(): hitable =
   list.add(newXZRect(0, 555, 0, 555, 0, white))
   list.add(newFlipNormals(newXYRect(0, 555, 0, 555, 555, white)))
 
-#  list.add(newBox(newVec3(130, 0, 65), newVec3(295, 165, 230), white))
-#  list.add(newBox(newVec3(265, 0, 295), newVec3(430, 330, 460), white))
-
-#  list.add(newTranslate(newRotateY(newBox(newVec3(0, 0, 0), newVec3(165, 165, 165), white), -18), newVec3(130,0,65)))
-#  list.add(newTranslate(newRotateY(newBox(newVec3(0, 0, 0), newVec3(165, 330, 165), white),  15), newVec3(265,0,295)))
-  list.add(newTranslate(newRotateY(newBox(newVec3(0, 0, 0), newVec3(100, 200, 100), white),  45), newVec3(100, 200, 500)))
+  list.add(newTranslate(newRotateY(newBox(newVec3(0, 0, 0), newVec3(165, 165, 165), white), -18), newVec3(130,0,65)))
+  list.add(newTranslate(newRotateY(newBox(newVec3(0, 0, 0), newVec3(165, 330, 165), white),  15), newVec3(265,0,295)))
 
   return newHitableList(list)
 
