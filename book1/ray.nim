@@ -1,7 +1,7 @@
 import vec3
 
 type 
-  ray* = ref object of RootObj
+  ray* = object
     A*, B*: vec3
 
 
