@@ -9,14 +9,14 @@ proc random_in_unit_disk(): vec3
 
 
 type
-  camera* = ref object of RootObj
+  camera* = object
     origin*, lower_left_corner*, horizontal*, vertical*: vec3
     u*, v*, w*: vec3
     lens_radius: float
 
 
 proc newCamera*(lookfrom, lookat, vup: vec3, vfov, aspect, aperature, focus_dist: float): camera=
-  result = new(camera)
+  result = camera()
   result.lens_radius = aperature / 2
 
   let
