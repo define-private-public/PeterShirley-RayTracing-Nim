@@ -9,7 +9,7 @@ proc random_in_unit_disk(): vec3
 
 
 type
-  camera* = ref object of RootObj
+  camera* = object
     origin*, lower_left_corner*, horizontal*, vertical*: vec3
     u*, v*, w*: vec3
     lens_radius*: float
@@ -22,7 +22,7 @@ proc newCamera*(
   vfov, aspect, aperature, focus_dist: float,
   t0, t1: float
 ): camera=
-  result = new(camera)
+  result = camera()
   result.time0 = t0
   result.time1 = t1
   result.lens_radius = aperature / 2

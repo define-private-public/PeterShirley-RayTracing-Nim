@@ -2,7 +2,7 @@ import math
 
 
 type
-  vec3* = ref object of RootObj
+  vec3* = object
     x*, y*, z*: float
 
 
@@ -16,11 +16,6 @@ proc newVec3*(): vec3=
 
 proc newVec3*(x, y, z: float): vec3= 
   return vec3(x: x, y: y, z: z)
-
-
-# A copy constructor
-proc newVec3*(v: vec3): vec3 =
-  return vec3(x: v.x, y: v.y, z: v.z)
 
 
 proc r*(v: vec3): float=
@@ -51,7 +46,7 @@ proc `[]`*(v: vec3, i: int): float=
     else: raise newException(Exception, "Out of bounds")
 
 
-proc `[]=`*(v: vec3, i: int, value: float)=
+proc `[]=`*(v: var vec3, i: int, value: float)=
   case i
     of 0: v.x = value
     of 1: v.y = value
@@ -67,7 +62,7 @@ proc length*(v: vec3): float=
   return sqrt(squared_length(v))
  
 
-method make_unit_vector*(v: vec3)=
+proc make_unit_vector*(v: var vec3)=
   let k = 1 / v.length()
 
   v.x *= k
@@ -143,37 +138,37 @@ proc cross*(u, v: vec3): vec3=
   )
 
 
-method `+=`*(u, v: vec3)=
+proc `+=`*(u: var vec3, v: vec3)=
   u.x += v.x
   u.y += v.y
   u.z += v.z
 
 
-method `*=`*(u, v: vec3)=
+proc `*=`*(u: var vec3, v: vec3)=
   u.x *= v.x
   u.y *= v.y
   u.z *= v.z
 
 
-method `/=`*(u, v: vec3)=
+proc `/=`*(u: var vec3, v: vec3)=
   u.x /= v.x
   u.y /= v.y
   u.z /= v.z
 
 
-method `-=`*(u, v: vec3)=
+proc `-=`*(u: var vec3, v: vec3)=
   u.x -= v.x
   u.y -= v.y
   u.z -= v.z
 
 
-method `*=`*(v: vec3, s:float)=
+proc `*=`*(v: var vec3, s:float)=
   v.x *= s 
   v.y *= s 
   v.z *= s 
 
 
-method `/=`*(v: vec3, s:float)=
+proc `/=`*(v: var vec3, s:float)=
   let k = 1 / s
 
   v.x *= k 

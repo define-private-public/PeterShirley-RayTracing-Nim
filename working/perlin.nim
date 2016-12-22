@@ -143,7 +143,7 @@ proc perlin_interp(c: seq[seq[seq[vec3]]], u, v, w: float): float =
 proc turb*(pln: perlin, p: vec3, depth: int = 7): float =
   var
     accum:float = 0
-    temp_p = newVec3(p)
+    temp_p = p
     weight:float = 1
 
   for i in countup(0, depth - 1):

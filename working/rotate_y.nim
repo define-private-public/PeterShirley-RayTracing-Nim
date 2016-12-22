@@ -49,10 +49,9 @@ proc newRotateY*(p: hitable; angle: float): rotate_y =
 
 
 method hit*(ry: rotate_y, r: ray, t_min, t_max: float, rec: var hit_record): bool=
-  # TODO fix clone issues
   var
-    origin = newVec3(r.origin())
-    direction = newVec3(r.direction())
+    origin = r.origin()
+    direction = r.direction()
 
   origin[0] = (ry.cos_theta * r.origin()[0]) - (ry.sin_theta * r.origin()[2])
   origin[2] = (ry.sin_theta * r.origin()[0]) + (ry.cos_theta * r.origin()[2])
