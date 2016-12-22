@@ -94,11 +94,11 @@ proc main()=
 #    world = two_perlin_spheres()
 #    world = earth()
 #    world = simple_light()
-    world = cornell_box()
-#    world = cornell_smoke()
+#    world = cornell_box()
+    world = cornell_smoke()
 #    world = final()
 
-    cam = cornell_box_cam(nx, ny)
+    cam = cornell_smoke_cam(nx, ny)
 
   for j in countdown(ny - 1, 0):
     for i in countup(0, nx - 1):
