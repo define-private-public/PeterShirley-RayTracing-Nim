@@ -97,9 +97,12 @@ proc main()=
 
       col = newVec3(sqrt(col.x), sqrt(col.y), sqrt(col.z))
       let
-        ir = (255.99 * col.r).int
-        ig = (255.99 * col.g).int
-        ib = (255.99 * col.b).int
+        # NOTE: the extra `clamp()` call is added because there is a bug in the
+        #       original source that would generate pixel values that were above
+        #       255, which is highly incorrect
+        ir = (255.99 * col.r).int.clamp(0, 255)
+        ig = (255.99 * col.g).int.clamp(0, 255)
+        ib = (255.99 * col.b).int.clamp(0, 255)
 
       output.write(ir, " ", ig, " ", ib, "\n")
 
