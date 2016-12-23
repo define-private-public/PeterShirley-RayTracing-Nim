@@ -49,7 +49,7 @@ method hit*(cm: constant_medium, r: ray, t_min, t_max: float, rec: var hit_recor
 
       let
         distance_inside_boundary = (rec2.t - rec1.t) * r.direction().length
-        hit_distance = -(1 / cm.density) * log10(drand48())
+        hit_distance = -(1 / cm.density) * ln(drand48())
 
       if (hit_distance < distance_inside_boundary):
         rec.t = rec1.t + (hit_distance / r.direction().length)
