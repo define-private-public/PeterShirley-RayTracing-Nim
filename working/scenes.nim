@@ -176,7 +176,10 @@ proc final*(): hitable =
 
       boxlist.add(newBox(newVec3(x0, y0, z0), newVec3(x1, y1, z1), ground))
 
-  list.add(newBVHNode(boxlist, 0, 1))
+  # Note: For some reason, the BVH Node is slower than a list in my implementation
+  #       I'm investigating why, but using the list for now.
+#  list.add(newBVHNode(boxlist, 0, 1))
+  list.add(newHitableList(boxList))
 
   let light = newDiffuseLight(newConstantTexture(newVec3(7, 7, 7)))
   list.add(newXZRect(123, 423, 147, 412, 554, light))
@@ -186,7 +189,8 @@ proc final*(): hitable =
 
   list.add(newSphere(newVec3(260, 150, 45), 50, newDielectric(1.5)))
   list.add(newSphere(newVec3(0, 150, 145), 50, newMetal(newVec3(0.8, 0.8, 0.9), 10)))
-  
+ 
+  # NOTE: The constant medium isn't being rendered correctly, it should show blue
   var boundary = newSphere(newVec3(360, 150, 145), 70, newDielectric(1.5))
   list.add(boundary)
   list.add(newConstantMedium(boundary, 0.2, newConstantTexture(newVec3(0.2, 0.4, 0.9))))
@@ -206,7 +210,10 @@ proc final*(): hitable =
   let ns = 1000
   for j in countup(0, ns - 1):
     boxlist2.add(newSphere(newVec3(165 * drand48(), 165 * drand48(), 165 * drand48()), 10, white))
-  list.add(newTranslate(newRotateY(newBVHNode(boxlist2, 0, 1), 15), newVec3(-100, 270, 395)))
+
+  # See the above note why I'm forgoting the BVH node for now
+#  list.add(newTranslate(newRotateY(newBVHNode(boxlist2, 0, 1), 15), newVec3(-100, 270, 395)))
+  list.add(newTranslate(newRotateY(newHitableList(boxlist2), 15), newVec3(-100, 270, 395)))
 
   return newHitableList(list)
 

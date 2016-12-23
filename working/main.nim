@@ -78,9 +78,9 @@ proc color(r: ray, world: hitable, depth: int): vec3 {.inline.} =
 
 proc main()=
   let
-    nx = 400 
-    ny = 400
-    ns = 32
+    nx = 1280 
+    ny = 800
+    ns = 500
 #    nx = 1920
 #    ny = 1080
 #    ns = 250
@@ -95,10 +95,10 @@ proc main()=
 #    world = earth()
 #    world = simple_light()
 #    world = cornell_box()
-    world = cornell_smoke()
-#    world = final()
+#    world = cornell_smoke()
+    world = final()
 
-    cam = cornell_smoke_cam(nx, ny)
+    cam = final_cam(nx, ny)
 
   for j in countdown(ny - 1, 0):
     for i in countup(0, nx - 1):

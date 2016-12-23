@@ -49,3 +49,7 @@ the source in book, so they match the parmater names of other hitables.
 
 For the `flip_normals` class, I'm not using `ptr` to denote what is flipped, but
 `obj` instead, as `ptr` is a keyword in Nim.
+
+There seems to be some issue with the `constant_medium` for the last scene.  I'm
+not sure why that one blue glassy-looking sphere is only rendering a solid glass
+looking object.
