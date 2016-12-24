@@ -3,4 +3,5 @@ nakefile
 render.ppm
 nimcache
 raytracer
+monte_carlo_pi
 

@@ -9,6 +9,9 @@ const
   BinaryOption = "-o:" & BinaryName
   SearchPath =  "--cincludes:."
 
+  MonteCarloPi = "monte_carlo_pi"
+  MonteCarloPiBinaryOption = "-o:" & MonteCarloPi
+
 
 task "debug", "Build in Debug mode":
   if shell(nimExe, "c", "-d:debug", SearchPath, BinaryOption, MainModuleName):
@@ -20,9 +23,15 @@ task "release", "Build in Release mode":
     echo("Release built!")
 
 
+task MonteCarloPi, "Monte Carlo Pi":
+  if shell(nimExe, "c", "-d:release", MonteCarloPiBinaryOption, MonteCarloPi):
+    echo("Monte Carlo Pi built!")
+
+
 task "clean", "Clean up compiled output":
   removeDir(NimCache)
   removeFile(BinaryName)
+  removeFile(MonteCarloPi)
 
 
 task defaultTask, "[debug]":
