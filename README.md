@@ -31,3 +31,15 @@ Ray Tracing in One Weekend
 [Amazon link](https://www.amazon.com/Ray-Tracing-Weekend-Minibooks-Book-ebook/dp/B01B5AODD8)
 -- [Original C++ Repo](https://github.com/petershirley/raytracinginoneweekend)
 
+
+Ray Tracing: the Next Week
+--------------------------
+(TODO: add render when finished)
+
+Note: This implementation is mostly fine, but there seems to be an issue with
+the `constant_medium` in the final scene.  It's supposed to render a glassy
+looking sphere that is blue, but it's not.  I'm not sure what's wrong with it.
+
+[Amazon link](https://www.amazon.com/Ray-Tracing-Next-Week-Minibooks-ebook/dp/B01CO7PQ8C)
+-- [Original C++ Repo](https://github.com/petershirley/raytracingthenextweek)
+

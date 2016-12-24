@@ -1,0 +1,55 @@
+I had to move the "material," class into `hitable.nim` because Nim doesn't
+currently support forward declarations for types.
+
+I'm not using pointers to materials, it's easier this way
+
+The hitable_list doesn't have a size on it's constructor
+
+For the `color()` function in `main.nim`, I added a maxDepth variable at the top
+of the file, so you can (easily) change the render depth.
+
+Instead of hardcoding in the render depth as 50 in the `color()` function, I
+gave it its own variable as `maxDepth`.
+
+Instead of only rendering to standard output, you can render to a file.  By
+default the filename is "render.ppm".
+
+`_time` is known as `time` in the `ray` object.  Nim doesn't like fields that
+end (or start) with an underscore.  The same goes for `aabb`'s `min` and `max`
+fields.
+
+In `bvh_node`'s constructor, it takes a sequence of hitables (instead of a
+dynamic list of hitables).  The `n` paramter was also removed since sequence
+makes it unecessary
+
+Instead of using `qsort()`, we use Nim's `algorithm.sort()` method on sequences
+instead.
+
+`random_scene()` and `two_spheres()` are found in the file `scenes.nim`.
+
+Inside of `scenes.nim`, there are functions to get the camera configuration for
+that scene.  That proc will end with "_cam".  e.g. (`earth()` -> `earth_cam()`).
+
+The static members of the `perlin` class are still found in `perlin.nim`, but
+they are not part of the `perlin` type.  Originally they were dynamic arrays
+(with a set size of 256), but not they are sequqnces.
+
+I was having some serious issues with interpolation with perlin noise.  So for
+until I can figure out what the issues is, I'm using that simple non-smooth
+perlin noise.  Make sure to see all of the "NOTE" sections in `perlin.nim` and
+`noise_texture.nim`.  This really sucks.
+
+for the `image_texture`, the pixel data is being stored a sequence of `uint8`.
+It's MUCH easier to work with than messing with pointers in Nim.
+
+"earthmap.jpg" is taken from http://flatplanet.sourceforge.net/
+
+for the `xy_rect::hit()` method, some of the parmaters names are different from
+the source in book, so they match the parmater names of other hitables.
+
+For the `flip_normals` class, I'm not using `ptr` to denote what is flipped, but
+`obj` instead, as `ptr` is a keyword in Nim.
+
+There seems to be some issue with the `constant_medium` for the last scene.  I'm
+not sure why that one blue glassy-looking sphere is only rendering a solid glass
+looking object.
