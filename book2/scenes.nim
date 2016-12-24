@@ -172,7 +172,7 @@ proc final*(): hitable =
         y0 = 0.0
         x1 = x0 + w
         y1 = 100 * (drand48() + 0.01)
-        z1 = z0 + 2
+        z1 = z0 + w
 
       boxlist.add(newBox(newVec3(x0, y0, z0), newVec3(x1, y1, z1), ground))
 
