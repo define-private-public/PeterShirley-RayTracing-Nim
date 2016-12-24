@@ -211,7 +211,7 @@ proc final*(): hitable =
   for j in countup(0, ns - 1):
     boxlist2.add(newSphere(newVec3(165 * drand48(), 165 * drand48(), 165 * drand48()), 10, white))
 
-  # See the above note why I'm forgoting the BVH node for now
+  # See the above note why I'm forgoing the BVH node for now
 #  list.add(newTranslate(newRotateY(newBVHNode(boxlist2, 0, 1), 15), newVec3(-100, 270, 395)))
   list.add(newTranslate(newRotateY(newHitableList(boxlist2), 15), newVec3(-100, 270, 395)))
 

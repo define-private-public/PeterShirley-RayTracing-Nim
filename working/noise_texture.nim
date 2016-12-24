@@ -22,8 +22,13 @@ proc newNoiseTexture*(sc: float): noise_texture =
 
 
 method value*(nt: noise_texture, u, v: float, p: vec3): vec3 =
+  # NOTE: This function has gone through many iterations in the book.  The fifth
+  #       one should be used for the final scene, whereas the fourth should be
+  #       used for `simple_light` and `two_perlin_spheres`
+
 #  return newVec3(1, 1, 1) * nt.noise.noise(p)
 #  return newVec3(1, 1, 1) * nt.noise.noise(nt.scale * p)
 #  return newVec3(1, 1, 1) * nt.noise.turb(nt.scale * p)
-  return newVec3(1, 1, 1) * 0.5 * (1 + sin((nt.scale * p.z) + (10 * nt.noise.turb(p))))
+#  return newVec3(1, 1, 1) * 0.5 * (1 + sin((nt.scale * p.z) + (10 * nt.noise.turb(p))))
+  return newVec3(1, 1, 1) * 0.5 * (1 + sin((nt.scale * p.x) + (5 * nt.noise.turb(nt.scale * p))))
 
