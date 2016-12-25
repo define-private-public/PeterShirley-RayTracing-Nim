@@ -4,12 +4,12 @@ import nake
 const
   NimCache = "nimcache/"
 
-  MainModuleName = "main"
+  MainModuleName = "main.nim"
   BinaryName = "raytracer"
   BinaryOption = "-o:" & BinaryName
   SearchPath =  "--cincludes:."
 
-  MonteCarloPi = "monte_carlo_pi"
+  MonteCarloPi = "monte_carlo_pi.nim"
   MonteCarloPiBinaryOption = "-o:" & MonteCarloPi
 
 
@@ -23,7 +23,7 @@ task "release", "Build in Release mode":
     echo("Release built!")
 
 
-task MonteCarloPi, "Monte Carlo Pi":
+task "monte_carlo_pi", "Monte Carlo Pi":
   if shell(nimExe, "c", "-d:release", MonteCarloPiBinaryOption, MonteCarloPi):
     echo("Monte Carlo Pi built!")
 

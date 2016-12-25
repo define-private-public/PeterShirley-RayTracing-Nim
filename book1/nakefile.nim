@@ -4,7 +4,7 @@ import nake
 const
   NimCache = "nimcache/"
 
-  MainModuleName = "main"
+  MainModuleName = "main.nim"
   BinaryName = "raytracer"
   BinaryOption = "-o:" & BinaryName
 
