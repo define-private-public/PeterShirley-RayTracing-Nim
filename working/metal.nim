@@ -13,6 +13,13 @@ type
 
 
 proc newMetal*(a: vec3, f: float): metal=
+  var fz:float
+
+  if f < 1:
+    fz = f
+  else:
+    fz = 1
+
   return metal(albedo: a, fuzz: f)
 
 
