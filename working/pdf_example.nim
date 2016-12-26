@@ -14,7 +14,7 @@ proc main()=
     sum:float
 
   for i in countup(0, N - 1):
-    let x = sqrt(4 * drand48())
+    let x = sqrt(2 * drand48())
     sum += (x * x) / pdf(x)
 
   echo("I = ", (sum / N.float))
