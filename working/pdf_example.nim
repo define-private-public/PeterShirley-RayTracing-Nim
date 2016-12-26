@@ -3,7 +3,7 @@ import math
 
 
 proc pdf(x: float): float {.inline.} =
-  return 0.5 * x
+  return (3 * x * x) / 8
 
 
 proc main()=
@@ -14,7 +14,7 @@ proc main()=
     sum:float
 
   for i in countup(0, N - 1):
-    let x = sqrt(2 * drand48())
+    let x = pow(8 * drand48(), 1 / 3)
     sum += (x * x) / pdf(x)
 
   echo("I = ", (sum / N.float))
