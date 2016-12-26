@@ -9,8 +9,11 @@ const
   BinaryOption = "-o:" & BinaryName
   SearchPath =  "--cincludes:."
 
-  MonteCarloPi = "monte_carlo_pi.nim"
-  MonteCarloPiBinaryOption = "-o:" & MonteCarloPi
+  MonteCarloPi = "monte_carlo_pi"
+  MonteCarloPiBinaryOption = "-o:" & MonteCarloPi 
+
+  PDFExample = "pdf_example"
+  PDFExampleBinaryOption = "-o:" & PDFExample
 
 
 task "debug", "Build in Debug mode":
@@ -23,9 +26,15 @@ task "release", "Build in Release mode":
     echo("Release built!")
 
 
-task "monte_carlo_pi", "Monte Carlo Pi":
-  if shell(nimExe, "c", "-d:release", MonteCarloPiBinaryOption, MonteCarloPi):
+task MonteCarloPi, "Monte Carlo Pi":
+  let src = MonteCarloPi & ".nim"
+  if shell(nimExe, "c", "-d:release", MonteCarloPiBinaryOption, src):
     echo("Monte Carlo Pi built!")
+
+task PDFExample, "Probability Distribution Example":
+  let src = PDFExample & ".nim"
+  if shell(nimExe, "c", "-d:release",PDFExampleBinaryOption, src):
+    echo("Probability Distribution Example built!")
 
 
 task "clean", "Clean up compiled output":
