@@ -13,15 +13,12 @@ proc drand48*(): float=
   return random(1.0)
 
 
-# TODO check the source in books 1 & 2 vs. what is provided in the repos
-#      In the third book it says that the while condition is `p.dot(p)`,
-#      not what it is now.
 proc random_in_unit_sphere*(): vec3=
   var p = newVec3()
 
   # Note: Nim doesn't have built-in do-while loops, so we do this intead
   p = 2 * newVec3(drand48(), drand48(), drand48()) - newVec3(1, 1, 1)
-  while p.squared_length() > 1:
+  while p.dot(d) > 1:
     p = 2 * newVec3(drand48(), drand48(), drand48()) - newVec3(1, 1, 1)
 
   return p
