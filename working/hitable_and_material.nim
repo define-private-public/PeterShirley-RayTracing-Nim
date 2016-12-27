@@ -41,9 +41,19 @@ method scatter*(
   r_in: ray,
   rec: hit_record,
   attenuation: var vec3,
-  scattered: var ray
+  scattered: var ray,
+  pdf: var float
 ): bool=
   return false
+
+
+method scattering_pdf*(
+  mat: material,
+  r_in: ray,
+  rec: hit_record,
+  scattered: ray
+): float =
+  return 0
 
 
 method emitted*(mat: material, u, v: float; p: vec3): vec3 =

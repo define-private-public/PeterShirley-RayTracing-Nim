@@ -32,24 +32,24 @@ else:
 # scene.  They can be swapped out below with the `color` proc
 
 # This proc is for if you scene is illuminated ambiently (no diffuse lighting)
-proc color_with_ambient(r: ray, world: hitable, depth: int): vec3 =
-  var rec = newHitRecord()
-
-  if world.hit(r, 0.001, 1_000_000, rec):
-    var
-      scattered = newRay()
-      attenuation = newVec3()
-
-    if (depth < maxDepth) and (rec.mat_ptr.scatter(r, rec, attenuation, scattered)):
-      return attenuation * color_with_ambient(scattered, world, depth + 1)
-    else:
-      return newVec3(0, 0, 0)
-  else:
-    let
-      unit_direction = r.direction().unit_vector
-      t = 0.5 * (unit_direction.y + 1)
-
-    return ((1 - t) * newVec3(1, 1, 1)) + (t * newVec3(0.5, 0.7, 1))
+#proc color_with_ambient(r: ray, world: hitable, depth: int): vec3 =
+#  var rec = newHitRecord()
+#
+#  if world.hit(r, 0.001, 1_000_000, rec):
+#    var
+#      scattered = newRay()
+#      attenuation = newVec3()
+#
+#    if (depth < maxDepth) and (rec.mat_ptr.scatter(r, rec, attenuation, scattered)):
+#      return attenuation * color_with_ambient(scattered, world, depth + 1)
+#    else:
+#      return newVec3(0, 0, 0)
+#  else:
+#    let
+#      unit_direction = r.direction().unit_vector
+#      t = 0.5 * (unit_direction.y + 1)
+#
+#    return ((1 - t) * newVec3(1, 1, 1)) + (t * newVec3(0.5, 0.7, 1))
 
 
 # this proc is for if you scene contains lights (it will render black without)
@@ -61,9 +61,11 @@ proc color_with_lights(r: ray, world: hitable, depth: int): vec3 =
       scattered = newRay()
       attenuation = newVec3()
       emitted = rec.mat_ptr.emitted(rec.u, rec.v, rec.p)
+      pdf: float
+      albedo: vec3
 
-    if (depth < maxDepth) and (rec.mat_ptr.scatter(r, rec, attenuation, scattered)):
-      return emitted + (attenuation * color_with_lights(scattered, world, depth + 1))
+    if (depth < maxDepth) and (rec.mat_ptr.scatter(r, rec, albedo, scattered, pdf)):
+      return emitted + albedo * rec.mat_ptr.scattering_pdf(r, rec, scattered) * color_with_lights(scattered, world, depth + 1) / pdf
     else:
       return emitted
   else:
@@ -80,7 +82,7 @@ proc main()=
   let
     nx = 500
     ny = 500
-    ns = 500
+    ns = 50
 #    nx = 1920
 #    ny = 1080
 #    ns = 250
