@@ -25,10 +25,19 @@ method scatter*(
   scattered: var ray,
   pdf: var float
 ): bool=
-  let target = rec.p + rec.normal + random_in_unit_sphere()
-  scattered = newRay(rec.p, unit_vector(target - rec.p), r_in.time)
+#  let target = rec.p + rec.normal + random_in_unit_sphere()
+#  scattered = newRay(rec.p, unit_vector(target - rec.p), r_in.time)
+#  alb = lamb.albedo.value(rec.u, rec.v, rec.p)
+#  pdf = dot(rec.normal, scattered.direction) / Pi
+
+  # NOTE: there are no do-while loops in nim, so this is what we have to do instead
+  var direction = random_in_unit_sphere()
+  while dot(direction, rec.normal) < 0:
+    direction = random_in_unit_sphere()
+
+  scattered = newRay(rec.p, unit_vector(direction), r_in.time)
   alb = lamb.albedo.value(rec.u, rec.v, rec.p)
-  pdf = dot(rec.normal, scattered.direction) / Pi
+  pdf = 0.5 / Pi
 
   return true
 
