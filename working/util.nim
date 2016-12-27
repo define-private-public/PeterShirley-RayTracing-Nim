@@ -18,7 +18,7 @@ proc random_in_unit_sphere*(): vec3=
 
   # Note: Nim doesn't have built-in do-while loops, so we do this intead
   p = 2 * newVec3(drand48(), drand48(), drand48()) - newVec3(1, 1, 1)
-  while p.dot(d) > 1:
+  while p.dot(p) > 1:
     p = 2 * newVec3(drand48(), drand48(), drand48()) - newVec3(1, 1, 1)
 
   return p

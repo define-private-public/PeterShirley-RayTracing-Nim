@@ -336,3 +336,44 @@ proc final_cam*(renderWidth, renderHeight: int): camera =
     0, 1
   )
 
+
+proc cornell_box*(scene: var hitable; cam: var camera; aspect: float)=
+  var list: seq[hitable] = @[]
+  let
+    red = newLambertian(newConstantTexture(newVec3(0.65, 0.05, 0.05)))
+    white = newLambertian(newConstantTexture(newVec3(0.73, 0.73, 0.73)))
+    green = newLambertian(newConstantTexture(newVec3(0.12, 0.45, 0.15)))
+    light = newDiffuseLight(newConstantTexture(newVec3(15, 15, 15)))
+
+  list.add(newFlipNormals(newYZRect(0, 555, 0, 555, 555, green)))
+  list.add(newYZRect(0, 555, 0, 555, 0, red))
+  list.add(newXZRect(213, 343, 227, 332, 554, light))
+  list.add(newFlipNormals(newXZRect(0, 555, 0, 555, 555, white)))
+  list.add(newXZRect(0, 555, 0, 555, 0, white))
+  list.add(newFlipNormals(newXYRect(0, 555, 0, 555, 555, white)))
+
+  list.add(newTranslate(newRotateY(newBox(newVec3(0, 0, 0), newVec3(165, 165, 165), white), -18), newVec3(130,0,65)))
+  list.add(newTranslate(newRotateY(newBox(newVec3(0, 0, 0), newVec3(165, 330, 165), white),  15), newVec3(265,0,295)))
+
+  scene = newHitableList(list)
+
+  let
+    lookfrom = newVec3(278, 278, -800)
+    lookat = newVec3(278, 278, 0)
+    dist_to_focus = 10.0
+    aperature = 0.0
+    vfov = 40.0
+
+  cam = newCamera(
+    lookfrom,
+    lookat,
+    newVec3(0, 1, 0),
+    vfov,
+    aspect,
+    aperature,
+    dist_to_focus,
+    0, 1
+  )
+  
+
+    
