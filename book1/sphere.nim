@@ -36,7 +36,7 @@ method hit*(s: sphere, r: ray, t_min, t_max: float, rec: var hit_record): bool=
 
       return true
     
-    temp = (-b - sqrt((b * b) - (a * c))) / a
+    temp = (-b + sqrt((b * b) - (a * c))) / a
     if (temp < t_max) and (temp > t_min):
       rec.t = temp
       rec.p = r.point_at_parameter(rec.t)
