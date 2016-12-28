@@ -11,12 +11,12 @@ const
 
 
 task "debug", "Build in Debug mode":
-  if shell(nimExe, "c", "-d:debug", SearchPath, BinaryOption, MainModuleName):
+  if direShell(nimExe, "c", "-d:debug", SearchPath, BinaryOption, MainModuleName):
     echo("Debug built!")
 
 
 task "release", "Build in Release mode":
-  if shell(nimExe, "c", "-d:release", SearchPath, BinaryOption, MainModuleName):
+  if direShell(nimExe, "c", "-d:release", SearchPath, BinaryOption, MainModuleName):
     echo("Release built!")
 
 
