@@ -6,6 +6,7 @@ import ray
 import hitable_and_material
 import util
 import texture, constant_texture
+import onb
 
 
 type
@@ -25,19 +26,14 @@ method scatter*(
   scattered: var ray,
   pdf: var float
 ): bool=
-#  let target = rec.p + rec.normal + random_in_unit_sphere()
-#  scattered = newRay(rec.p, unit_vector(target - rec.p), r_in.time)
-#  alb = lamb.albedo.value(rec.u, rec.v, rec.p)
-#  pdf = dot(rec.normal, scattered.direction) / Pi
+  var uvw:onb
+  uvw.build_from_w(rec.normal)
 
-  # NOTE: there are no do-while loops in nim, so this is what we have to do instead
-  var direction = random_in_unit_sphere()
-  while dot(direction, rec.normal) < 0:
-    direction = random_in_unit_sphere()
+  let direction = uvw.local(random_cosine_direction())
 
   scattered = newRay(rec.p, unit_vector(direction), r_in.time)
   alb = lamb.albedo.value(rec.u, rec.v, rec.p)
-  pdf = 0.5 / Pi
+  pdf = dot(uvw.w, scattered.direction) / Pi
 
   return true
 
