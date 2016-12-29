@@ -65,6 +65,26 @@ proc color_with_lights(r: ray, world: hitable, depth: int): vec3 =
       albedo: vec3
 
     if (depth < maxDepth) and (rec.mat_ptr.scatter(r, rec, albedo, scattered, pdf)):
+      var
+        on_light = newVec3(213 + drand48() * (343 - 213), 554, 227 + drand48() * (332 - 227))
+        to_light = on_light - rec.p
+        distance_squared = to_light.squared_length
+
+      to_light.make_unit_vector()
+
+      if dot(to_light, rec.normal) < 0:
+        return emitted
+
+      let
+        light_area:float = (343 - 213) * (332 - 227)
+        light_cosine = abs(to_light.y)
+
+      if light_cosine < 0.000001:
+        return emitted
+
+      pdf = distance_squared / (light_cosine * light_area)
+      scattered = newRay(rec.p, to_light, r.time)
+
       return emitted + albedo * rec.mat_ptr.scattering_pdf(r, rec, scattered) * color_with_lights(scattered, world, depth + 1) / pdf
     else:
       return emitted
@@ -82,7 +102,7 @@ proc main()=
   let
     nx = 500
     ny = 500
-    ns = 500
+    ns = 10
 #    nx = 1920
 #    ny = 1080
 #    ns = 250
