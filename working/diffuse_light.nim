@@ -24,6 +24,15 @@ method scatter*(
   return false
 
 
-method emitted*(dl: diffuse_light, u, v: float; p: vec3): vec3 =
-  return dl.emit.value(u, v, p);
+method emitted*(
+  dl: diffuse_light;
+  r_in: ray;
+  rec: hit_record;
+  u, v: float;
+  p: vec3
+): vec3 =
+  if dot(rec.normal, r_in.direction) < 0:
+    return dl.emit.value(u, v, p)
+  else:
+    return newVec3(0, 0, 0)
 

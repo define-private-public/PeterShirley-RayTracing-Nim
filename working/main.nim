@@ -60,7 +60,7 @@ proc color_with_lights(r: ray, world: hitable, depth: int): vec3 =
     var
       scattered = newRay()
       attenuation = newVec3()
-      emitted = rec.mat_ptr.emitted(rec.u, rec.v, rec.p)
+      emitted = rec.mat_ptr.emitted(r, rec, rec.u, rec.v, rec.p)
       pdf: float
       albedo: vec3
 

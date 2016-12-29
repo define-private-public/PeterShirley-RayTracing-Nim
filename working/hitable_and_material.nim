@@ -56,6 +56,12 @@ method scattering_pdf*(
   return 0
 
 
-method emitted*(mat: material, u, v: float; p: vec3): vec3 =
+method emitted*(
+  mat: material;
+  r_in: ray;
+  rec: hit_record;
+  u, v: float;
+  p: vec3
+): vec3 =
   return newVec3(0, 0, 0)
 
