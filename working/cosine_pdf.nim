@@ -6,7 +6,7 @@ from math import Pi
 
 
 type
-  cosine_pdf* = object of pdf
+  cosine_pdf* = ref object of pdf
     uvw*: onb
 
 

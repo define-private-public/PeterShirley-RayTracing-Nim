@@ -4,7 +4,7 @@ import hitable_and_material
 
 
 type
-  hitable_pdf* = object of pdf
+  hitable_pdf* = ref object of pdf
     o*: vec3
     obj*: hitable
 

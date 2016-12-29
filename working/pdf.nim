@@ -2,7 +2,7 @@ import vec3
 
 
 type
-  pdf* = object of RootObj
+  pdf* = ref object of RootObj
 
 
 method value*(p: pdf; direction: vec3):float {.base.} =
