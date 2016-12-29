@@ -13,6 +13,7 @@ import bvh_node
 import texture, constant_texture, checker_texture, noise_texture, image_texture
 import perlin
 import stb_image
+import cosine_pdf
 
 
 let
@@ -28,32 +29,7 @@ else:
   output = stdout
 
 
-# There are two different color functions that can be used to illuminate the
-# scene.  They can be swapped out below with the `color` proc
-
-# This proc is for if you scene is illuminated ambiently (no diffuse lighting)
-#proc color_with_ambient(r: ray, world: hitable, depth: int): vec3 =
-#  var rec = newHitRecord()
-#
-#  if world.hit(r, 0.001, 1_000_000, rec):
-#    var
-#      scattered = newRay()
-#      attenuation = newVec3()
-#
-#    if (depth < maxDepth) and (rec.mat_ptr.scatter(r, rec, attenuation, scattered)):
-#      return attenuation * color_with_ambient(scattered, world, depth + 1)
-#    else:
-#      return newVec3(0, 0, 0)
-#  else:
-#    let
-#      unit_direction = r.direction().unit_vector
-#      t = 0.5 * (unit_direction.y + 1)
-#
-#    return ((1 - t) * newVec3(1, 1, 1)) + (t * newVec3(0.5, 0.7, 1))
-
-
-# this proc is for if you scene contains lights (it will render black without)
-proc color_with_lights(r: ray, world: hitable, depth: int): vec3 =
+proc color(r: ray, world: hitable, depth: int): vec3 =
   var rec = newHitRecord()
 
   if world.hit(r, 0.001, 1_000_000, rec):
@@ -61,41 +37,20 @@ proc color_with_lights(r: ray, world: hitable, depth: int): vec3 =
       scattered = newRay()
       attenuation = newVec3()
       emitted = rec.mat_ptr.emitted(r, rec, rec.u, rec.v, rec.p)
-      pdf: float
+      pdf_val: float
       albedo: vec3
 
-    if (depth < maxDepth) and (rec.mat_ptr.scatter(r, rec, albedo, scattered, pdf)):
-      var
-        on_light = newVec3(213 + drand48() * (343 - 213), 554, 227 + drand48() * (332 - 227))
-        to_light = on_light - rec.p
-        distance_squared = to_light.squared_length
+    if (depth < maxDepth) and (rec.mat_ptr.scatter(r, rec, albedo, scattered, pdf_val)):
+      let p = newCosinePDF(rec.normal)
 
-      to_light.make_unit_vector()
+      scattered = newRay(rec.p, p.generate(), r.time)
+      pdf_val = p.value(scattered.direction())
 
-      if dot(to_light, rec.normal) < 0:
-        return emitted
-
-      let
-        light_area:float = (343 - 213) * (332 - 227)
-        light_cosine = abs(to_light.y)
-
-      if light_cosine < 0.000001:
-        return emitted
-
-      pdf = distance_squared / (light_cosine * light_area)
-      scattered = newRay(rec.p, to_light, r.time)
-
-      return emitted + albedo * rec.mat_ptr.scattering_pdf(r, rec, scattered) * color_with_lights(scattered, world, depth + 1) / pdf
+      return emitted + albedo * rec.mat_ptr.scattering_pdf(r, rec, scattered) * color(scattered, world, depth + 1) / pdf_val
     else:
       return emitted
   else:
     return newVec3(0, 0, 0)
-
-
-# NOTE: this is the proc that you swap out with one of the two above for your
-#       desired method of illumination
-proc color(r: ray, world: hitable, depth: int): vec3 {.inline.} =
-  return color_with_lights(r, world, depth)
 
 
 proc main()=
