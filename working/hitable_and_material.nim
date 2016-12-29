@@ -31,6 +31,14 @@ method bounding_box*(h: hitable, t0, t1: float, box: var aabb): bool =
   return false
 
 
+method pdf_value*(h: hitable; o, v: vec3):float =
+  return 0.0
+
+
+method random*(h: hitable; o: vec3):vec3 =
+  return newVec3(1, 0, 0)
+
+
 # Material functions
 proc newMaterial*(): material=
   return material()

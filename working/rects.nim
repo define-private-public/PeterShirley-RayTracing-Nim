@@ -4,6 +4,7 @@ import hitable_and_material
 import vec3
 import ray
 import aabb
+import util
 
 
 type
@@ -106,6 +107,29 @@ method bounding_box*(rect: xz_rect, t0, t1: float, box: var aabb): bool =
                 newVec3(rect.x1, rect.k + 0.0001, rect.z1))
   return true
 
+
+method pdf_value*(rect: xz_rect; o, v: vec3):float =
+  var rec = newHitRecord()
+  # NOTE: Using 1 mil intead of FLOAT_MAX:
+  if rect.hit(newRay(o, v), 0.001, 1_000_000, rec):
+    let
+      area = (rect.x1 - rect.x0) * (rect.z1 - rect.z0)
+      distance_squared = rec.t * rec.t * v.squared_length()
+      cosine = abs(dot(v, rec.normal) / v.length)
+
+    return distance_squared / (cosine * area)
+  else:
+    return 0
+
+
+method random*(rect: xz_rect; o: vec3):vec3 =
+  let random_point = newVec3(
+    rect.x0 + (drand48() * (rect.x1 - rect.x0)),
+    rect.k,
+    rect.z0 + (drand48() * (rect.z1 - rect.z0))
+  )
+
+  return random_point - o
 
 
 

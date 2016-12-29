@@ -13,7 +13,7 @@ import bvh_node
 import texture, constant_texture, checker_texture, noise_texture, image_texture
 import perlin
 import stb_image
-import cosine_pdf
+import cosine_pdf, hitable_pdf
 
 
 let
@@ -41,7 +41,9 @@ proc color(r: ray, world: hitable, depth: int): vec3 =
       albedo: vec3
 
     if (depth < maxDepth) and (rec.mat_ptr.scatter(r, rec, albedo, scattered, pdf_val)):
-      let p = newCosinePDF(rec.normal)
+      let
+        light_shape = newXZRect(213, 343, 227, 332, 554, nil)
+        p = newHitablePDF(light_shape, rec.p)
 
       scattered = newRay(rec.p, p.generate(), r.time)
       pdf_val = p.value(scattered.direction())
