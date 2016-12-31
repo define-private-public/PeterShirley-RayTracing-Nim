@@ -69,6 +69,7 @@ proc main()=
     world: hitable
     cam: camera
     light_shape = newXZRect(213, 343, 227, 332, 554, nil)
+    glass_sphere = newSphere(newVec3(190, 90, 190), 90, nil)
 
   cornell_box(world, cam, nx.float / ny.float)
 
@@ -84,7 +85,7 @@ proc main()=
           r = cam.get_ray(u, v)
           p = r.point_at_parameter(2)
         
-        col += color(r, world, light_shape, 0)
+        col += color(r, world, glass_sphere, 0)
 
       # Average out
       col /= ns.float

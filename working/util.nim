@@ -9,7 +9,7 @@ randomize()
 
 
 # Produced a random number between [0, 1)
-proc drand48*(): float=
+proc drand48*(): float {.inline.}=
   return random(1.0)
 
 
@@ -33,6 +33,18 @@ proc random_on_unit_sphere*(): vec3 =
     p = 2 * newVec3(drand48(), drand48(), drand48()) - newVec3(1, 1, 1)
 
   return unit_vector(p)
+
+
+proc random_to_sphere*(radius, distance_squared: float):vec3 {.inline.} =
+  let
+    r1 = drand48()
+    r2 = drand48()
+    z = 1 + (r2 * (sqrt(1 - ((radius * radius) / distance_squared)) - 1))
+    phi = 2 * Pi * r1
+    x = cos(phi) * sqrt(1 - (z * z))
+    y = sin(phi) * sqrt(1 - (z * z))
+
+  return newVec3(x, y, z)
 
 
 proc schlick*(cosine, ref_idx: float): float=

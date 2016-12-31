@@ -3,6 +3,8 @@ import hitable_and_material
 import vec3
 import ray
 import aabb
+import onb
+import util
 
 
 # Prototypes
@@ -61,6 +63,30 @@ method bounding_box*(s: sphere, t0, t1: float, box: var aabb): bool =
                 s.center + newVec3(s.radius, s.radius, s.radius))
 
   return true
+
+
+method pdf_value*(s: sphere; o, v: vec3):float =
+  var rec = newHitRecord()
+
+  # NOTE: using the 1mil because FLT_MAX doesn't exist in Nim
+  if s.hit(newRay(o, v), 0.001, 1_000_000, rec):
+    let
+      cos_theta_max = sqrt(1 - ((s.radius * s.radius) / (s.center - o).squared_length))
+      solid_angle = 2 * Pi * (1 - cos_theta_max)
+
+    return 1 / solid_angle
+  else:
+    return 0
+
+
+method random*(s: sphere; o: vec3):vec3 =
+  let
+    direction = s.center - o
+    distance_squared = direction.squared_length
+
+  var uvw = newONB()
+  uvw.build_from_w(direction)
+  return uvw.local(random_to_sphere(s.radius, distance_squared))
 
 
 proc get_sphere_uv(p: vec3; u, v: var float) =
