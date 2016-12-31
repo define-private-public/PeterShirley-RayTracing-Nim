@@ -18,10 +18,13 @@ proc newDielectric*(ri: float): dielectric=
 method scatter*(
   dielec: dielectric,
   r_in: ray,
-  rec: hit_record,
-  attenuation: var vec3,
-  scattered: var ray
+  hrec: hit_record,
+  srec: var scatter_record
 ): bool=
+  srec.is_specular = true
+  srec.pdf_ptr = nil
+  srec.attenuation = newVec3(1, 1, 1)
+
   var
     outward_normal = newVec3()
     ni_over_nt: float
@@ -30,30 +33,27 @@ method scatter*(
     cosine: float
 
   let
-    reflected = r_in.direction().reflect(rec.normal)
+    reflected = r_in.direction().reflect(hrec.normal)
 
-  attenuation = newVec3(1, 1, 1)
 
-  if r_in.direction().dot(rec.normal) > 0:
-    outward_normal = -rec.normal
+  if r_in.direction().dot(hrec.normal) > 0:
+    outward_normal = -hrec.normal
     ni_over_nt = dielec.ref_idx
-    cosine = dielec.ref_idx * r_in.direction().dot(rec.normal) / (r_in.direction().length())
+    cosine = dielec.ref_idx * r_in.direction().dot(hrec.normal) / (r_in.direction().length())
   else:
-    outward_normal = rec.normal
+    outward_normal = hrec.normal
     ni_over_nt = 1 / dielec.ref_idx
-    cosine = -r_in.direction().dot(rec.normal) / (r_in.direction().length())
+    cosine = -r_in.direction().dot(hrec.normal) / (r_in.direction().length())
 
   if refract(r_in.direction(), outward_normal, ni_over_nt, refracted):
     reflect_prob = schlick(cosine, dielec.ref_idx)
   else:
-    scattered = newRay(rec.p, reflected)
     reflect_prob = 1
 
   if drand48() < reflect_prob:
-    scattered = newRay(rec.p, reflected)
+    srec.specular_ray = newRay(hrec.p, reflected)
   else:
-    scattered = newRay(rec.p, refracted)
+    srec.specular_ray = newRay(hrec.p, refracted)
 
   return true
-
 

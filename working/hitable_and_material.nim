@@ -15,7 +15,7 @@ type
     p*, normal*: vec3
     mat_ptr*: material
 
-  scatter_record* = object
+  scatter_record* = ref object of RootObj
     specular_ray*: ray
     is_specular*: bool
     attenuation*: vec3
