@@ -59,9 +59,6 @@ proc main()=
     nx = 500
     ny = 500
     ns = 10
-#    nx = 1920
-#    ny = 1080
-#    ns = 250
 
   output.write("P3\n", nx, " ", ny, "\n255\n")
 
