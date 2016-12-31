@@ -26,13 +26,15 @@ proc newMetal*(a: vec3, f: float): metal=
 method scatter*(
   met: metal,
   r_in: ray,
-  rec: hit_record,
-  attenuation: var vec3,
-  scattered: var ray
+  hrec: hit_record,
+  srec: var scatter_record
 ): bool=
-  let reflected = reflect(r_in.direction().unit_vector(), rec.normal)
-  scattered = newRay(rec.p, reflected + (met.fuzz * random_in_unit_sphere()))
-  attenuation = met.albedo
+  let reflected = reflect(r_in.direction(), hrec.normal)
 
-  return (dot(scattered.direction(), rec.normal) > 0)
+  srec.specular_ray = newRay(hrec.p, reflected + (met.fuzz * random_in_unit_sphere()))
+  srec.attenuation = met.albedo
+  srec.is_specular = true
+  srec.pdf_ptr = nil
+
+  return true
 

@@ -53,3 +53,4 @@ For the `flip_normals` class, I'm not using `ptr` to denote what is flipped, but
 For the `hitable_pdf` class, I'm not using `ptr` to denote what is hitable, but
 `obj` instead, as `ptr` is a keyword in Nim.
 
+`scatter_record` was put into `hitable_and_material`.

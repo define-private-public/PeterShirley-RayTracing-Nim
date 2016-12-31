@@ -1,6 +1,7 @@
 import vec3
 import ray
 import aabb
+import pdf
 
 
 type
@@ -8,14 +9,20 @@ type
 
   material* = ref object of RootObj
 
+# TODO de-ref object
   hit_record* = ref object of RootObj
     t*, u*, v*: float
     p*, normal*: vec3
     mat_ptr*: material
 
+  scatter_record* = object
+    specular_ray*: ray
+    is_specular*: bool
+    attenuation*: vec3
+    pdf_ptr*: pdf
 
-# Hitable functions
-proc newHitRecord*(): hit_record=
+
+proc newHitRecord*():hit_record =
   return hit_record(
     t: 0,
     p: newVec3(),
@@ -23,6 +30,16 @@ proc newHitRecord*(): hit_record=
   )
 
 
+proc newScatterRecord*():scatter_record =
+  return scatter_record(
+    specular_ray: newRay(),
+    is_specular: false,
+    attenuation: newVec3(),
+    pdf_ptr: newPDF()
+  )
+
+
+# Hitable functions
 method hit*(h: hitable, r: ray, t_min, t_max: float, rec: var hit_record): bool=
   return false
 
@@ -47,10 +64,8 @@ proc newMaterial*(): material=
 method scatter*(
   mat: material,
   r_in: ray,
-  rec: hit_record,
-  attenuation: var vec3,
-  scattered: var ray,
-  pdf: var float
+  hrec: hit_record,
+  srec: var scatter_record
 ): bool=
   return false
 

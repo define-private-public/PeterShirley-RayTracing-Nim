@@ -7,6 +7,7 @@ import hitable_and_material
 import util
 import texture, constant_texture
 import onb
+import cosine_pdf
 
 
 type
@@ -21,19 +22,12 @@ proc newLambertian*(a: texture): lambertian=
 method scatter*(
   lamb: lambertian,
   r_in: ray,
-  rec: hit_record,
-  alb: var vec3,
-  scattered: var ray,
-  pdf: var float
+  hrec: hit_record,
+  srec: var scatter_record
 ): bool=
-  var uvw:onb
-  uvw.build_from_w(rec.normal)
-
-  let direction = uvw.local(random_cosine_direction())
-
-  scattered = newRay(rec.p, unit_vector(direction), r_in.time)
-  alb = lamb.albedo.value(rec.u, rec.v, rec.p)
-  pdf = dot(uvw.w, scattered.direction) / Pi
+  srec.is_specular = false
+  srec.attenuation = lamb.albedo.value(hrec.u, hrec.v, hrec.p)
+  srec.pdf_ptr = newCosinePDF(hrec.normal)
 
   return true
 

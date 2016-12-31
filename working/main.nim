@@ -29,28 +29,25 @@ else:
   output = stdout
 
 
-proc color(r: ray, world: hitable, depth: int): vec3 =
-  var rec = newHitRecord()
+proc color(r: ray, world, light_shape: hitable, depth: int): vec3 =
+  var hrec = newHitRecord()
 
-  if world.hit(r, 0.001, 1_000_000, rec):
+  if world.hit(r, 0.001, 1_000_000, hrec):
     var
-      scattered = newRay()
-      attenuation = newVec3()
-      emitted = rec.mat_ptr.emitted(r, rec, rec.u, rec.v, rec.p)
-      pdf_val: float
-      albedo: vec3
+      srec = newScatterRecord()
+      emitted = hrec.mat_ptr.emitted(r, hrec, hrec.u, hrec.v, hrec.p)
 
-    if (depth < maxDepth) and (rec.mat_ptr.scatter(r, rec, albedo, scattered, pdf_val)):
-      let
-        light_shape = newXZRect(213, 343, 227, 332, 554, nil)
-        p0 = newHitablePDF(light_shape, rec.p)
-        p1 = newCosinePDF(rec.normal)
-        p = newMixturePDF(p0, p1)
-
-      scattered = newRay(rec.p, p.generate(), r.time)
-      pdf_val = p.value(scattered.direction())
-
-      return emitted + albedo * rec.mat_ptr.scattering_pdf(r, rec, scattered) * color(scattered, world, depth + 1) / pdf_val
+    if (depth < maxDepth) and hrec.mat_ptr.scatter(r, hrec, srec):
+      if srec.is_specular:
+        return srec.attenuation * color(srec.specular_ray, world, light_shape, depth + 1) 
+      else:
+        let
+          plight = newHitablePDF(light_shape, hrec.p)
+          p = newMixturePDF(plight, srec.pdf_ptr)
+          scattered = newRay(hrec.p, p.generate(), r.time)
+          pdf_val = p.value(scattered.direction)
+  
+        return emitted + srec.attenuation * hrec.mat_ptr.scattering_pdf(r, hrec, scattered) * color(scattered, world, light_shape, depth + 1) / pdf_val
     else:
       return emitted
   else:
@@ -71,6 +68,7 @@ proc main()=
   var
     world: hitable
     cam: camera
+    light_shape = newXZRect(213, 343, 227, 332, 554, nil)
 
   cornell_box(world, cam, nx.float / ny.float)
 
@@ -86,7 +84,7 @@ proc main()=
           r = cam.get_ray(u, v)
           p = r.point_at_parameter(2)
         
-        col += color(r, world, 0)
+        col += color(r, world, light_shape, 0)
 
       # Average out
       col /= ns.float
