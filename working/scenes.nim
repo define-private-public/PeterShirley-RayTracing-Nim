@@ -352,10 +352,10 @@ proc cornell_box*(scene: var hitable; cam: var camera; aspect: float)=
   list.add(newXZRect(0, 555, 0, 555, 0, white))
   list.add(newFlipNormals(newXYRect(0, 555, 0, 555, 555, white)))
 
-  list.add(newTranslate(newRotateY(newBox(newVec3(0, 0, 0), newVec3(165, 165, 165), white), -18), newVec3(130,0,65)))
+  let glass = newDielectric(1.5)
+  list.add(newSphere(newVec3(190, 90, 190), 90, glass))
 
-  let aluminium = newMetal(newVec3(0.8, 0.85, 0.88), 0)
-  list.add(newTranslate(newRotateY(newBox(newVec3(0, 0, 0), newVec3(165, 330, 165), aluminium),  15), newVec3(265,0,295)))
+  list.add(newTranslate(newRotateY(newBox(newVec3(0, 0, 0), newVec3(165, 330, 165), white),  15), newVec3(265,0,295)))
 
   scene = newHitableList(list)
 
