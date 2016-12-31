@@ -87,7 +87,7 @@ proc main()=
           r = cam.get_ray(u, v)
           p = r.point_at_parameter(2)
         
-        col += color(r, world, hlist, 0)
+        col += de_nan(color(r, world, hlist, 0))
 
       # Average out
       col /= ns.float

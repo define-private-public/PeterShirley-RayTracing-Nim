@@ -198,3 +198,13 @@ proc refract*(v, n: vec3, ni_over_nt: float, refracted: var vec3): bool=
   else:
     return false
 
+
+proc de_nan*(c: vec3):vec3 {.inline.} =
+  var temp = c
+
+  if temp[0] != temp[0]: temp[0] = 0
+  if temp[1] != temp[1]: temp[1] = 0
+  if temp[2] != temp[2]: temp[2] = 0
+
+  return temp
+
