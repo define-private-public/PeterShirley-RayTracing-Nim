@@ -39,7 +39,7 @@ proc random_to_sphere*(radius, distance_squared: float):vec3 {.inline.} =
   let
     r1 = drand48()
     r2 = drand48()
-    z = 1 + (r2 * (sqrt(1 - ((radius * radius) / distance_squared)) - 1))
+    z = 1 + r2 * (sqrt(1 - radius * radius / distance_squared) - 1)
     phi = 2 * Pi * r1
     x = cos(phi) * sqrt(1 - (z * z))
     y = sin(phi) * sqrt(1 - (z * z))

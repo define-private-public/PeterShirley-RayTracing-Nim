@@ -71,7 +71,7 @@ method pdf_value*(s: sphere; o, v: vec3):float =
   # NOTE: using the 1mil because FLT_MAX doesn't exist in Nim
   if s.hit(newRay(o, v), 0.001, 1_000_000, rec):
     let
-      cos_theta_max = sqrt(1 - ((s.radius * s.radius) / (s.center - o).squared_length))
+      cos_theta_max = sqrt(1 - s.radius * s.radius / (s.center - o).squared_length)
       solid_angle = 2 * Pi * (1 - cos_theta_max)
 
     return 1 / solid_angle
