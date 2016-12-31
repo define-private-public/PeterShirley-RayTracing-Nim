@@ -1,6 +1,8 @@
 import hitable_and_material
 import ray
 import aabb
+import vec3
+import util
 
 
 type
@@ -51,4 +53,18 @@ method bounding_box*(hl: hitable_list, t0, t1: float, box: var aabb): bool =
       return false
 
   return true
+
+
+method pdf_value*(hl: hitable_list; o, v: vec3):float =
+  let weight = 1 / hl.list.len
+  var sum:float
+
+  for i in 0..<hl.list.len:
+    sum += weight * hl.list[i].pdf_value(o, v)
+
+  return sum
+
+method random*(hl: hitable_list; o: vec3):vec3 =
+  let index = (drand48() * hl.list.len.float).int
+  return hl.list[index].random(o)
 

@@ -71,6 +71,8 @@ proc main()=
     light_shape = newXZRect(213, 343, 227, 332, 554, nil)
     glass_sphere = newSphere(newVec3(190, 90, 190), 90, nil)
 
+    hlist = newHitableList(@[light_shape, glass_sphere])
+
   cornell_box(world, cam, nx.float / ny.float)
 
   for j in countdown(ny - 1, 0):
@@ -85,7 +87,7 @@ proc main()=
           r = cam.get_ray(u, v)
           p = r.point_at_parameter(2)
         
-        col += color(r, world, glass_sphere, 0)
+        col += color(r, world, hlist, 0)
 
       # Average out
       col /= ns.float
