@@ -2,7 +2,7 @@ Peter Shirley's Ray Tracing Minibooks in Nim
 ============================================
 
 This repo is a source port of Peter Shirley's Ray Tracing Minibooks from C++
-over to the [Nim language](http://nim-lang.org/).
+over to the [Nim language](http://nim-lang.org/).  Nim v0.15.x was used.
 
 The official repo page can be found on GitLab:
 https://gitlab.com/define-private-public/PeterShirley-RayTracing-Nim
