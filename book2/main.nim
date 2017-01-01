@@ -80,7 +80,7 @@ proc main()=
   let
     nx = 1280 
     ny = 800
-    ns = 500
+    ns = 10
 
   output.write("P3\n", nx, " ", ny, "\n255\n")
 
