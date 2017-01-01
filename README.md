@@ -38,7 +38,7 @@ Ray Tracing: the Next Week
 
 Ray Tracing: The Rest Of Your Life
 ----------------------------------
-![Ray Tracing: The Rest Of Your Life](https://www.amazon.com/Ray-Tracing-Rest-Your-Minibooks-ebook/dp/B01DN58P8C)
+![Ray Tracing: The Rest Of Your Life](https://gitlab.com/define-private-public/PeterShirley-RayTracing-Nim/raw/master/renders/book3.png)
 
 [Amazon link](https://www.amazon.com/Ray-Tracing-Rest-Your-Minibooks-ebook/dp/B01DN58P8C)
 -- [Original C++ Repo](https://github.com/petershirley/raytracingtherestofyourlife)
