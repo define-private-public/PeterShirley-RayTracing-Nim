@@ -15,13 +15,9 @@ the original source (e.g. naming conventions and structure), but a few times
 I've taken liberties for the sake simplicity (e.g. see `book1/vec3.nim`).  Be
 sure to check each directory's `notes.txt` file.
 
-Since I haven't gotten myself to reading all of the books yet, this is still a
-work in progress.  So please ignore that `working/` directory for the moment.
-
 Please also keep in mind that I worked on these when I was still very new to the
 Nim language (and it's ecosystem).  So it's very likely there are
 inefficiencies, not so great code consistancy, and other undesireables.
-
 
 
 Ray Tracing in One Weekend
@@ -38,4 +34,12 @@ Ray Tracing: the Next Week
 
 [Amazon link](https://www.amazon.com/Ray-Tracing-Next-Week-Minibooks-ebook/dp/B01CO7PQ8C)
 -- [Original C++ Repo](https://github.com/petershirley/raytracingthenextweek)
+
+
+Ray Tracing: The Rest Of Your Life
+----------------------------------
+![Ray Tracing: The Rest Of Your Life](https://www.amazon.com/Ray-Tracing-Rest-Your-Minibooks-ebook/dp/B01DN58P8C)
+
+[Amazon link](https://www.amazon.com/Ray-Tracing-Rest-Your-Minibooks-ebook/dp/B01DN58P8C)
+-- [Original C++ Repo](https://github.com/petershirley/raytracingtherestofyourlife)
 
