@@ -9,6 +9,10 @@ https://gitlab.com/define-private-public/PeterShirley-RayTracing-Nim
 If you have any issues with the source code, please report issues there.  Any
 other places that host this code should be treated as mirrors.
 
+To build the Ray Tracers in each book, there is a `nakefile.nim` defined, so you
+will need the `nake` utility.  For best performance, I recommend running `nake
+release`.  The default build task is `debug`.
+
 I've tried to keep the source code as simple as possible, so it probably isn't
 as optimized as it could be.  I've also tried to keep it as close as possible to
 the original source (e.g. naming conventions and structure), but a few times
