@@ -4,7 +4,8 @@ import vec3
 import ray
 
 type
-  sphere* = ref object of hitable
+  sphere* = ref sphereObj
+  sphereObj = object of hitableObj
     center*: vec3
     radius*: float
     mat_ptr*: material
