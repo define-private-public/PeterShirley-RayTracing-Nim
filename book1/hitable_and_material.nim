@@ -3,11 +3,14 @@ import ray
 
 
 type
-  hitable* = ref object of RootObj
+  hitable* = ref hitableObj
+  hitableObj = object of RootObj
 
-  material* = ref object of RootObj
+  material* = ref materialObj
+  materialObj = object of RootObj
 
-  hit_record* = ref object of RootObj
+  hit_record* = ref hit_recordObj
+  hit_recordObj = object of RootObj
     t*: float
     p*, normal*: vec3
     mat_ptr*: material
