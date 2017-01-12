@@ -8,8 +8,9 @@ https://16bpp.net/blog/post/ray-tracing-book-series-review-nim-first-impressions
 
 The official repo page can be found on GitLab:
 https://gitlab.com/define-private-public/PeterShirley-RayTracing-Nim
-If you have any issues with the source code, please report issues there.  Any
-other places that host this code should be treated as mirrors.
+
+There is a mirror on GitHub where you can log issues
+https://github.com/define-private-public/PeterShirley-RayTracing-Nim
 
 To build the Ray Tracers in each book, there is a `nakefile.nim` defined, so you
 will need the `nake` utility.  For best performance, I recommend running `nake
