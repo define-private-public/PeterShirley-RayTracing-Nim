@@ -7,7 +7,8 @@ import util
 
 
 type
-  lambertian* = ref object of material
+  lambertian* = ref lambertainObj
+  lambertainObj = object of materialObj
     albedo*: vec3
 
 

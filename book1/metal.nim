@@ -7,7 +7,8 @@ import util
 
 
 type
-  metal* = ref object of material
+  metal* = ref metalObj
+  metalObj = object of materialObj
     albedo*: vec3
     fuzz*: float
 

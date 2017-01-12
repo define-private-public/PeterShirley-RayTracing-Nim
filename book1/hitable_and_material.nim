@@ -4,10 +4,10 @@ import ray
 
 type
   hitable* = ref hitableObj
-  hitableObj = object of RootObj
+  hitableObj* = object of RootObj
 
   material* = ref materialObj
-  materialObj = object of RootObj
+  materialObj* = object of RootObj
 
   hit_record* = ref hit_recordObj
   hit_recordObj = object of RootObj
@@ -42,3 +42,4 @@ method scatter*(
   scattered: var ray
 ): bool=
   return false
+
