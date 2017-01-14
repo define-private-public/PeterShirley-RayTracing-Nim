@@ -17,7 +17,7 @@ proc ffmax*(a, b: float): float {.inline.} =
 
 
 type
-  aabb* = ref object of RootObj
+  aabb* = object
     min*, max*: vec3
 
 
