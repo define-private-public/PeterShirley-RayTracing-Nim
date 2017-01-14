@@ -7,7 +7,7 @@ import hitable_list, rects, flip_normals
 
 type
   box* = ref boxObj
-  boxObj = object of hitable
+  boxObj = object of hitableObj
     pmin*, pmax*:vec3
     list_ptr*: hitable
 

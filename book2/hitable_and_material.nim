@@ -18,7 +18,7 @@ type
 
 
 # Hitable functions
-proc newHitRecord*(): hit_record=
+proc newHitRecord*(): hit_record =
   return hit_record(
     t: 0,
     p: newVec3(),

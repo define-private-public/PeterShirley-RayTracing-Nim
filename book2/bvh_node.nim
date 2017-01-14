@@ -16,7 +16,7 @@ proc box_z_compare(ah, bh: hitable): int
 
 type
   bvh_node* = ref bvh_nodeObj
-  bvh_nodeObj = object of hitable
+  bvh_nodeObj = object of hitableObj
     left*, right*: hitable
     box*: aabb
 

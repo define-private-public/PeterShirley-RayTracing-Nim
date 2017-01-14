@@ -6,7 +6,7 @@ import texture
 
 type
   diffuse_light* = ref diffuse_lightObj
-  diffuse_lightObj = object of material 
+  diffuse_lightObj = object of materialObj
     emit*: texture
 
 

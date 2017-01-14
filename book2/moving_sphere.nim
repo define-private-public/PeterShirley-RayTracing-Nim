@@ -7,7 +7,7 @@ import aabb
 
 type
   moving_sphere* = ref moving_sphereObj
-  moving_sphereObj = object of hitable
+  moving_sphereObj = object of hitableObj
     center0*, center1*: vec3
     time0*, time1*: float
     radius*: float

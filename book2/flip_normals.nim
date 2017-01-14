@@ -6,7 +6,7 @@ import aabb
 
 type
   flip_normals* = ref flip_normalsObj
-  flip_normalsObj = object of hitable
+  flip_normalsObj = object of hitableObj
     obj*: hitable
 
 

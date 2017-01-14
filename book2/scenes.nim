@@ -63,8 +63,8 @@ proc random_scene*(): hitable=
   list.add(newSphere(newVec3(-4, 1, 0), 1, newLambertian(newConstantTexture(newVec3(0.4, 0.2, 0.1)))))
   list.add(newSphere(newVec3(4, 1, 0), 1, newMetal(newVec3(0.7, 0.6, 0.5), 0)))
  
-#  return newBVHNode(list, 0, 1)
-  return newHitableList(list)
+  return newBVHNode(list, 0, 1)
+#  return newHitableList(list)
 
 
 proc two_spheres*(): hitable =

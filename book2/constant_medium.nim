@@ -10,7 +10,7 @@ import util
 
 type
   constant_medium* = ref constant_mediumObj
-  constant_mediumObj = object of hitable
+  constant_mediumObj = object of hitableObj
     boundary*: hitable
     density*: float
     phase_function*: material

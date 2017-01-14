@@ -186,7 +186,7 @@ proc reflect*(v, n: vec3): vec3 {.inline.} =
 
 
 # Refract a vector about a normla (with a ratio)
-proc refract*(v, n: vec3, ni_over_nt: float, refracted: var vec3): bool=
+proc refract*(v, n: vec3, ni_over_nt: float, refracted: var vec3): bool =
   let
     uv = v.unit_vector()
     dt = uv.dot(n)

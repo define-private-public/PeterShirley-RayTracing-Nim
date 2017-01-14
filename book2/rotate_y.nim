@@ -7,7 +7,7 @@ import aabb
   
 type
   rotate_y* = ref rotate_yObj
-  rotate_yObj = object of hitable
+  rotate_yObj = object of hitableObj
     obj*: hitable
     sin_theta*, cos_theta*: float
     hasbox*: bool

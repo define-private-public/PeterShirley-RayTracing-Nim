@@ -8,7 +8,7 @@ import util
 
 type
   isotropic* = ref isotropicObj
-  isotropicObj = object of material
+  isotropicObj = object of materialObj
     albedo*: texture
 
 
