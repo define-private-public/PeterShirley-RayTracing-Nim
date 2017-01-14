@@ -63,8 +63,8 @@ proc random_scene*(): hitable=
   list.add(newSphere(newVec3(-4, 1, 0), 1, newLambertian(newConstantTexture(newVec3(0.4, 0.2, 0.1)))))
   list.add(newSphere(newVec3(4, 1, 0), 1, newMetal(newVec3(0.7, 0.6, 0.5), 0)))
  
-#  return newBVHNode(list, 0, 1)
-  return newHitableList(list)
+  return newBVHNode(list, 0, 1)
+#  return newHitableList(list)
 
 
 proc two_spheres*(): hitable =
@@ -178,8 +178,8 @@ proc final*(): hitable =
 
   # Note: For some reason, the BVH Node is slower than a list in my implementation
   #       I'm investigating why, but using the list for now.
-#  list.add(newBVHNode(boxlist, 0, 1))
-  list.add(newHitableList(boxList))
+  list.add(newBVHNode(boxlist, 0, 1))
+#  list.add(newHitableList(boxList))
 
   let light = newDiffuseLight(newConstantTexture(newVec3(7, 7, 7)))
   list.add(newXZRect(123, 423, 147, 412, 554, light))
@@ -212,8 +212,8 @@ proc final*(): hitable =
     boxlist2.add(newSphere(newVec3(165 * drand48(), 165 * drand48(), 165 * drand48()), 10, white))
 
   # See the above note why I'm forgoing the BVH node for now
-#  list.add(newTranslate(newRotateY(newBVHNode(boxlist2, 0, 1), 15), newVec3(-100, 270, 395)))
-  list.add(newTranslate(newRotateY(newHitableList(boxlist2), 15), newVec3(-100, 270, 395)))
+  list.add(newTranslate(newRotateY(newBVHNode(boxlist2, 0, 1), 15), newVec3(-100, 270, 395)))
+#  list.add(newTranslate(newRotateY(newHitableList(boxlist2), 15), newVec3(-100, 270, 395)))
 
   return newHitableList(list)
 

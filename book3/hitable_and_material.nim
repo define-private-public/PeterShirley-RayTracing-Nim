@@ -5,12 +5,14 @@ import pdf
 
 
 type
-  hitable* = ref object of RootObj
+  hitable* = ref hitableObj
+  hitableObj* = object of RootObj
 
-  material* = ref object of RootObj
+  material* = ref materialObj
+  materialObj* = object of RootObj
 
-# TODO de-ref object
-  hit_record* = ref object of RootObj
+  hit_record* = ref hit_recordObj
+  hit_recordObj = object of RootObj
     t*, u*, v*: float
     p*, normal*: vec3
     mat_ptr*: material
@@ -21,8 +23,8 @@ type
     attenuation*: vec3
     pdf_ptr*: pdf
 
-
-proc newHitRecord*():hit_record =
+# Hitable functions
+proc newHitRecord*(): hit_record =
   return hit_record(
     t: 0,
     p: newVec3(),
@@ -44,15 +46,15 @@ method hit*(h: hitable, r: ray, t_min, t_max: float, rec: var hit_record): bool=
   return false
 
 
-method bounding_box*(h: hitable, t0, t1: float, box: var aabb): bool =
+method bounding_box*(h: hitable, t0, t1: float, box: var aabb): bool {.inline.} =
   return false
 
 
-method pdf_value*(h: hitable; o, v: vec3):float =
+method pdf_value*(h: hitable; o, v: vec3): float {.inline.} =
   return 0.0
 
 
-method random*(h: hitable; o: vec3):vec3 =
+method random*(h: hitable; o: vec3): vec3 {.inline.} =
   return newVec3(1, 0, 0)
 
 
@@ -66,7 +68,7 @@ method scatter*(
   r_in: ray,
   hrec: hit_record,
   srec: var scatter_record
-): bool=
+): bool {.inline.} =
   return false
 
 
@@ -75,7 +77,7 @@ method scattering_pdf*(
   r_in: ray,
   rec: hit_record,
   scattered: ray
-): float =
+): float {.inline.} =
   return 0
 
 
@@ -85,6 +87,6 @@ method emitted*(
   rec: hit_record;
   u, v: float;
   p: vec3
-): vec3 =
+): vec3 {.inline.} =
   return newVec3(0, 0, 0)
 

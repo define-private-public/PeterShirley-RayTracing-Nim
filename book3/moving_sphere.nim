@@ -6,7 +6,8 @@ import aabb
 
 
 type
-  moving_sphere* = ref object of hitable
+  moving_sphere* = ref moving_sphereObj
+  moving_sphereObj = object of hitableObj
     center0*, center1*: vec3
     time0*, time1*: float
     radius*: float
@@ -32,7 +33,7 @@ proc newMovingSphere*(cen0, cen1: vec3, t0, t1, r: float, m: material): moving_s
   result.mat_ptr = m
 
 
-proc center*(ms: moving_sphere, time: float): vec3 =
+proc center*(ms: moving_sphere, time: float): vec3 {.inline.} =
   return ms.center0 + (((time - ms.time0) / (ms.time1 - ms.time0)) * (ms.center1 - ms.center0))
 
 
@@ -66,7 +67,7 @@ method hit*(ms: moving_sphere, r: ray, t_min, t_max: float, rec: var hit_record)
   return false
 
 
-method bounding_box*(ms: moving_sphere, t0, t1: float, box: var aabb): bool =
+method bounding_box*(ms: moving_sphere, t0, t1: float, box: var aabb): bool {.inline.} =
   let
     r = newVec3(ms.radius, ms.radius, ms.radius)
     box0 = newAABB(ms.center(t0) - r, ms.center(t0) + r)

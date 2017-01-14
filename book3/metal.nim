@@ -7,7 +7,8 @@ import util
 
 
 type
-  metal* = ref object of material
+  metal* = ref metalObj
+  metalObj = object of materialObj
     albedo*: vec3
     fuzz*: float
 
@@ -28,7 +29,7 @@ method scatter*(
   r_in: ray,
   hrec: hit_record,
   srec: var scatter_record
-): bool=
+): bool =
   let reflected = reflect(r_in.direction(), hrec.normal)
 
   srec.specular_ray = newRay(hrec.p, reflected + (met.fuzz * random_in_unit_sphere()))

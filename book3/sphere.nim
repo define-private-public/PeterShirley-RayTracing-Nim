@@ -8,11 +8,12 @@ import util
 
 
 # Prototypes
-proc get_sphere_uv(p: vec3; u, v: var float)
+proc get_sphere_uv(p: vec3; u, v: var float) {.inline.}
 
 
 type
-  sphere* = ref object of hitable
+  sphere* = ref sphereObj
+  sphereObj = object of hitableObj
     center*: vec3
     radius*: float
     mat_ptr*: material

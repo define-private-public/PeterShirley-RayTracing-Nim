@@ -7,7 +7,8 @@ import util
 
 
 type
-  dielectric* = ref object of material
+  dielectric* = ref dielectricObj
+  dielectricObj = object of materialObj
     ref_idx*: float
 
 

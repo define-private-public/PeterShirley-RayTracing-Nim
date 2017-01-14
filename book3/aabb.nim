@@ -2,14 +2,14 @@ import vec3
 import ray
 
 
-proc ffmin*(a, b: float): float =
+proc ffmin*(a, b: float): float {.inline.} =
   if a < b:
     return a
   else:
     return b
 
 
-proc ffmax*(a, b: float): float =
+proc ffmax*(a, b: float): float {.inline.} =
   if a > b:
     return a
   else:
@@ -17,11 +17,11 @@ proc ffmax*(a, b: float): float =
 
 
 type
-  aabb* = ref object of RootObj
+  aabb* = object
     min*, max*: vec3
 
 
-proc newAABB*(): aabb =
+proc newAABB*(): aabb {.inline.} =
   return aabb(min: newVec3(), max: newVec3())
 
 
@@ -72,7 +72,7 @@ proc hit*(box: aabb, r: ray, tmin, tmax: float): bool =
   return true
 
 
-proc surrounding_box*(box0, box1: aabb): aabb =
+proc surrounding_box*(box0, box1: aabb): aabb {.inline.} =
   let
     small = newVec3(min(box0.min.x, box1.min.x),
                     min(box0.min.y, box1.min.y),

@@ -11,7 +11,8 @@ import cosine_pdf
 
 
 type
-  lambertian* = ref object of material
+  lambertian* = ref lambertainObj
+  lambertainObj = object of materialObj
     albedo*: texture
 
 
@@ -24,7 +25,7 @@ method scatter*(
   r_in: ray,
   hrec: hit_record,
   srec: var scatter_record
-): bool=
+): bool {.inline.} =
   srec.is_specular = false
   srec.attenuation = lamb.albedo.value(hrec.u, hrec.v, hrec.p)
   srec.pdf_ptr = newCosinePDF(hrec.normal)
@@ -37,7 +38,7 @@ method scattering_pdf*(
   r_in: ray,
   rec: hit_record,
   scattered: ray
-): float =
+): float {.inline.} =
   var cosine = dot(rec.normal, unit_vector(scattered.direction))
 
   if cosine < 0:

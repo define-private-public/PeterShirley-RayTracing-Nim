@@ -9,7 +9,7 @@ randomize()
 
 
 # Produced a random number between [0, 1)
-proc drand48*(): float {.inline.}=
+proc drand48*(): float {.inline.} =
   return random(1.0)
 
 
@@ -47,7 +47,7 @@ proc random_to_sphere*(radius, distance_squared: float):vec3 {.inline.} =
   return newVec3(x, y, z)
 
 
-proc schlick*(cosine, ref_idx: float): float=
+proc schlick*(cosine, ref_idx: float): float {.inline.} =
   var r0 = (1 - ref_idx) / (1 + ref_idx)
   r0 = r0 * r0
   return r0 + ((1 - r0) * pow(1 - cosine, 5))

@@ -6,7 +6,8 @@ import util
 
 
 type
-  hitable_list* = ref object of hitable
+  hitable_list* = ref hitable_listObj
+  hitable_listObj = object of hitableObj
     list*: seq[hitable]
 
 
@@ -55,7 +56,7 @@ method bounding_box*(hl: hitable_list, t0, t1: float, box: var aabb): bool =
   return true
 
 
-method pdf_value*(hl: hitable_list; o, v: vec3):float =
+method pdf_value*(hl: hitable_list; o, v: vec3): float =
   let weight = 1 / hl.list.len
   var sum:float
 
@@ -64,7 +65,7 @@ method pdf_value*(hl: hitable_list; o, v: vec3):float =
 
   return sum
 
-method random*(hl: hitable_list; o: vec3):vec3 =
+method random*(hl: hitable_list; o: vec3): vec3 {.inline.} =
   let index = (drand48() * hl.list.len.float).int
   return hl.list[index].random(o)
 
