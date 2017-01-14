@@ -9,8 +9,7 @@ type
   material* = ref materialObj
   materialObj* = object of RootObj
 
-  hit_record* = ref hit_recordObj
-  hit_recordObj = object of RootObj
+  hit_record* = object
     t*: float
     p*, normal*: vec3
     mat_ptr*: material
