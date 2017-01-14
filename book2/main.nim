@@ -17,7 +17,7 @@ import stb_image
 
 let
   renderToFile = true
-  maxDepth = 25
+  maxDepth = 50
 
 var output:File
 
