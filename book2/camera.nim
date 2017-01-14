@@ -9,7 +9,8 @@ proc random_in_unit_disk(): vec3
 
 
 type
-  camera* = object
+  camera* = ref cameraObj
+  cameraObj = object
     origin*, lower_left_corner*, horizontal*, vertical*: vec3
     u*, v*, w*: vec3
     lens_radius*: float
