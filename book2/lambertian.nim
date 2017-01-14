@@ -8,7 +8,8 @@ import texture, constant_texture
 
 
 type
-  lambertian* = ref object of material
+  lambertian* = ref lambertainObj
+  lambertainObj = object of materialObj
     albedo*: texture
 
 
@@ -22,7 +23,7 @@ method scatter*(
   rec: hit_record,
   attenuation: var vec3,
   scattered: var ray
-): bool=
+): bool {.inline.} =
   let target = rec.p + rec.normal + random_in_unit_sphere()
   scattered = newRay(rec.p, target - rec.p, r_in.time)
   attenuation = lamb.albedo.value(rec.u, rec.v, rec.p)

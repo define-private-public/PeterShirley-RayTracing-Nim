@@ -9,7 +9,8 @@ import util
 
 
 type
-  constant_medium* = ref object of hitable
+  constant_medium* = ref constant_mediumObj
+  constant_mediumObj = object of hitable
     boundary*: hitable
     density*: float
     phase_function*: material
@@ -61,6 +62,6 @@ method hit*(cm: constant_medium, r: ray, t_min, t_max: float, rec: var hit_recor
   return false
 
 
-method bounding_box*(cm: constant_medium, t0, t1: float, box: var aabb): bool =
+method bounding_box*(cm: constant_medium, t0, t1: float, box: var aabb): bool {.inline.} =
   return cm.boundary.bounding_box(t0, t1, box)
 

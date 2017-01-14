@@ -7,15 +7,18 @@ import aabb
 
 
 type
-  xy_rect* = ref object of hitable
+  xy_rect* = ref xy_rectObj
+  xy_rectObj = object of hitable
     mp*: material
     x0*, x1*, y0*, y1*, k*: float
 
-  xz_rect* = ref object of hitable
+  xz_rect* = ref xz_rectObj
+  xz_rectObj = object of hitable
     mp*: material
     x0*, x1*, z0*, z1*, k*: float
 
-  yz_rect* = ref object of hitable
+  yz_rect* = ref yz_rectObj
+  yz_rectObj = object of hitable
     mp*: material
     y0*, y1*, z0*, z1*, k*: float
 

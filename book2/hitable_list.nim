@@ -4,7 +4,8 @@ import aabb
 
 
 type
-  hitable_list* = ref object of hitable
+  hitable_list* = ref hitable_listObj
+  hitable_listObj = object of hitableObj
     list*: seq[hitable]
 
 

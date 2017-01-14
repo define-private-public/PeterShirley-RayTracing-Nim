@@ -4,7 +4,8 @@ import texture, constant_texture
 
 
 type
-  checker_texture* = ref object of texture
+  checker_texture* = ref checker_textureObj
+  checker_textureObj = object of textureObj
     odd*, even*: texture
 
 

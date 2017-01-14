@@ -6,7 +6,8 @@ import aabb
 
   
 type
-  rotate_y* = ref object of hitable
+  rotate_y* = ref rotate_yObj
+  rotate_yObj = object of hitable
     obj*: hitable
     sin_theta*, cos_theta*: float
     hasbox*: bool
@@ -77,7 +78,7 @@ method hit*(ry: rotate_y, r: ray, t_min, t_max: float, rec: var hit_record): boo
     return false
 
 
-method bounding_box*(ry: rotate_y, t0, t1: float, box: var aabb): bool =
+method bounding_box*(ry: rotate_y, t0, t1: float, box: var aabb): bool {.inline.} =
   box = ry.bbox
   return ry.hasbox
 

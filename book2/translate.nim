@@ -5,7 +5,8 @@ import aabb
 
 
 type
-  translate* = ref object of hitable
+  translate* = ref translateObj
+  translateObj = object of hitable
     obj*: hitable
     offset*: vec3
 

@@ -15,7 +15,8 @@ proc box_z_compare(ah, bh: hitable): int
 
 
 type
-  bvh_node* = ref object of hitable
+  bvh_node* = ref bvh_nodeObj
+  bvh_nodeObj = object of hitable
     left*, right*: hitable
     box*: aabb
 
@@ -91,7 +92,7 @@ method hit*(node: bvh_node, r: ray, t_min, t_max: float, rec: var hit_record): b
     return false
 
 
-method bounding_box*(node: bvh_node, t0, t1: float, box: var aabb): bool =
+method bounding_box*(node: bvh_node, t0, t1: float, box: var aabb): bool {.inline.} =
   box = node.box
   return true
 

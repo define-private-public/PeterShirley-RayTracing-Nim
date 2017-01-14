@@ -6,10 +6,10 @@ import hitable_list, rects, flip_normals
 
 
 type
-  box* = ref object of hitable
+  box* = ref boxObj
+  boxObj = object of hitable
     pmin*, pmax*:vec3
     list_ptr*: hitable
-
 
 
 proc newBox*(): box =
@@ -34,11 +34,11 @@ proc newBox*(p0, p1: vec3; mat: material): box =
   result.list_ptr = newHitableList(list)
 
 
-method hit*(b: box, r: ray, t_min, t_max: float, rec: var hit_record): bool=
+method hit*(b: box, r: ray, t_min, t_max: float, rec: var hit_record): bool {.inline.} =
   return b.list_ptr.hit(r, t_min, t_max, rec)
 
 
-method bounding_box*(b: box, t0, t1: float, box: var aabb): bool =
+method bounding_box*(b: box, t0, t1: float, box: var aabb): bool {.inline.} =
   box = newAABB(b.pmin, b.pmax)
   return true
 

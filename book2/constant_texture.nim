@@ -3,7 +3,8 @@ import texture
 
 
 type
-  constant_texture* = ref object of texture
+  constant_texture* = ref constant_textureObj
+  constant_textureObj = object of textureObj
     color*: vec3
 
 
@@ -17,6 +18,6 @@ proc newConstantTexture*(c: vec3): constant_texture =
   result.color = c
 
 
-method value*(ct: constant_texture, u, v: float, p: vec3): vec3 =
+method value*(ct: constant_texture, u, v: float, p: vec3): vec3 {.inline.} =
   return ct.color
 

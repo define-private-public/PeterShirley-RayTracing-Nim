@@ -6,11 +6,12 @@ import aabb
 
 
 # Prototypes
-proc get_sphere_uv(p: vec3; u, v: var float)
+proc get_sphere_uv(p: vec3; u, v: var float) {.inline.}
 
 
 type
-  sphere* = ref object of hitable
+  sphere* = ref sphereObj
+  sphereObj = object of hitableObj
     center*: vec3
     radius*: float
     mat_ptr*: material
@@ -56,7 +57,7 @@ method hit*(s: sphere, r: ray, t_min, t_max: float, rec: var hit_record): bool=
   return false
 
 
-method bounding_box*(s: sphere, t0, t1: float, box: var aabb): bool =
+method bounding_box*(s: sphere, t0, t1: float, box: var aabb): bool {.inline.} =
   box = newAABB(s.center - newVec3(s.radius, s.radius, s.radius),
                 s.center + newVec3(s.radius, s.radius, s.radius))
 

@@ -5,7 +5,8 @@ import texture
 
 
 type
-  diffuse_light* = ref object of material 
+  diffuse_light* = ref diffuse_lightObj
+  diffuse_lightObj = object of material 
     emit*: texture
 
 
@@ -20,10 +21,10 @@ method scatter*(
   rec: hit_record,
   attenuation: var vec3,
   scattered: var ray
-): bool=
+): bool {.inline.} =
   return false
 
 
-method emitted*(dl: diffuse_light, u, v: float; p: vec3): vec3 =
+method emitted*(dl: diffuse_light, u, v: float; p: vec3): vec3 {.inline.} =
   return dl.emit.value(u, v, p);
 

@@ -7,7 +7,8 @@ import util
 
 
 type
-  isotropic* = ref object of material
+  isotropic* = ref isotropicObj
+  isotropicObj = object of material
     albedo*: texture
 
 
@@ -22,7 +23,7 @@ method scatter*(
   rec: hit_record,
   attenuation: var vec3,
   scattered: var ray
-): bool =
+): bool {.inline.} =
   scattered = newRay(rec.p, random_in_unit_sphere())
   attenuation = iso.albedo.value(rec.u, rec.v, rec.p)
   return true

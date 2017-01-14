@@ -5,7 +5,8 @@ import perlin
 
 
 type
-  noise_texture* = ref object of texture
+  noise_texture* = ref noise_textureObj
+  noise_textureObj = object of textureObj
     noise*: perlin
     scale*: float
 
@@ -21,7 +22,7 @@ proc newNoiseTexture*(sc: float): noise_texture =
   result.scale = sc
 
 
-method value*(nt: noise_texture, u, v: float, p: vec3): vec3 =
+method value*(nt: noise_texture, u, v: float, p: vec3): vec3 {.inline.} =
   # NOTE: This function has gone through many iterations in the book.  The fifth
   #       one should be used for the final scene, whereas the fourth should be
   #       used for `simple_light` and `two_perlin_spheres`

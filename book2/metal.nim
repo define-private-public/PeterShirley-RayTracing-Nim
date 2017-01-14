@@ -7,7 +7,8 @@ import util
 
 
 type
-  metal* = ref object of material
+  metal* = ref metalObj
+  metalObj = object of materialObj
     albedo*: vec3
     fuzz*: float
 
@@ -29,7 +30,7 @@ method scatter*(
   rec: hit_record,
   attenuation: var vec3,
   scattered: var ray
-): bool=
+): bool {.inline.} =
   let reflected = reflect(r_in.direction().unit_vector(), rec.normal)
   scattered = newRay(rec.p, reflected + (met.fuzz * random_in_unit_sphere()))
   attenuation = met.albedo

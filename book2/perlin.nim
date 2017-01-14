@@ -20,7 +20,8 @@ proc perlin_interp(c: seq[seq[seq[vec3]]], u, v, w: float): float
 
 
 type
-  perlin* = ref object of RootObj
+  perlin* = ref perlinObj
+  perlinObj = object of RootObj
 
 
 proc newPerlin*(): perlin =
