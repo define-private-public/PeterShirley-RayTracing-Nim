@@ -11,13 +11,12 @@ type
   material* = ref materialObj
   materialObj* = object of RootObj
 
-  hit_record* = ref hit_recordObj
-  hit_recordObj = object of RootObj
+  hit_record* = object
     t*, u*, v*: float
     p*, normal*: vec3
     mat_ptr*: material
 
-  scatter_record* = ref object of RootObj
+  scatter_record* = object
     specular_ray*: ray
     is_specular*: bool
     attenuation*: vec3

@@ -2,7 +2,8 @@ import vec3
 
 
 type
-  pdf* = ref object of RootObj
+  pdf* = ref pdfObj
+  pdfObj* = object of RootObj
 
 
 proc newPDF*():pdf =
