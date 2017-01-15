@@ -78,9 +78,12 @@ proc color(r: ray, world: hitable, depth: int): vec3 {.inline.} =
 
 proc main()=
   let
-    nx = 1280 
-    ny = 800
-    ns = 10
+#    nx = 1280 
+#    ny = 800
+#    ns = 10
+    nx = 320
+    ny = 200
+    ns = 2
 
   output.write("P3\n", nx, " ", ny, "\n255\n")
 
