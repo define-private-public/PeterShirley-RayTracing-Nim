@@ -18,7 +18,7 @@ import cosine_pdf, hitable_pdf, mixture_pdf
 
 let
   renderToFile = true
-  maxDepth = 25
+  maxDepth = 50
 
 var output:File
 
